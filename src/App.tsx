@@ -19,32 +19,35 @@ import Signup from './pages/Signup';
 
 import GlobalFonts from './styles/fonts';
 import { GlobalStyle } from './styles/GlobalStyles';
-import { lightTheme } from './styles/theme/theme';
 import BottomNav from './components/BottomNav';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme/theme';
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalFonts />
-      <GlobalStyle theme={lightTheme} />
-      <BottomNav />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
-        <Route path='/memberSearch' element={<MemberSearch />} />
-        <Route path='/member' element={<MemberDetail />} />
-        <Route path='/itineraryInfo' element={<ItineraryInfo />} />
-        <Route path='/userProfile' element={<UserProfile />} />
-        <Route path='/tripSchedule' element={<TripSchedule />} />
-        <Route path='/notifications' element={<Notificiation />} />
-        <Route path='/Dibs' element={<Dibs />} />
-        <Route path='/mapSearch' element={<MapSearch />} />
-        <Route path='/management' element={<Management />} />
-        <Route path='/*' element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <GlobalFonts />
+        <GlobalStyle />
+        <BottomNav />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
+          <Route path='/memberSearch' element={<MemberSearch />} />
+          <Route path='/member' element={<MemberDetail />} />
+          <Route path='/itineraryInfo' element={<ItineraryInfo />} />
+          <Route path='/userProfile' element={<UserProfile />} />
+          <Route path='/tripSchedule' element={<TripSchedule />} />
+          <Route path='/notifications' element={<Notificiation />} />
+          <Route path='/Dibs' element={<Dibs />} />
+          <Route path='/mapSearch' element={<MapSearch />} />
+          <Route path='/management' element={<Management />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

@@ -133,12 +133,9 @@ a {
 }
 
 body{
-  background: ${({ theme }: { theme: any }) => theme.bgColor};
-  color:${({ theme }: { theme: any }) => theme.textColor};
+  background: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.black};
 }
-// button{
-//   border: solid ${({ theme }: { theme: any }) => theme.borderColor} 1px;
-// }
 `;
 
 // 전체 화면 컨테이너

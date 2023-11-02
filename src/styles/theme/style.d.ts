@@ -1,10 +1,8 @@
 import 'styled-components';
+import { ColorsType } from './theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    bgColor: string;
-    textColor: string;
-    borderColor: string;
-    toggleColor: string;
+    colors: ColorsType;
   }
 }
