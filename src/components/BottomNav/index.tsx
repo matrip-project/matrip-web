@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BiHomeAlt } from 'react-icons/bi';
 import { HiMiniMagnifyingGlass } from 'react-icons/hi2';
 import { BsPerson, BsGrid } from 'react-icons/bs';
+import { getColor } from '../../utils/colorUtils';
 
 function BottomNav() {
   const [isActive, setIsActive] = useState<number>(1);
@@ -12,19 +13,16 @@ function BottomNav() {
     <NavContainer>
       <NavWrap>
         <NavBtn to={'/'} onClick={() => setIsActive(1)}>
-          <BiHomeAlt size='30' color={isActive === 1 ? '#5EAAA8' : '#000'} />
+          <StyledHome size='30' isActive={isActive} />
         </NavBtn>
         <NavBtn to={'/tripSchedule'} onClick={() => setIsActive(2)}>
-          <HiMiniMagnifyingGlass
-            size='30'
-            color={isActive === 2 ? '#5EAAA8' : '#000'}
-          />
+          <StyledGlass size='30' isActive={isActive} />
         </NavBtn>
         <NavBtn to={'/itineraryInfo'} onClick={() => setIsActive(3)}>
-          <BsGrid size='30' color={isActive === 3 ? '#5EAAA8' : '#000'} />
+          <StyledGrid size='30' isActive={isActive} />
         </NavBtn>
         <NavBtn to={'/userProfile'} onClick={() => setIsActive(4)}>
-          <BsPerson size='30' color={isActive === 4 ? '#5EAAA8' : '#000'} />
+          <StyledPerson size='30' isActive={isActive} />
         </NavBtn>
       </NavWrap>
     </NavContainer>
@@ -37,7 +35,7 @@ const NavContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: ${getColor('white')};
   position: fixed;
   bottom: 0;
   border-top: solid #dcdcdc 1px;
@@ -56,6 +54,23 @@ const NavWrap = styled.nav`
 
 const NavBtn = styled(Link)`
   padding: 0 15px;
+`;
+
+const StyledHome = styled(BiHomeAlt)<{ isActive: number }>`
+  color: ${({ isActive }) =>
+    isActive === 1 ? getColor('primary') : getColor('black')};
+`;
+const StyledGlass = styled(HiMiniMagnifyingGlass)<{ isActive: number }>`
+  color: ${({ isActive }) =>
+    isActive === 2 ? getColor('primary') : getColor('black')};
+`;
+const StyledGrid = styled(BsGrid)<{ isActive: number }>`
+  color: ${({ isActive }) =>
+    isActive === 3 ? getColor('primary') : getColor('black')};
+`;
+const StyledPerson = styled(BsPerson)<{ isActive: number }>`
+  color: ${({ isActive }) =>
+    isActive === 4 ? getColor('primary') : getColor('black')};
 `;
 
 export default BottomNav;
