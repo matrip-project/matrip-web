@@ -6,6 +6,8 @@ import { AiOutlineBell, AiOutlineSearch, AiOutlineRight, AiOutlineLeft } from 'r
 import { BsBookmark } from 'react-icons/bs';
 import { RecommendTextSub } from './homeStyle';
 
+import Button from '../../components/@atoms/Button';
+
 
 
 
@@ -93,6 +95,12 @@ const Home: React.FC = () => {
                 <gs.MainBox>
                     <hs.HomeHeader>
                         <hs.HeaderTextCtnr>
+                            {/* ONCLICK */}
+                            <Button 
+                                type='secondary'
+                            >
+                                ss
+                            </Button>
                             <hs.HeaderTextMain>
                                 마음에 맞는 사람들과
                             </hs.HeaderTextMain>
