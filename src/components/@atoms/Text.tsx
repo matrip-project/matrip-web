@@ -34,9 +34,9 @@ const textStyles: Record<
     lineHeight: '14.52px'
   },
   body1: {
-    fontSize: '11px',
+    fontSize: '10px',
     fontWeight: '400',
-    lineHeight: '13.31px'
+    lineHeight: '14px'
   }
 };
 
@@ -51,11 +51,11 @@ const StyledText = styled.div<TextProps>`
     props.color ? getColor(props.color) : props.theme.colors.black};
 `;
 
-const TextComponent: React.FC<React.PropsWithChildren<TextProps>> = ({
+const Text: React.FC<React.PropsWithChildren<TextProps>> = ({
   children,
   ...props
 }) => {
   return <StyledText {...props}>{children}</StyledText>;
 };
 
-export default TextComponent;
+export default Text;
