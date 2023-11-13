@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import MemberDetail from './pages/MemberDetail';
 import ItinerarySearch from './pages/ItinerarySearch';
 import Signup from './pages/Signup';
+import NoticeBoard from './pages/NoticeBoard';
 
 import GlobalFonts from './styles/fonts';
 import { GlobalStyle } from './styles/GlobalStyles';
@@ -44,6 +45,7 @@ function App() {
           <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
           <Route path='/management' element={<Management />} />
+          <Route path='/notice' element={<NoticeBoard />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

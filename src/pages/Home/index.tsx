@@ -99,9 +99,6 @@ const Home: React.FC = () => {
         <gs.MainBox>
           <hs.HomeHeader>
             <hs.HeaderTextCtnr>
-              {/* ONCLICK */}
-              <Button type='secondary'>ss</Button>
-              <InterestButton type='primary'>test</InterestButton>
               <Text type='headline1'>마음에 맞는 사람들과</Text>
               <Text type='headline2' color='neutral5'>
                 마음에 맞는 사람들과
