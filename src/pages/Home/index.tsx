@@ -11,7 +11,9 @@ import {
 import { BsBookmark } from 'react-icons/bs';
 import { RecommendTextSub } from './homeStyle';
 
+
 import Button from '../../components/@atoms/Button';
+import InterestButton from '../../components/@atoms/InterestButton';
 import Text from '../../components/@atoms/Text';
 
 const Home: React.FC = () => {
