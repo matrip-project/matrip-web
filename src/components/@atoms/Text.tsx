@@ -2,7 +2,13 @@ import styled from 'styled-components';
 import { getColor } from '../../utils/colorUtils';
 import { theme } from '../../styles/theme/theme';
 
-type TextType = 'headline1' | 'headline2' | 'title1' | 'subtitle1' | 'body1';
+type TextType =
+  | 'headline1'
+  | 'headline2'
+  | 'title1'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1';
 
 interface TextProps {
   type?: TextType;
@@ -14,13 +20,13 @@ const textStyles: Record<
   { fontSize: string; fontWeight: string; lineHeight: string }
 > = {
   headline1: {
-    fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '19.36px'
+    fontSize: '18px',
+    fontWeight: '400',
+    lineHeight: '22px'
   },
   headline2: {
     fontSize: '16px',
-    fontWeight: '400',
+    fontWeight: '700',
     lineHeight: '18px'
   },
   title1: {
@@ -33,10 +39,15 @@ const textStyles: Record<
     fontWeight: '400',
     lineHeight: '14.52px'
   },
+  subtitle2: {
+    fontSize: '12px',
+    fontWeight: '700',
+    lineHeight: '14.52px'
+  },
   body1: {
-    fontSize: '11px',
+    fontSize: '10px',
     fontWeight: '400',
-    lineHeight: '13.31px'
+    lineHeight: '14px'
   }
 };
 
@@ -51,11 +62,11 @@ const StyledText = styled.div<TextProps>`
     props.color ? getColor(props.color) : props.theme.colors.black};
 `;
 
-const TextComponent: React.FC<React.PropsWithChildren<TextProps>> = ({
+const Text: React.FC<React.PropsWithChildren<TextProps>> = ({
   children,
   ...props
 }) => {
   return <StyledText {...props}>{children}</StyledText>;
 };
 
-export default TextComponent;
+export default Text;
