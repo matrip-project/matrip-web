@@ -23,6 +23,7 @@ import { GlobalStyle } from './styles/GlobalStyles';
 import BottomNav from './components/BottomNav';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme/theme';
+import FAQ from './pages/FAQ';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path='/mapSearch' element={<MapSearch />} />
           <Route path='/management' element={<Management />} />
           <Route path='/notice' element={<NoticeBoard />} />
+          <Route path='/faq' element={<FAQ />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
