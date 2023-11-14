@@ -20,7 +20,6 @@ const UserList: React.FC = () => {
     };
 
     const observer = new IntersectionObserver(callback, options);
-
     const currentTarget = target.current;
 
     if (target.current) {
