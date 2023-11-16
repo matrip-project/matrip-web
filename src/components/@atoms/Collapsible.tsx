@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { getColor } from '../../utils/colorUtils';
 
 interface CollapsibleProps {
   header: string;
@@ -41,17 +40,11 @@ const Collapsible: React.FC<React.PropsWithChildren<CollapsibleProps>> = ({
 export default Collapsible;
 
 const MenuSelect = styled.div`
-  font-size: ${(props) => props.theme.texts.menuSelect.fontSize};
-  line-height: ${(props) => props.theme.texts.menuSelect.lineHeight};
-  font-weight: ${(props) => props.theme.texts.menuSelect.fontWeight};
-  color: ${(props) => props.theme.texts.menuSelect.color};
+  ${(props) => props.theme.texts.menuSelect}
 `;
 
 const Date = styled.div`
-  font-size: ${(props) => props.theme.texts.content2.fontSize};
-  line-height: ${(props) => props.theme.texts.content2.lineHeight};
-  font-weight: ${(props) => props.theme.texts.content2.fontWeight};
-  color: ${(props) => props.theme.texts.content2.color};
+  ${(props) => props.theme.texts.content2}
 `;
 
 const CollasibleContainer = styled.button`

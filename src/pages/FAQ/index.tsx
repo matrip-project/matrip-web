@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import * as gs from '../../styles/GlobalStyles';
 import Collapsible from '../../components/@atoms/Collapsible';
 import { getColor } from '../../utils/colorUtils';
 
@@ -16,35 +15,30 @@ const data = [
 
 function FAQ() {
   return (
-    <gs.MainContainer>
-      <gs.MainBox>
-        <EmailBtnWrap>
-          <EmailBtn>이메일로 문의하기</EmailBtn>
-        </EmailBtnWrap>
-        <ListBox>
-          <ListTitle>
-            <MainTitle>자주하는 질문</MainTitle>
-          </ListTitle>
-          {data.map((faq, index) => {
-            return (
-              <Collapsible key={index} header={faq.header} body={faq.body} />
-            );
-          })}
-        </ListBox>
-      </gs.MainBox>
-    </gs.MainContainer>
+    <>
+      <EmailBtnWrap>
+        <EmailBtn>이메일로 문의하기</EmailBtn>
+      </EmailBtnWrap>
+      <ListBox>
+        <ListTitle>
+          <MainTitle>자주하는 질문</MainTitle>
+        </ListTitle>
+        {data.map((faq, index) => {
+          return (
+            <Collapsible key={index} header={faq.header} body={faq.body} />
+          );
+        })}
+      </ListBox>
+    </>
   );
 }
 
 const MainTitle = styled.div`
-  font-size: ${(props) => props.theme.texts.mainTitle.fontSize};
-  line-height: ${(props) => props.theme.texts.mainTitle.lineHeight};
-  font-weight: ${(props) => props.theme.texts.mainTitle.fontWeight};
-  color: ${(props) => props.theme.texts.mainTitle.color};
+  ${(props) => props.theme.texts.mainTitle};
 `;
 
 const EmailBtnWrap = styled.div`
-  width: 100%;
+  width: 77%;
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
