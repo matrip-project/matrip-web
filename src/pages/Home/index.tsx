@@ -11,10 +11,8 @@ import {
 import { BsBookmark } from 'react-icons/bs';
 import { RecommendTextSub } from './homeStyle';
 
-
 import Button from '../../components/@atoms/Button';
 import InterestButton from '../../components/@atoms/InterestButton';
-import Text from '../../components/@atoms/Text';
 
 const Home: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -99,10 +97,7 @@ const Home: React.FC = () => {
         <gs.MainBox>
           <hs.HomeHeader>
             <hs.HeaderTextCtnr>
-              <Text type='headline1'>마음에 맞는 사람들과</Text>
-              <Text type='headline2' color='neutral5'>
-                마음에 맞는 사람들과
-              </Text>
+              마음에 맞는 사람들과
               <hs.HeaderTextSub>
                 지금 핫플레이스를 확인해 보세요
               </hs.HeaderTextSub>

@@ -131,6 +131,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+html{
+  font-size: 62.5%;
+}
 
 body{
   background: ${(props) => props.theme.colors.white};
