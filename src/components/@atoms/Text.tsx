@@ -4,11 +4,11 @@ import { theme } from '../../styles/theme/theme';
 
 type TextType =
   | 'headline1'
-  | 'headline2'
   | 'title1'
+  | 'title2'
   | 'subtitle1'
-  | 'subtitle2'
-  | 'body1';
+  | 'body1'
+  | 'body2';
 
 interface TextProps {
   type?: TextType;
@@ -20,34 +20,34 @@ const textStyles: Record<
   { fontSize: string; fontWeight: string; lineHeight: string }
 > = {
   headline1: {
-    fontSize: '18px',
-    fontWeight: '400',
-    lineHeight: '22px'
-  },
-  headline2: {
-    fontSize: '16px',
+    fontSize: '1.8rem',
     fontWeight: '700',
     lineHeight: '18px'
   },
   title1: {
-    fontSize: '14px',
-    fontWeight: '400',
+    fontSize: '1.6rem',
+    fontWeight: '500',
+    lineHeight: '18px'
+  },
+  title2: {
+    fontSize: '1.6rem',
+    fontWeight: '700',
     lineHeight: '18px'
   },
   subtitle1: {
-    fontSize: '12px',
+    fontSize: '1.4rem',
     fontWeight: '400',
-    lineHeight: '14.52px'
-  },
-  subtitle2: {
-    fontSize: '12px',
-    fontWeight: '700',
-    lineHeight: '14.52px'
+    lineHeight: '18px'
   },
   body1: {
-    fontSize: '10px',
+    fontSize: '1.2rem',
     fontWeight: '400',
-    lineHeight: '14px'
+    lineHeight: '14.52px'
+  },
+  body2: {
+    fontSize: '1.2rem',
+    fontWeight: '500',
+    lineHeight: '14.52px'
   }
 };
 

@@ -1,5 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import GlobalFonts from './styles/fonts';
+import { GlobalStyle } from './styles/GlobalStyles';
+import BottomNav from './components/BottomNav';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme/theme';
 
 import Home from './pages/Home';
 import Main from './pages/Main';
@@ -16,16 +21,16 @@ import Login from './pages/Login';
 import MemberDetail from './pages/MemberDetail';
 import ItinerarySearch from './pages/ItinerarySearch';
 import Signup from './pages/Signup';
+import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
-
-import GlobalFonts from './styles/fonts';
-import { GlobalStyle } from './styles/GlobalStyles';
-import BottomNav from './components/BottomNav';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './styles/theme/theme';
 import FAQ from './pages/FAQ';
 
 function App() {
+  const serviceTabs = [
+    { label: '공지사항', to: '/service/notice' },
+    { label: '고객센터', to: '/service/faq' }
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -46,8 +51,10 @@ function App() {
           <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
           <Route path='/management' element={<Management />} />
-          <Route path='/notice' element={<NoticeBoard />} />
-          <Route path='/faq' element={<FAQ />} />
+          <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
+            <Route path='notice' element={<NoticeBoard />} />
+            <Route path='faq' element={<FAQ />} />
+          </Route>
           <Route path='/*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

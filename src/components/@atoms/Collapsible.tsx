@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import Text from './Text';
-import { getColor } from '../../utils/colorUtils';
 
 interface CollapsibleProps {
   header: string;
@@ -23,12 +21,8 @@ const Collapsible: React.FC<React.PropsWithChildren<CollapsibleProps>> = ({
       <CollasibleContainer onClick={() => setIsOpen(!isOpen)}>
         <CollapsibleHeader>
           <CollapsibleHeaderText>
-            <Text type='subtitle1'> {header}</Text>
-            {date && (
-              <Text type='body1' color='neutral4'>
-                {date}
-              </Text>
-            )}
+            <MenuSelect> {header}</MenuSelect>
+            {date && <Date>{date}</Date>}
           </CollapsibleHeaderText>
           {!isOpen ? <StyledDown /> : <StyledUp />}
         </CollapsibleHeader>
@@ -36,9 +30,7 @@ const Collapsible: React.FC<React.PropsWithChildren<CollapsibleProps>> = ({
       {/* body */}
       <CollapsibleBody isOpen={isOpen}>
         <CollapsibleBodyWrap>
-          <Text type='body1' color='neutral4'>
-            {body}
-          </Text>
+          <MenuSelect>{body}</MenuSelect>
         </CollapsibleBodyWrap>
       </CollapsibleBody>
     </>
@@ -46,6 +38,14 @@ const Collapsible: React.FC<React.PropsWithChildren<CollapsibleProps>> = ({
 };
 
 export default Collapsible;
+
+const MenuSelect = styled.div`
+  ${(props) => props.theme.texts.menuSelect}
+`;
+
+const Date = styled.div`
+  ${(props) => props.theme.texts.content2}
+`;
 
 const CollasibleContainer = styled.button`
   width: 100%;
@@ -55,11 +55,11 @@ const CollasibleContainer = styled.button`
   align-items: center;
   background: none;
   border: none;
-  border-bottom: solid 1px ${getColor('neutral3')};
+  border-bottom: solid 1px ${(props) => props.theme.colors.neutral2};
 `;
 
 const CollapsibleHeader = styled.div`
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,7 +75,7 @@ const CollapsibleHeaderText = styled.div`
 
 const CollapsibleBody = styled.div<{ isOpen: boolean }>`
   width: 100%;
-  border-bottom: solid 1px ${getColor('neutral3')};
+  border-bottom: solid 1px ${(props) => props.theme.colors.neutral2};
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   transition: 0.5s ease;
   max-height: ${(props) => (props.isOpen ? '300px' : '0px')};
@@ -93,10 +93,10 @@ const CollapsibleBodyWrap = styled.div`
 
 const StyledDown = styled(IoIosArrowDown)`
   font-size: 25px;
-  color: ${getColor('neutral4')};
+  color: ${(props) => props.theme.colors.neutral3};
 `;
 
 const StyledUp = styled(IoIosArrowUp)`
   font-size: 25px;
-  color: ${getColor('neutral4')};
+  color: ${(props) => props.theme.colors.neutral3};
 `;

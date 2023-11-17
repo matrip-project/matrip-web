@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import Text from '../../components/@atoms/Text';
-import * as gs from '../../styles/GlobalStyles';
 import Collapsible from '../../components/@atoms/Collapsible';
 import { getColor } from '../../utils/colorUtils';
-import Button from '../../components/@atoms/Button';
 
 const data = [
   {
@@ -18,30 +15,30 @@ const data = [
 
 function FAQ() {
   return (
-    <gs.MainContainer>
-      <gs.MainBox>
-        <EmailBtnWrap>
-          <EmailBtn>
-            <Text type='subtitle2'>이메일로 문의하기</Text>
-          </EmailBtn>
-        </EmailBtnWrap>
-        <ListBox>
-          <ListTitle>
-            <Text type='headline1'>자주하는 질문</Text>
-          </ListTitle>
-          {data.map((faq, index) => {
-            return (
-              <Collapsible key={index} header={faq.header} body={faq.body} />
-            );
-          })}
-        </ListBox>
-      </gs.MainBox>
-    </gs.MainContainer>
+    <>
+      <EmailBtnWrap>
+        <EmailBtn>이메일로 문의하기</EmailBtn>
+      </EmailBtnWrap>
+      <ListBox>
+        <ListTitle>
+          <MainTitle>자주하는 질문</MainTitle>
+        </ListTitle>
+        {data.map((faq, index) => {
+          return (
+            <Collapsible key={index} header={faq.header} body={faq.body} />
+          );
+        })}
+      </ListBox>
+    </>
   );
 }
 
+const MainTitle = styled.div`
+  ${(props) => props.theme.texts.mainTitle};
+`;
+
 const EmailBtnWrap = styled.div`
-  width: 100%;
+  width: 77%;
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
@@ -50,8 +47,12 @@ const EmailBtnWrap = styled.div`
 const EmailBtn = styled.button`
   width: 100%;
   height: 36px;
+  background-color: ${getColor('primary')};
   border: transparent;
-  border-radius: 8px;
+  border-radius: 50px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${(props) => props.theme.colors.white};
 `;
 
 const ListBox = styled.div`
@@ -61,7 +62,6 @@ const ListBox = styled.div`
 `;
 
 const ListTitle = styled.div`
-  border-bottom: solid 1px ${getColor('neutral3')};
   padding: 10px 0;
 `;
 
