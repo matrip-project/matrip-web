@@ -57,12 +57,7 @@ export const postContent = styled.div`
 `;
 
 export const postTitle = styled.div`
-  color: #242424;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.14px;
+  ${(props) => props.theme.texts.tapTitle1};
   margin-bottom: 4px;
 `;
 
@@ -71,11 +66,7 @@ export const postPeriod = styled.div`
   margin-bottom: 10px;
   margin-left: 6px;
 
-  color: #000;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  ${(props) => props.theme.texts.menuSelect};
 `;
 
 export const postDibsBtn = styled.div`
@@ -83,9 +74,5 @@ export const postDibsBtn = styled.div`
 `;
 
 export const postNickname = styled.div`
-  color: var(--Deactivation, #adadad);
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  ${(props) => props.theme.texts.content2};
 `;
