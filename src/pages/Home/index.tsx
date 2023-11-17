@@ -95,6 +95,7 @@ const Home: React.FC = () => {
     <>
       <gs.MainContainer>
         <gs.MainBox>
+          <InterestButton>경기</InterestButton>
           <hs.HomeHeader>
             <hs.HeaderTextCtnr>
               마음에 맞는 사람들과
