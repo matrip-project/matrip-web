@@ -1,10 +1,12 @@
 export const postdata = [
   {
     id: 1,
-    nick: 'test1',
+    nick: 'rik',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '제주도',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -15,7 +17,9 @@ export const postdata = [
     nick: 'test2',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '서울',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -26,7 +30,9 @@ export const postdata = [
     nick: 'test3',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '부산',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 1,
@@ -37,7 +43,9 @@ export const postdata = [
     nick: 'test4',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '광주',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -48,7 +56,9 @@ export const postdata = [
     nick: 'test5',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '강릉',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 3,
@@ -59,7 +69,9 @@ export const postdata = [
     nick: 'test6',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '제주도',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -70,7 +82,9 @@ export const postdata = [
     nick: 'test7',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '서울',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -81,7 +95,9 @@ export const postdata = [
     nick: 'test8',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '부산',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 1,
@@ -92,7 +108,9 @@ export const postdata = [
     nick: 'test9',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '광주',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -103,7 +121,9 @@ export const postdata = [
     nick: 'test10',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '강릉',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 3,
@@ -114,7 +134,9 @@ export const postdata = [
     nick: 'test11',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '제주도',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -125,7 +147,9 @@ export const postdata = [
     nick: 'test12',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '서울',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 4,
@@ -136,87 +160,12 @@ export const postdata = [
     nick: 'test13',
     imgurl:
       'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '부산',
+    destination: '충남',
+    title: '충주호근처 불멍, 멍떄리는 캠핑하실 분 3분 함께 해요.',
+    post: '함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.함께 해요.',
     startDate: '2023.07.07',
     endData: '2023.07.08',
     personnel: 1,
-    dibs: false
-  },
-  {
-    id: 14,
-    nick: 'test14',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '광주',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 4,
-    dibs: false
-  },
-  {
-    id: 15,
-    nick: 'test15',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '강릉',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 3,
-    dibs: false
-  },
-  {
-    id: 16,
-    nick: 'test16',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '제주도',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 4,
-    dibs: false
-  },
-  {
-    id: 17,
-    nick: 'test17',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '서울',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 4,
-    dibs: false
-  },
-  {
-    id: 18,
-    nick: 'test18',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '부산',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 1,
-    dibs: false
-  },
-  {
-    id: 19,
-    nick: 'test19',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '광주',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 4,
-    dibs: false
-  },
-  {
-    id: 20,
-    nick: 'test20',
-    imgurl:
-      'https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202302/21/spotvnews/20230221133133423kfxy.jpg',
-    destination: '강릉',
-    startDate: '2023.07.07',
-    endData: '2023.07.08',
-    personnel: 3,
     dibs: false
   }
 ];
