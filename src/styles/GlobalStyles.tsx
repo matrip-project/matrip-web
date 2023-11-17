@@ -143,7 +143,8 @@ body{
 
 // 전체 화면 컨테이너
 export const MainContainer = styled.div`
-  width: 100%;
+  width: 390px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -13,10 +13,15 @@ const Home: React.FC = () => {
         <hs.HomeHeader>
           <hs.HeaderLogo src={logo}></hs.HeaderLogo>
         </hs.HomeHeader>
-      </gs.MainContainer>
 
-      <Search></Search>
-      <UserList></UserList>
+        <Search></Search>
+
+        <hs.TitleBox>
+          <hs.MainTitle>동행일정</hs.MainTitle>
+          <hs.tapTitle2>· 217개 동행일정을 둘러보세요.</hs.tapTitle2>
+        </hs.TitleBox>
+        <UserList></UserList>
+      </gs.MainContainer>
     </>
   );
 };

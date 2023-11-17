@@ -12,13 +12,26 @@ export const HeaderLogo = styled.img`
   margin: auto;
 `;
 
-export const HeaderTextMain = styled.p`
-  font-size: 30px;
-  font-weight: 700;
-`;
-
 export const HeaderIconCtnr = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+`;
+
+export const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  margin-left: 23px;
+`;
+
+export const MainTitle = styled.div`
+  ${(props) => props.theme.texts.mainTitle};
+  margin-bottom: 8px;
+`;
+
+export const tapTitle2 = styled.div`
+  ${(props) => props.theme.texts.tapTitle2};
+  margin-bottom: 12px;
 `;
