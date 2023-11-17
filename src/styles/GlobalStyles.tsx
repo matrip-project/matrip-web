@@ -152,7 +152,7 @@ export const MainContainer = styled.div`
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너
 export const MainBox = styled.div`
-  max-width: 600px;
+  max-width: 390px;
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -160,8 +160,8 @@ export const MainBox = styled.div`
   margin: 30px 0 70px 0;
   // background-color: #f0f0f0;
 
-  @media screen and (min-width: 600px) {
-    width: 600px;
+  @media screen and (min-width: 390px) {
+    width: 390px;
   }
 `;
 
