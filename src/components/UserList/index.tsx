@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
 import { postdata } from '../../data/postdata';
-import DibsBtn from '../DibsBtn';
 import * as us from './UserListStyle';
+import recruitingImage from '../../asset/recruiting.png';
 
 const UserList: React.FC = () => {
   const target = useRef(null);
@@ -37,28 +37,30 @@ const UserList: React.FC = () => {
     <>
       {postdata.map((post: any) => (
         <us.postBox key={post.id}>
-          <us.profileBox to={'/userProfile'}>
-            <us.profileImgBox>
-              <us.profileImg src={post.imgurl} alt='유저 프로필' />
-            </us.profileImgBox>
-          </us.profileBox>
+          <us.contentsBox>
+            <us.contentsTopBox>
+              <us.postDibsBtn>
+                <img src={recruitingImage} alt='Recruiting Image' />
+              </us.postDibsBtn>
+              <us.postPeriod>
+                {post.startDate}~{post.endData}
+              </us.postPeriod>
+            </us.contentsTopBox>
 
-          <us.postContent to={'/itineraryInfo'}>
-            <us.postTitle>{post.destination}</us.postTitle>
-            <us.postPeriod>
-              {post.startDate}~{post.endData}
-            </us.postPeriod>
-            <us.postPeriod>현재 {post.personnel}명</us.postPeriod>
-          </us.postContent>
-          <us.postDibsBtn>
-            <DibsBtn id={post.id} state={post.state} />
-          </us.postDibsBtn>
+            <us.postContent>
+              <us.postTitle>
+                [{post.destination}] {post.title}
+              </us.postTitle>
+            </us.postContent>
+
+            <us.postNickname>{post.nick}</us.postNickname>
+          </us.contentsBox>
+
+          <us.postImgBox>
+            <us.postImg src={post.imgurl} alt='유저 프로필' />
+          </us.postImgBox>
         </us.postBox>
       ))}
-
-      {/* <div style={{ height: '30px', backgroundColor: 'red' }} ref={target}>
-        target
-      </div> */}
     </>
   );
 };
