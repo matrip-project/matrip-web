@@ -4,12 +4,11 @@ import { styled } from 'styled-components';
 export const postBox = styled.div`
   width: 337px;
   height: 115px;
-  display: flex;
   justify-content: center;
   margin: auto;
-  align-items: center;
   border-bottom: solid #c5c5c5 1px;
   position: relative;
+  display: flex;
   padding: 12px;
 
   border-radius: 16px;
@@ -22,6 +21,7 @@ export const contentsTopBox = styled.div`
   width: 100%;
   display: flex;
   margin-bottom: 11px;
+  align-items: center;
 `;
 
 export const contentsBox = styled.div``;
@@ -29,7 +29,7 @@ export const contentsBox = styled.div``;
 export const postImgBox = styled.div`
   width: 94px;
   height: 71px;
-  margin-right: 30px;
+  margin-top: 20px;
 `;
 
 export const postImg = styled.img`
@@ -62,9 +62,8 @@ export const postTitle = styled.div`
 `;
 
 export const postPeriod = styled.div`
-  display: block;
-  margin-bottom: 10px;
   margin-left: 6px;
+  align-items: center;
 
   ${(props) => props.theme.texts.menuSelect};
 `;
@@ -75,4 +74,6 @@ export const postDibsBtn = styled.div`
 
 export const postNickname = styled.div`
   ${(props) => props.theme.texts.content2};
+  bottom: 12px;
+  position: absolute;
 `;
