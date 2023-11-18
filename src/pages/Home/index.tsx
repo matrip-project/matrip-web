@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           <hs.tapTitle2>· 217개 동행일정을 둘러보세요.</hs.tapTitle2>
         </hs.TitleBox>
         <UserList />
-        <hs.ScheduleMoreBtn to={'/ItineraryInfo'}>
+        <hs.ScheduleMoreBtn to={'/CompanionList'}>
           일정 더보기 +
         </hs.ScheduleMoreBtn>
 

@@ -24,6 +24,7 @@ import Signup from './pages/Signup';
 import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
 import FAQ from './pages/FAQ';
+import CompanionList from './pages/CompanionList';
 
 function App() {
   const serviceTabs = [
@@ -50,6 +51,7 @@ function App() {
           <Route path='/notifications' element={<Notificiation />} />
           <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
+          <Route path='/CompanionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
             <Route path='notice' element={<NoticeBoard />} />
