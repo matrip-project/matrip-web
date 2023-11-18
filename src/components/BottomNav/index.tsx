@@ -15,7 +15,7 @@ function BottomNav() {
         <NavBtn to={'/'} onClick={() => setIsActive(1)}>
           <StyledHome size='30' isActive={isActive} />
         </NavBtn>
-        <NavBtn to={'/tripSchedule'} onClick={() => setIsActive(2)}>
+        <NavBtn to={'/CompanionList'} onClick={() => setIsActive(2)}>
           <StyledGlass size='30' isActive={isActive} />
         </NavBtn>
         <NavBtn to={'/itineraryInfo'} onClick={() => setIsActive(3)}>
