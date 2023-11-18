@@ -5,37 +5,9 @@ import * as us from './UserListStyle';
 import recruitingImage from '../../asset/recruiting.png';
 
 const UserList: React.FC = () => {
-  const target = useRef(null);
-
-  useEffect(() => {
-    const options = {
-      threshold: 1.0
-    };
-
-    const callback: IntersectionObserverCallback = (entries) => {
-      const target = entries[0].target;
-      if (target instanceof HTMLElement && entries[0].isIntersecting) {
-        // loadMoreData();
-      }
-    };
-
-    const observer = new IntersectionObserver(callback, options);
-    const currentTarget = target.current;
-
-    if (target.current) {
-      observer.observe(target.current);
-    }
-
-    return () => {
-      if (currentTarget) {
-        observer.unobserve(currentTarget);
-      }
-    };
-  }, []);
-
   return (
     <>
-      {postdata.map((post: any) => (
+      {postdata.slice(0, 5).map((post: any) => (
         <us.postBox key={post.id}>
           <us.contentsBox>
             <us.contentsTopBox>
