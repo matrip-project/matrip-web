@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import searchReducer from './modules/searchSlice';
 import dibsSlice from './modules/dibSlice';
 
 export const store = configureStore({
-  reducer: { dibsSlice }
+  reducer: {
+    search: searchReducer,
+    dibsSlice: dibsSlice
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

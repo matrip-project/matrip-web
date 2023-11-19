@@ -3,10 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { postdata } from '../../data/postdata';
 import * as us from './UserListStyle';
 import recruitingImage from '../../asset/recruiting.png';
+import { useSelector } from 'react-redux';
+import { selectKeyword } from '../../redux/modules/searchSlice';
 
 const PostListScroll: React.FC = () => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
+  const keyword = useSelector(selectKeyword);
+
+  // 키워드를 기반으로 게시물 필터링
+  const filteredPosts = postdata.filter(
+    (post) =>
+      post.destination.toLowerCase().includes(keyword) ||
+      post.title.toLowerCase().includes(keyword)
+  );
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
@@ -27,7 +37,7 @@ const PostListScroll: React.FC = () => {
   }, []);
   return (
     <>
-      {postdata.slice(0, displayCount).map((post: any) => (
+      {filteredPosts.slice(0, displayCount).map((post: any) => (
         <us.postBox key={post.id}>
           <us.contentsBox>
             <us.contentsTopBox>

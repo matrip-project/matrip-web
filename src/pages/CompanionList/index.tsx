@@ -4,12 +4,16 @@ import * as cs from './CompanionListStyle';
 import logo from '../../asset/logo.png';
 import fillterIcon from '../../asset/fillterIcon.png';
 import fillterIconNone from '../../asset/fillterIconNone.png';
+import searchIcon from '../../asset/searchIcon.png';
 import Search from '../../components/Search';
+import { useSelector } from 'react-redux';
+import { selectKeyword } from '../../redux/modules/searchSlice';
 
 import PostListScroll from '../../components/PostListScroll';
 
 const CompanionList: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(false);
+  const keyword = useSelector(selectKeyword);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -22,6 +26,10 @@ const CompanionList: React.FC = () => {
           <cs.HeaderLogo src={logo}></cs.HeaderLogo>
         </cs.HomeHeader>
         <Search />
+        <cs.searchResult>
+          <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
+          {keyword} 검색 결과 입니다.
+        </cs.searchResult>
 
         <cs.TitleBox>
           <cs.MainTitle>동행일정</cs.MainTitle>
@@ -34,9 +42,7 @@ const CompanionList: React.FC = () => {
           </cs.tapTitle2>
 
           {!isFilterClicked && (
-            <div>
-              {isFilterClicked ? 'test' : 'test'}
-            </div>
+            <button>{isFilterClicked ? 'test' : 'test'}</button>
           )}
         </cs.TitleBox>
         <PostListScroll />
