@@ -44,3 +44,19 @@ export const tapTitle2Fillter = styled.img`
   position: absolute;
   cursor: pointer;
 `;
+
+export const searchResult = styled.div`
+  ${(props) => props.theme.texts.resultValue1};
+  display: flex;
+  width: 100%;
+  margin-bottom: 36px;
+  margin-left: 24px;
+  align-items: center;
+`;
+
+export const searchResultIcon = styled.img`
+  margin-right: 9px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;

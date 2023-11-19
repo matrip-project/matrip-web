@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
-import { HiMapPin, HiMiniMagnifyingGlass, HiPencil } from 'react-icons/hi2';
+import React, { useRef, useState } from 'react';
+import { HiMiniMagnifyingGlass } from 'react-icons/hi2';
 import * as gs from '../../styles/GlobalStyles';
 import * as ss from './SearchStyle';
-import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { useDispatch } from 'react-redux';
+import { setKeyword } from '../../redux/modules/searchSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Search: React.FC = () => {
-  // serch
-  const [searchInput, setSearchInput] = useState('');
   const [input, setInput] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const getValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value.toLowerCase());
+  };
 
   const handleSearch = () => {
-    setSearchInput(input);
+    dispatch(setKeyword(input));
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSearch();
+      navigate('/CompanionList');
     }
-  };
-
-  const getValue = (e: any) => {
-    setInput(e.target.value.toLowerCase());
   };
 
   return (
