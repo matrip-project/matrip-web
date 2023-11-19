@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
 import { postdata } from '../../data/postdata';
-import * as us from './PostListScrollStyle';
+import * as us from './userListStyle';
 import recruitingImage from '../../asset/recruiting.png';
 
-const PostListScroll: React.FC = () => {
+const UserList: React.FC = () => {
   return (
     <>
       {postdata.slice(0, 5).map((post: any) => (
@@ -37,4 +37,4 @@ const PostListScroll: React.FC = () => {
   );
 };
 
-export default PostListScroll;
+export default UserList;
