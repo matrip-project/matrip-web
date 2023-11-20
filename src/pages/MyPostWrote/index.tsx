@@ -1,13 +1,13 @@
 import React from 'react';
 
-import * as mcl from './myCompanionLogStyle';
+import * as mcl from './myPostWroteStyle';
 import * as gs from '../../styles/GlobalStyles';
 import UserList from '../../components/UserList';
 import listIcon from '../../asset/listIcon.png';
 import TitleIcon from '../../asset/titleIcon.png';
 import backButtonIcon from '../../asset/backButtonIcon.png';
 
-const MyCompanionLog: React.FC = () => {
+const MyPostWrote: React.FC = () => {
   return (
     <gs.MainContainer>
       <mcl.TopNavBox>
@@ -26,4 +26,4 @@ const MyCompanionLog: React.FC = () => {
   );
 };
 
-export default MyCompanionLog;
+export default MyPostWrote;
