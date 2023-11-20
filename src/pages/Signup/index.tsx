@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as ss from './signupStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
+import BirthdayInput from '../../components/BirthdayInput';
 import { BsFillCalendarWeekFill } from 'react-icons/bs';
 
 function Signup() {
@@ -11,13 +12,18 @@ function Signup() {
     password: '',
     passwordChk: '',
     gender: '',
-    birth: ''
+    birthDate: '',
+    name: ''
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setInput((prevState) => ({ ...prevState, [name]: value }));
   };
+
+  const handleBirthdateChange = useCallback((newBirthdate:any) => {
+    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
+  },[]);
 
   return (
     <gs.MainContainer>
@@ -51,6 +57,14 @@ function Signup() {
               onChange={handleInputChange}
             />
           </ss.InputBox>
+          <FormInput 
+            lable='이름' 
+            placeHolder='홍길동'
+            formType='text'  
+            name='name'
+            onChange={handleInputChange}
+            value={input.name}
+          />
           <ss.GenderInputBox>
             <p>성별</p>
             <ss.GenderBox>
@@ -74,18 +88,19 @@ function Signup() {
               </ss.GenderWrap>
             </ss.GenderBox>
           </ss.GenderInputBox>
+          <BirthdayInput onBirthdateChange={handleBirthdateChange}/>
           <ss.InputBox>
             <p>생년월일</p>
             <ss.BirthWrap>
               <ss.BirthIcon>
                 <BsFillCalendarWeekFill size='24' color='#056676' />
               </ss.BirthIcon>
-              <FormInput
+              {/* <FormInput
                 formType='date'
                 name='birth'
                 value={input.birth}
                 onChange={handleInputChange}
-              />
+              /> */}
             </ss.BirthWrap>
           </ss.InputBox>
           {/* 약관 동의 추가 필요 */}

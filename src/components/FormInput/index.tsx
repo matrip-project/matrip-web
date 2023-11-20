@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
+import InputLabel from '../@atoms/InputLabel';
 
 type FormType = 'text' | 'password' | 'date' | 'email';
 
@@ -7,19 +8,25 @@ type FormInputProps = {
   value: string;
   formType: FormType;
   name: string;
+  lable?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeHolder?: string;
 };
 
-function FormInput({ formType, value, onChange, placeHolder, name }: FormInputProps) {
+function FormInput({ formType, value, onChange, placeHolder, name, lable }: FormInputProps) {
   return (
-    <Input
-      name={name}
-      type={formType}
-      value={value}
-      onChange={onChange}
-      placeholder={placeHolder}
-    />
+    <div>
+      {lable &&
+        <InputLabel label={lable}/>
+      }
+      <Input
+        name={name}
+        type={formType}
+        value={value}
+        onChange={onChange}
+        placeholder={placeHolder}
+      />
+    </div>
   );
 }
 
