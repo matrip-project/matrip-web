@@ -1,20 +1,24 @@
 import React, { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
 
+type FormType = 'text' | 'password' | 'date' | 'email';
+
 type FormInputProps = {
-  name: string;
   value: string;
+  formType: FormType;
+  name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  placeHolder?: string;
 };
 
-function FormInput({ name, value, onChange }: FormInputProps) {
+function FormInput({ formType, value, onChange, placeHolder, name }: FormInputProps) {
   return (
     <Input
-      type={name.includes('password') ? 'password' : 'text'}
       name={name}
+      type={formType}
       value={value}
       onChange={onChange}
-      style={name === 'birth' ? { paddingLeft: '50px' } : {}}
+      placeholder={placeHolder}
     />
   );
 }
@@ -24,8 +28,8 @@ const Input = styled.input`
   height: 40px;
   border-width: 0 0 1px 0;
   border-bottom-color: #9c9c9c;
-  font-size: 15px;
-
+  font-size: 14px;
+  
   &:focus {
     outline: none;
   }

@@ -27,6 +27,7 @@ function Signup() {
           <ss.InputBox>
             <p>이메일</p>
             <FormInput
+              formType='email'
               name='email'
               value={input.email}
               onChange={handleInputChange}
@@ -35,6 +36,7 @@ function Signup() {
           <ss.InputBox>
             <p>비밀번호</p>
             <FormInput
+              formType='password'
               name='password'
               value={input.password}
               onChange={handleInputChange}
@@ -43,6 +45,7 @@ function Signup() {
           <ss.InputBox>
             <p>비밀번호 확인</p>
             <FormInput
+              formType='password'
               name='passwordChk'
               value={input.passwordChk}
               onChange={handleInputChange}
@@ -78,6 +81,7 @@ function Signup() {
                 <BsFillCalendarWeekFill size='24' color='#056676' />
               </ss.BirthIcon>
               <FormInput
+                formType='date'
                 name='birth'
                 value={input.birth}
                 onChange={handleInputChange}

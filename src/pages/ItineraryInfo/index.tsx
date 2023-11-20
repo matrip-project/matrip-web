@@ -86,6 +86,7 @@ const ItineraryInfo: React.FC = () => {
             <iic.InputLabel>제목</iic.InputLabel>
             <FormInput
               name='title'
+              formType='text'
               value={input.title}
               onChange={handleInputChange}
             />
@@ -116,6 +117,7 @@ const ItineraryInfo: React.FC = () => {
           <iic.InputWrap>
             <iic.InputLabel>소개</iic.InputLabel>
             <FormInput
+              formType='text'
               name='introduction'
               value={input.introduction}
               onChange={handleInputChange}
