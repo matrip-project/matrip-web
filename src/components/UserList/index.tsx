@@ -2,17 +2,17 @@ import React, { useEffect, useRef } from 'react';
 
 import { postdata } from '../../data/postdata';
 import * as us from './PostListScrollStyle';
-import recruitingImage from '../../asset/recruiting.png';
+import recruitingImage from '../../asset/recruiting.svg';
 
 const PostListScroll: React.FC = () => {
   return (
     <>
       {postdata.slice(0, 5).map((post: any) => (
-        <us.postBox key={post.id}>
+        <us.postBox key={post.id} to={`/trip/${post.id}`}>
           <us.contentsBox>
             <us.contentsTopBox>
               <us.postDibsBtn>
-                <img src={recruitingImage} alt='Recruiting Image' />
+                <img src={recruitingImage} alt='모집중' />
               </us.postDibsBtn>
               <us.postPeriod>
                 {post.startDate}~{post.endData}

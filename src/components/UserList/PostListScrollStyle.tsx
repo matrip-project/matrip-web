@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export const postBox = styled.div`
+export const postBox = styled(Link)`
   width: 337px;
   height: 115px;
   justify-content: center;
