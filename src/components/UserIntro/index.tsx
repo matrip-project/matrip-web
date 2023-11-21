@@ -7,7 +7,7 @@ interface UserIntroProps {
   children: ReactNode;
 }
 
-function UserInfo({ iconSize, children }: UserIntroProps) {
+function UserIntro({ iconSize, children }: UserIntroProps) {
   return (
     <InfoContainer>
       <ProfileIcon width={iconSize} height={iconSize} />
@@ -21,4 +21,4 @@ const InfoContainer = styled.div`
   align-items: center;
 `;
 
-export default UserInfo;
+export default UserIntro;
