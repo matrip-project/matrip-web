@@ -61,13 +61,13 @@ const texts = {
     color: '#ADADAD'
   },
   content1: {
-    fontSize: '1rem',
+    fontSize: '1.2rem',
     fontWeight: '500',
     lineHeight: '14.8px',
     color: '#242424'
   },
   content2: {
-    fontSize: '1rem',
+    fontSize: '1.2rem',
     fontWeight: '400',
     lineHeight: '14.8px',
     color: '#666'
