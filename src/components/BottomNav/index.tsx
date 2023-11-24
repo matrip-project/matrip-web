@@ -46,9 +46,9 @@ const NavWrap = styled.nav`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  @media screen and (min-width: 600px) {
-    width: 600px;
+  justify-content: space-between;
+  @media screen and (min-width: 390px) {
+    width: 390px;
   }
 `;
 
