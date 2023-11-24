@@ -42,7 +42,7 @@ export const InfoText = styled.p`
 export const UserIntroText = styled.p`
   ${(props) => props.theme.texts.menuSelect};
   color: ${(props) => props.theme.colors.neutral3};
-  margin: 0 8px;
+  margin-right: 8px;
 `;
 
 export const ContentContainer = styled.div`

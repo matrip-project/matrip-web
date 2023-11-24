@@ -27,6 +27,7 @@ import CompanionList from './pages/CompanionList';
 import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
 import MyPostWrote from './pages/MyPostWrote';
 import Detail from './pages/Detail';
+import Comments from './pages/Comments';
 
 function App() {
   const serviceTabs = [
@@ -51,6 +52,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />
+          <Route path='/trip/:id/comments' element={<Comments />} />
           <Route path='/memberSearch' element={<MemberSearch />} />
           <Route path='/member' element={<MemberDetail />} />
           <Route path='/itineraryInfo' element={<ItineraryInfo />} />
