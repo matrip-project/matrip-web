@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { postdata } from '../../data/postdata';
 import * as us from './postListScrollStyle';
-import recruitingImage from '../../asset/recruiting.png';
+import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 
