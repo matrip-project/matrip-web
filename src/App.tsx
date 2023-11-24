@@ -7,7 +7,6 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme/theme';
 
 import Home from './pages/Home';
-import Main from './pages/Main';
 import MemberSearch from './pages/MemberSearch';
 import ItineraryInfo from './pages/ItineraryInfo';
 import UserProfile from './pages/UserProfile';
@@ -27,6 +26,7 @@ import FAQ from './pages/FAQ';
 import CompanionList from './pages/CompanionList';
 import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
 import MyPostWrote from './pages/MyPostWrote';
+import Detail from './pages/Detail';
 
 function App() {
   const serviceTabs = [
@@ -50,6 +50,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
+          <Route path='/trip/:id' element={<Detail />} />
           <Route path='/memberSearch' element={<MemberSearch />} />
           <Route path='/member' element={<MemberDetail />} />
           <Route path='/itineraryInfo' element={<ItineraryInfo />} />
@@ -61,7 +62,10 @@ function App() {
           <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
           <Route path='/companionLog/' element={<TabMenu tabs={companions} />}>
-            <Route path='myInterestedCompanionLog' element={<MyInterestedCompanionLog />} />
+            <Route
+              path='myInterestedCompanionLog'
+              element={<MyInterestedCompanionLog />}
+            />
             <Route path='myPostWrote' element={<MyPostWrote />} />
           </Route>
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
