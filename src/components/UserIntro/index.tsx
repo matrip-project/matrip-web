@@ -10,7 +10,7 @@ interface UserIntroProps {
 function UserIntro({ iconSize, children }: UserIntroProps) {
   return (
     <InfoContainer>
-      <ProfileIcon width={iconSize} height={iconSize} />
+      <ProfileIconWrap width={iconSize} height={iconSize} />
       {children}
     </InfoContainer>
   );
@@ -19,6 +19,10 @@ function UserIntro({ iconSize, children }: UserIntroProps) {
 const InfoContainer = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const ProfileIconWrap = styled(ProfileIcon)`
+  margin-right: 5px;
 `;
 
 export default UserIntro;
