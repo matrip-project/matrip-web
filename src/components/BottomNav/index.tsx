@@ -18,7 +18,7 @@ function BottomNav() {
         <NavBtn to={'/CompanionList'} onClick={() => setIsActive(2)}>
           <StyledGlass size='30' isActive={isActive} />
         </NavBtn>
-        <NavBtn to={'/itineraryInfo'} onClick={() => setIsActive(3)}>
+        <NavBtn to={'/PopularTravel'} onClick={() => setIsActive(3)}>
           <StyledGrid size='30' isActive={isActive} />
         </NavBtn>
         <NavBtn to={'/userProfile'} onClick={() => setIsActive(4)}>

@@ -80,7 +80,7 @@ export const PopularTravelBox = styled.div`
   margin-left: 23px;
 `;
 
-export const PopularImgbox = styled.div`
+export const PopularImgbox = styled(Link)`
   color: #000;
   font-size: 16px;
   font-style: normal;

@@ -71,7 +71,7 @@ function App() {
             <Route path='faq' element={<FAQ />} />
           </Route>
           <Route path='/*' element={<NotFound />} />
-        </Routes>
+        </Routes> 
       </BrowserRouter>
     </ThemeProvider>
   );

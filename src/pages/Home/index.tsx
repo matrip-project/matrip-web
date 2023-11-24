@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as hs from './homeStyle';
 import logo from '../../asset/logo.png';
@@ -7,11 +8,14 @@ import jejuImg from '../../asset/ImgJeju.png';
 import busanImg from '../../asset/ImgBusan.png';
 import gangwonImg from '../../asset/ImgGangwon.png';
 import shareImg from '../../asset/share.svg';
-
 import UserList from '../../components/UserList';
 import Search from '../../components/Search';
+import { useDispatch } from 'react-redux';
+import { setKeyword } from '../../redux/modules/keywordImgSlice';
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <gs.MainContainer>
@@ -30,22 +34,31 @@ const Home: React.FC = () => {
 
         <hs.PopularTravel>인기 여행지 TOP3</hs.PopularTravel>
         <hs.PopularTravelBox>
-          <hs.PopularImgbox>
+          <hs.PopularImgbox
+            to={'/popularTravel'}
+            onClick={() => dispatch(setKeyword('제주'))}
+          >
             <hs.PopularImg src={jejuImg} />
             제주
           </hs.PopularImgbox>
-          <hs.PopularImgbox>
+          <hs.PopularImgbox
+            to={'/popularTravel'}
+            onClick={() => dispatch(setKeyword('제주'))}
+          >
             <hs.PopularImg src={busanImg} />
             부산
           </hs.PopularImgbox>
-          <hs.PopularImgbox>
+          <hs.PopularImgbox
+            to={'/popularTravel'}
+            onClick={() => dispatch(setKeyword('제주'))}
+          >
             <hs.PopularImg src={gangwonImg} />
             강원
           </hs.PopularImgbox>
         </hs.PopularTravelBox>
 
         <hs.InviteFriend>
-          친구 초대하기 <hs.InviteFriendImg src={shareImg}/>
+          친구 초대하기 <hs.InviteFriendImg src={shareImg} />
         </hs.InviteFriend>
 
         <hs.buttonWrraperContainer>
