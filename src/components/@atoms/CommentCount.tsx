@@ -1,22 +1,37 @@
-import { Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-function CommentCount() {
+interface CountProps {
+  cnt: number;
+  reply?: boolean;
+}
+
+function CommentCount({ cnt, reply }: CountProps) {
+  const navigate = useNavigate();
+  const postId = useParams().id;
+
+  const handleClick = () => {
+    if (reply === undefined) {
+      return navigate(`/trip/${postId}/comments`);
+    }
+  };
+
   return (
-    <CountContainer to={'/'}>
-      <CountText>댓글</CountText>
-      <Count>7</Count>
+    <CountContainer onClick={() => handleClick()}>
+      <CountText>{reply ? '답글' : '댓글'}</CountText>
+      {cnt > 0 && <Count>{cnt}</Count>}
     </CountContainer>
   );
 }
 
-const CountContainer = styled(Link)`
+const CountContainer = styled.div`
   border: 1px solid ${(props) => props.theme.colors.neutral1};
   border-radius: 5px;
   height: 23px;
   display: flex;
   align-items: center;
   width: fit-content;
+  cursor: pointer;
 `;
 
 const CountText = styled.p`

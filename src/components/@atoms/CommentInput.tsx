@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components';
-import { ReactComponent as Lock } from '../../asset/Lock.svg';
+import { ReactComponent as Lock } from '../../asset/lock.svg';
 import { ReactComponent as Register } from '../../asset/registerButton.svg';
 
 function CommentInput() {
@@ -20,7 +20,7 @@ function CommentInput() {
 
 const CommentInputContainer = styled.div`
   width: 100%;
-  height: 36px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -36,12 +36,14 @@ const LockWrap = styled.div`
   align-items: center;
   border: 1px solid ${(props) => props.theme.colors.neutral1};
   border-radius: 8px;
+  cursor: pointer;
 `;
 
 const InputWrap = styled.input`
   width: 70%;
   border: none;
   outline: none;
+  resize: none;
   ${(props) => props.theme.texts.content2}
   &::placeholder {
     ${(props) => props.theme.texts.content2};
