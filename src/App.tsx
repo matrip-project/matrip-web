@@ -25,11 +25,18 @@ import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
 import FAQ from './pages/FAQ';
 import CompanionList from './pages/CompanionList';
+import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
+import MyPostWrote from './pages/MyPostWrote';
 
 function App() {
   const serviceTabs = [
     { label: '공지사항', to: '/service/notice' },
     { label: '고객센터', to: '/service/faq' }
+  ];
+
+  const companions = [
+    { label: '관심 동행 목록', to: '/companionLog/myInterestedCompanionLog' },
+    { label: '내가 쓴 글', to: '/companionLog/myPostWrote' }
   ];
 
   return (
@@ -51,8 +58,12 @@ function App() {
           <Route path='/notifications' element={<Notificiation />} />
           <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
-          <Route path='/CompanionList' element={<CompanionList />} />
+          <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
+          <Route path='/companionLog/' element={<TabMenu tabs={companions} />}>
+            <Route path='myInterestedCompanionLog' element={<MyInterestedCompanionLog />} />
+            <Route path='myPostWrote' element={<MyPostWrote />} />
+          </Route>
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
             <Route path='notice' element={<NoticeBoard />} />
             <Route path='faq' element={<FAQ />} />

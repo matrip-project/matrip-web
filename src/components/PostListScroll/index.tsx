@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { postdata } from '../../data/postdata';
-import * as us from './UserListStyle';
+import * as us from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
@@ -37,32 +37,36 @@ const PostListScroll: React.FC = () => {
   }, []);
   return (
     <>
-      {filteredPosts.slice(0, displayCount).map((post: any) => (
-        <us.postBox key={post.id}>
-          <us.contentsBox>
-            <us.contentsTopBox>
-              <us.postDibsBtn>
-                <img src={recruitingImage} alt='Recruiting Image' />
-              </us.postDibsBtn>
-              <us.postPeriod>
-                {post.startDate}~{post.endData}
-              </us.postPeriod>
-            </us.contentsTopBox>
+      {filteredPosts.length === 0 ? (
+        <div>No posts found.</div>
+      ) : (
+        filteredPosts.slice(0, displayCount).map((post: any) => (
+          <us.postBox key={post.id}>
+            <us.contentsBox>
+              <us.contentsTopBox>
+                <us.postDibsBtn>
+                  <img src={recruitingImage} alt='Recruiting Image' />
+                </us.postDibsBtn>
+                <us.postPeriod>
+                  {post.startDate}~{post.endData}
+                </us.postPeriod>
+              </us.contentsTopBox>
 
-            <us.postContent>
-              <us.postTitle>
-                [{post.destination}] {post.title}
-              </us.postTitle>
-            </us.postContent>
+              <us.postContent>
+                <us.postTitle>
+                  [{post.destination}] {post.title}
+                </us.postTitle>
+              </us.postContent>
 
-            <us.postNickname>{post.nick}</us.postNickname>
-          </us.contentsBox>
+              <us.postNickname>{post.nick}</us.postNickname>
+            </us.contentsBox>
 
-          <us.postImgBox>
-            <us.postImg src={post.imgurl} alt='유저 프로필' />
-          </us.postImgBox>
-        </us.postBox>
-      ))}
+            <us.postImgBox>
+              <us.postImg src={post.imgurl} alt='유저 프로필' />
+            </us.postImgBox>
+          </us.postBox>
+        ))
+      )}
     </>
   );
 };
