@@ -3,9 +3,9 @@ import React from 'react';
 import * as mcl from './myCompanionLogStyle';
 import * as gs from '../../styles/GlobalStyles';
 import UserList from '../../components/UserList';
-import listIcon from '../../asset/listIcon.png';
-import TitleIcon from '../../asset/titleIcon.png';
-import backButtonIcon from '../../asset/backButtonIcon.png';
+import listIcon from '../../asset/listIcon.svg';
+import TitleIcon from '../../asset/titleIcon.svg';
+import backButtonIcon from '../../asset/backButtonIcon.svg';
 
 const MyInterestedCompanionLog: React.FC = () => {
   return (

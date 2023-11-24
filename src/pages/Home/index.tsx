@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as hs from './homeStyle';
 import logo from '../../asset/logo.png';
-import addPostButton from '../../asset/addPostButton.png';
+import addPostButton from '../../asset/addPostButton.svg';
 import jejuImg from '../../asset/ImgJeju.png';
 import busanImg from '../../asset/ImgBusan.png';
 import gangwonImg from '../../asset/ImgGangwon.png';
-import shareImg from '../../asset/share.png';
+import shareImg from '../../asset/share.svg';
 
 import UserList from '../../components/UserList';
 import Search from '../../components/Search';
