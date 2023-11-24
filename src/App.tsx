@@ -27,6 +27,7 @@ import FAQ from './pages/FAQ';
 import CompanionList from './pages/CompanionList';
 import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
 import MyPostWrote from './pages/MyPostWrote';
+import PopularTravel from './pages/PopularTravel';
 
 function App() {
   const serviceTabs = [
@@ -60,6 +61,7 @@ function App() {
           <Route path='/mapSearch' element={<MapSearch />} />
           <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
+          <Route path='/popularTravel' element={<PopularTravel />} />
           <Route path='/companionLog/' element={<TabMenu tabs={companions} />}>
             <Route path='myInterestedCompanionLog' element={<MyInterestedCompanionLog />} />
             <Route path='myPostWrote' element={<MyPostWrote />} />
