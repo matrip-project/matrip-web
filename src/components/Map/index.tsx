@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { styled } from 'styled-components';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 interface GoogleMapComponentProps {
@@ -28,9 +27,7 @@ function Map({ zoom, center }: GoogleMapComponentProps) {
           mapContainerStyle={{
             width: '100%',
             height: '200px',
-            position: 'relative',
-            borderRadius: '25px',
-            boxShadow: '-2px 4px 16px 2px rgba(0, 0, 0, 0.15)'
+            position: 'relative'
           }}
           zoom={zoom}
           center={mapCenter}
