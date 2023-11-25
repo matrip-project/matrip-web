@@ -17,6 +17,7 @@ const PostListScroll: React.FC<PostListScrollProps> = ({ onShowTitleBox, onNoPos
   const searchKeyword = useSelector(selectKeyword);
   const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
 
+  // 일단 keyword 검색과 인기여행지 눌렀을 때 합쳐서 구현 - 추후 백엔드 api 들어오면 맞게 수정 예정
   const keyword = searchKeyword || popularTravelKeyword;
 
   // 키워드를 기반으로 게시물 필터링
