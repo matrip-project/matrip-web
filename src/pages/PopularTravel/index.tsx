@@ -32,6 +32,8 @@ const PopularTravel: React.FC = () => {
     setIsFilterClicked((prev) => !prev);
   };
 
+  const handleNoPosts = () => {};
+
   const cityImages: CityImages = {
     부산,
     충북,
@@ -56,6 +58,7 @@ const PopularTravel: React.FC = () => {
         <cs.PopularImageContainer>
           <img src={cityImages[Popularkeyword]} alt={Popularkeyword} />
         </cs.PopularImageContainer>
+
         <cs.TitleBox>
           <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
@@ -70,7 +73,8 @@ const PopularTravel: React.FC = () => {
             <button>{isFilterClicked ? 'test' : 'test'}</button>
           )}
         </cs.TitleBox>
-        <PostListScroll />
+
+        <PostListScroll onNoPosts={handleNoPosts} />
       </gs.MainContainer>
     </>
   );

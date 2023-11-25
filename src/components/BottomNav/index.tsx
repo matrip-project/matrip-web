@@ -5,9 +5,12 @@ import { BiHomeAlt } from 'react-icons/bi';
 import { HiMiniMagnifyingGlass } from 'react-icons/hi2';
 import { BsPerson, BsGrid } from 'react-icons/bs';
 import { getColor } from '../../utils/colorUtils';
+import { useDispatch } from 'react-redux';
+import { setKeyword } from '../../redux/modules/keywordImgSlice';
 
 function BottomNav() {
   const [isActive, setIsActive] = useState<number>(1);
+  const dispatch = useDispatch();
 
   return (
     <NavContainer>
@@ -18,7 +21,13 @@ function BottomNav() {
         <NavBtn to={'/CompanionList'} onClick={() => setIsActive(2)}>
           <StyledGlass size='30' $isActive={isActive} />
         </NavBtn>
-        <NavBtn to={'/PopularTravel'} onClick={() => setIsActive(3)}>
+        <NavBtn
+          to={'/PopularTravel'}
+          onClick={() => {
+            setIsActive(3);
+            dispatch(setKeyword('제주'));
+          }}
+        >
           <StyledGrid size='30' $isActive={isActive} />
         </NavBtn>
         <NavBtn to={'/userProfile'} onClick={() => setIsActive(4)}>

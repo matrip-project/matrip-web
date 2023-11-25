@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { postdata } from '../../data/postdata';
 import * as pls from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
@@ -7,7 +6,11 @@ import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 
-const PostListScroll: React.FC = () => {
+interface PostListScrollProps {
+  onNoPosts: () => void;
+}
+
+const PostListScroll: React.FC<PostListScrollProps> = ({ onNoPosts }) => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const searchKeyword = useSelector(selectKeyword);
@@ -39,6 +42,12 @@ const PostListScroll: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if (filteredPosts.length === 0) {
+      onNoPosts();
+    }
+  }, [filteredPosts, onNoPosts]);
 
   return (
     <>
