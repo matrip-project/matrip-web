@@ -9,6 +9,8 @@ import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import PostListScroll from '../../components/PostListScroll';
+import Collapsible from '../../components/@atoms/Collapsible';
+import SelectButton from '../../components/SelectButton';
 
 const CompanionList: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(false);
@@ -52,9 +54,7 @@ const CompanionList: React.FC = () => {
                 />
               </cs.tapTitle2>
 
-              {!isFilterClicked && (
-                <button>{isFilterClicked ? 'test' : 'test'}</button>
-              )}
+              {!isFilterClicked && <SelectButton/>}
             </cs.TitleBox>
           </>
         )}
