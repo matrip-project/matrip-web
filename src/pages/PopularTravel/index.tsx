@@ -18,11 +18,11 @@ import jeonnam from '../../asset/popularImg/jeonnam.png';
 import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import PostListScroll from '../../components/PostListScroll';
-import { selectKeyword } from '../../redux/modules/keywordImgSlice';
+import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 
 const PopularTravel: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(true);
-  const keyword = useSelector(selectKeyword);
+  const keyword = useSelector(selectPopularTravelKeyword);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -40,7 +40,7 @@ const PopularTravel: React.FC = () => {
           <cs.tapTitle2>
             · 217개 동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
-              src={isFilterClicked ? fillterIconNone : fillterIcon}
+              src={isFilterClicked ? fillterIconNone :  fillterIcon}
               onClick={handleFilterClick}
             />
           </cs.tapTitle2>

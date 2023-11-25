@@ -5,11 +5,15 @@ import * as us from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
+import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 
 const PostListScroll: React.FC = () => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
-  const keyword = useSelector(selectKeyword);
+  const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
+  const searchKeyword = useSelector(selectKeyword);
+  
+  const keyword = popularTravelKeyword || searchKeyword;
 
   // 키워드를 기반으로 게시물 필터링
   const filteredPosts = postdata.filter(
@@ -35,6 +39,7 @@ const PostListScroll: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   return (
     <>
       {filteredPosts.length === 0 ? (

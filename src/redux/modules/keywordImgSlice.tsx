@@ -19,6 +19,6 @@ const keywordImgSlice = createSlice({
 });
 
 export const { setKeyword } = keywordImgSlice.actions;
-export const selectKeyword = (state: { keyword: KeywordState }) => state.keyword.value;
+export const selectPopularTravelKeyword = (state: { keyword: KeywordState }) => state.keyword.value;
 
 export default keywordImgSlice.reducer;

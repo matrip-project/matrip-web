@@ -113,4 +113,9 @@ export const InviteFriend = styled.button`
   align-items: center;
 `;
 
-export const InviteFriendImg = styled.img``;
+export const InviteFriendImg = styled.img`
+  z-index: 1;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #d30065;
+`;
