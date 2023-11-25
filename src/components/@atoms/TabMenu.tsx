@@ -41,7 +41,7 @@ const TabMenu: React.FC<TabProps> = ({ tabs }) => {
   );
 };
 
-const TabContainer = styled.div`
+export const TabContainer = styled.div`
   width: 100%;
   height: 28px;
   display: flex;
@@ -52,7 +52,7 @@ const TabContainer = styled.div`
 
 const TabWrapper = styled(Link)``;
 
-const TabTitle = styled.div<{ active: boolean }>`
+export const TabTitle = styled.div<{ active: boolean }>`
   ${(props) => props.theme.texts.tapTitle1}
   color: ${(props) =>
     props.active

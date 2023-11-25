@@ -4,21 +4,25 @@ import * as cs from './popularTravelStyle';
 import logo from '../../asset/logo.png';
 import fillterIcon from '../../asset/fillterIcon.svg';
 import fillterIconNone from '../../asset/fillterIconNone.svg';
-import busan from '../../asset/popularImg/busan.png';
-import choongbuk from '../../asset/popularImg/choongbuk.png';
-import buschoongnaman from '../../asset/popularImg/choongnam.png';
-import gwangwon from '../../asset/popularImg/gwangwon.png';
-import gyungbuk from '../../asset/popularImg/gyungbuk.png';
-import gyungki from '../../asset/popularImg/gyungki.png';
-import gyungnam from '../../asset/popularImg/gyungnam.png';
-import incheon from '../../asset/popularImg/incheon.png';
-import jeju from '../../asset/popularImg/jeju.png';
-import jeonbuk from '../../asset/popularImg/jeonbuk.png';
-import jeonnam from '../../asset/popularImg/jeonnam.png';
+import 부산 from '../../asset/popularImg/busan.png';
+import 충북 from '../../asset/popularImg/choongbuk.png';
+import 충남 from '../../asset/popularImg/choongnam.png';
+import 강원 from '../../asset/popularImg/gwangwon.png';
+import 경북 from '../../asset/popularImg/gyungbuk.png';
+import 경기 from '../../asset/popularImg/gyungki.png';
+import 경남 from '../../asset/popularImg/gyungnam.png';
+import 인천 from '../../asset/popularImg/incheon.png';
+import 제주 from '../../asset/popularImg/jeju.png';
+import 전북 from '../../asset/popularImg/jeonbuk.png';
+import 전남 from '../../asset/popularImg/jeonnam.png';
 import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import PostListScroll from '../../components/PostListScroll';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
+
+interface CityImages {
+  [key: string]: any;
+}
 
 const PopularTravel: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(true);
@@ -28,6 +32,20 @@ const PopularTravel: React.FC = () => {
     setIsFilterClicked((prev) => !prev);
   };
 
+  const cityImages: CityImages = {
+    부산,
+    충북,
+    충남,
+    강원,
+    경북,
+    경기,
+    경남,
+    인천,
+    제주,
+    전북,
+    전남
+  } as const;
+
   return (
     <>
       <gs.MainContainer>
@@ -35,12 +53,15 @@ const PopularTravel: React.FC = () => {
           <cs.HeaderLogo src={logo}></cs.HeaderLogo>
         </cs.HomeHeader>
         <Search />
+        <cs.PopularImageContainer>
+          <img src={cityImages[keyword]} alt={keyword} />
+        </cs.PopularImageContainer>
         <cs.TitleBox>
           <cs.MainTitle>{keyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
             · 217개 동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
-              src={isFilterClicked ? fillterIconNone :  fillterIcon}
+              src={isFilterClicked ? fillterIconNone : fillterIcon}
               onClick={handleFilterClick}
             />
           </cs.tapTitle2>

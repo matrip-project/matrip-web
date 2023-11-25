@@ -60,3 +60,7 @@ export const searchResultIcon = styled.img`
   justify-content: center;
   text-align: center;
 `;
+
+export const PopularImageContainer = styled.div`
+  margin-bottom: 30px;
+`;
