@@ -26,7 +26,7 @@ interface CityImages {
 
 const PopularTravel: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(true);
-  const keyword = useSelector(selectPopularTravelKeyword);
+  const Popularkeyword = useSelector(selectPopularTravelKeyword);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -44,7 +44,7 @@ const PopularTravel: React.FC = () => {
     제주,
     전북,
     전남
-  } as const;
+  };
 
   return (
     <>
@@ -54,10 +54,10 @@ const PopularTravel: React.FC = () => {
         </cs.HomeHeader>
         <Search />
         <cs.PopularImageContainer>
-          <img src={cityImages[keyword]} alt={keyword} />
+          <img src={cityImages[Popularkeyword]} alt={Popularkeyword} />
         </cs.PopularImageContainer>
         <cs.TitleBox>
-          <cs.MainTitle>{keyword} 일정</cs.MainTitle>
+          <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
             · 217개 동행일정을 둘러보세요.
             <cs.tapTitle2Fillter

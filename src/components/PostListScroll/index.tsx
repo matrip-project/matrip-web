@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { postdata } from '../../data/postdata';
-import * as us from './postListScrollStyle';
+import * as pls from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
@@ -10,10 +10,10 @@ import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice'
 const PostListScroll: React.FC = () => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
-  const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
   const searchKeyword = useSelector(selectKeyword);
+  const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
   
-  const keyword = popularTravelKeyword || searchKeyword;
+  const keyword = searchKeyword || popularTravelKeyword;
 
   // 키워드를 기반으로 게시물 필터링
   const filteredPosts = postdata.filter(
@@ -43,33 +43,33 @@ const PostListScroll: React.FC = () => {
   return (
     <>
       {filteredPosts.length === 0 ? (
-        <div>No posts found.</div>
+        <pls.noPost>게시글이 없어요.</pls.noPost>
       ) : (
         filteredPosts.slice(0, displayCount).map((post: any) => (
-          <us.postBox key={post.id}>
-            <us.contentsBox>
-              <us.contentsTopBox>
-                <us.postDibsBtn>
+          <pls.postBox key={post.id}>
+            <pls.contentsBox>
+              <pls.contentsTopBox>
+                <pls.postDibsBtn>
                   <img src={recruitingImage} alt='Recruiting Image' />
-                </us.postDibsBtn>
-                <us.postPeriod>
+                </pls.postDibsBtn>
+                <pls.postPeriod>
                   {post.startDate}~{post.endData}
-                </us.postPeriod>
-              </us.contentsTopBox>
+                </pls.postPeriod>
+              </pls.contentsTopBox>
 
-              <us.postContent>
-                <us.postTitle>
+              <pls.postContent>
+                <pls.postTitle>
                   [{post.destination}] {post.title}
-                </us.postTitle>
-              </us.postContent>
+                </pls.postTitle>
+              </pls.postContent>
 
-              <us.postNickname>{post.nick}</us.postNickname>
-            </us.contentsBox>
+              <pls.postNickname>{post.nick}</pls.postNickname>
+            </pls.contentsBox>
 
-            <us.postImgBox>
-              <us.postImg src={post.imgurl} alt='유저 프로필' />
-            </us.postImgBox>
-          </us.postBox>
+            <pls.postImgBox>
+              <pls.postImg src={post.imgurl} alt='유저 프로필' />
+            </pls.postImgBox>
+          </pls.postBox>
         ))
       )}
     </>

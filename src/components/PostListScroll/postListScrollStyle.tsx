@@ -17,6 +17,15 @@ export const postBox = styled.div`
   margin-bottom: 22px;
 `;
 
+export const noPost = styled.div`
+  ${(props) => props.theme.texts.tapTitle2};
+  font-size: 16px;
+  height: 501px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const contentsTopBox = styled.div`
   width: 100%;
   display: flex;
