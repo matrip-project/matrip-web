@@ -7,15 +7,16 @@ import { selectKeyword } from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 
 interface PostListScrollProps {
-  onNoPosts: () => void;
+  onNoPosts: () => void; 
+  onShowTitleBox: () => void;
 }
 
-const PostListScroll: React.FC<PostListScrollProps> = ({ onNoPosts }) => {
+const PostListScroll: React.FC<PostListScrollProps> = ({ onShowTitleBox, onNoPosts }) => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const searchKeyword = useSelector(selectKeyword);
   const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
-  
+
   const keyword = searchKeyword || popularTravelKeyword;
 
   // 키워드를 기반으로 게시물 필터링
@@ -43,11 +44,14 @@ const PostListScroll: React.FC<PostListScrollProps> = ({ onNoPosts }) => {
     };
   }, []);
 
+  // 필터링된 포스트 배열 길이 값 관리
   useEffect(() => {
     if (filteredPosts.length === 0) {
       onNoPosts();
+    } else {
+      onShowTitleBox();
     }
-  }, [filteredPosts, onNoPosts]);
+  }, [filteredPosts, onNoPosts, onShowTitleBox]);
 
   return (
     <>

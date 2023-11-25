@@ -19,6 +19,10 @@ const CompanionList: React.FC = () => {
     setIsFilterClicked((prev) => !prev);
   };
 
+  const handleShowTitleBox = () => {
+    setShowTitleBox(true);
+  };
+
   const handleNoPosts = () => {
     setShowTitleBox(false);
   };
@@ -36,7 +40,6 @@ const CompanionList: React.FC = () => {
           {keyword} 검색 결과 입니다.
         </cs.searchResult>
 
-   
         {showTitleBox && (
           <>
             <cs.TitleBox>
@@ -56,7 +59,10 @@ const CompanionList: React.FC = () => {
           </>
         )}
 
-        <PostListScroll onNoPosts={handleNoPosts} />
+        <PostListScroll
+          onShowTitleBox={handleShowTitleBox}
+          onNoPosts={handleNoPosts}
+        />
       </gs.MainContainer>
     </>
   );

@@ -33,6 +33,7 @@ const PopularTravel: React.FC = () => {
   };
 
   const handleNoPosts = () => {};
+  const handleShowTitleBox = () => {};
 
   const cityImages: CityImages = {
     부산,
@@ -74,7 +75,10 @@ const PopularTravel: React.FC = () => {
           )}
         </cs.TitleBox>
 
-        <PostListScroll onNoPosts={handleNoPosts} />
+        <PostListScroll
+          onShowTitleBox={handleShowTitleBox}
+          onNoPosts={handleNoPosts}
+        />
       </gs.MainContainer>
     </>
   );
