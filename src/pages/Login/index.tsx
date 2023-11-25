@@ -4,8 +4,8 @@ import * as gs from '../../styles/GlobalStyles';
 import * as ls from './loginStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
-import naverLogo from '../../asset/naver.png';
-import kakaoLogo from '../../asset/kakao.jpg';
+import naverLogo from '../../asset/ImgBusan.png';
+import kakaoLogo from '../../asset/ImgGangwon.png';
 
 function Login() {
   const [input, setInput] = useState({
