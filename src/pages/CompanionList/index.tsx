@@ -9,6 +9,7 @@ import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import PostListScroll from '../../components/PostListScroll';
+import Collapsible from '../../components/@atoms/Collapsible';
 import SelectButton from '../../components/SelectButton';
 
 const CompanionList: React.FC = () => {
