@@ -74,6 +74,7 @@ function App() {
             />
             <Route path='/companionLog/myPostWrote' element={<MyPostWrote />} />
           </Route>
+
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
             <Route path='notice' element={<NoticeBoard />} />
             <Route path='faq' element={<FAQ />} />
