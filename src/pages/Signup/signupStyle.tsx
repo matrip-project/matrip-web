@@ -37,24 +37,24 @@ export const InputSpan = styled.span`
   color: #9c9c9c;
 `;
 
-export const GenderInput = styled.input.attrs({ type: 'radio' })`
-&:checked {
-    display: inline-block;
-    background: none;
-    padding: 0px 10px;
-    text-align: center;
-    height: 35px;
-    line-height: 33px;
-    font-weight: 500;
-    display: none;
-  }
-  &:checked + ${InputSpan} {
-    background: #5EAAA8;
-    color: #fff;
-  }
-  display: none;
-  }
-`;
+// export const GenderInput = styled.input.attrs({ type: 'radio' })`
+// &:checked {
+//     display: inline-block;
+//     background: none;
+//     padding: 0px 10px;
+//     text-align: center;
+//     height: 35px;
+//     line-height: 33px;
+//     font-weight: 500;
+//     display: none;
+//   }
+//   &:checked + ${InputSpan} {
+//     background: #5EAAA8;
+//     color: #fff;
+//   }
+//   display: none;
+//   }
+// `;
 
 export const BirthWrap = styled.div`
   display: flex;
@@ -67,8 +67,8 @@ export const BirthIcon = styled.div`
 `;
 
 export const SubmitBtn = styled.button`
-  background-color: #056676;
-  border: solid 1px #056676;
+  background-color: ${props=> props.theme.colors.primary};
+  border: none;
   border-radius: 35px;
   width: 100%;
   color: #fff;
