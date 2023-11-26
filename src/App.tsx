@@ -29,6 +29,7 @@ import MyPostWrote from './pages/MyPostWrote';
 import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
+import TopNav from './components/TopNav';
 
 function App() {
   const serviceTabs = [
@@ -46,6 +47,7 @@ function App() {
       <BrowserRouter>
         <GlobalFonts />
         <GlobalStyle />
+        <TopNav />
         <BottomNav />
         <Routes>
           <Route path='/' element={<Home />} />
@@ -65,19 +67,20 @@ function App() {
           <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
           <Route path='/popularTravel' element={<PopularTravel />} />
-          <Route path='/companionLog/' element={<TabMenu tabs={companions} />}>
+          <Route path='/companionLog' element={<TabMenu tabs={companions} />}>
             <Route
-              path='myInterestedCompanionLog'
+              path='/companionLog/myInterestedCompanionLog'
               element={<MyInterestedCompanionLog />}
             />
-            <Route path='myPostWrote' element={<MyPostWrote />} />
+            <Route path='/companionLog/myPostWrote' element={<MyPostWrote />} />
           </Route>
+
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
             <Route path='notice' element={<NoticeBoard />} />
             <Route path='faq' element={<FAQ />} />
           </Route>
           <Route path='/*' element={<NotFound />} />
-        </Routes> 
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );
