@@ -121,6 +121,12 @@ const NavBtn = styled(Link)`
   padding: 0 15px;
 `;
 
-const StyledIcon = styled.img<{ isActive: boolean }>``;
+
+const StyledIcon = styled.img<{ isActive: boolean }>`
+  border-top: ${({ isActive }) => (isActive ? '4px solid #D30065' : 'none')};
+  padding: 12px 7px 12px 7px;
+  width: 80%;
+  height: 100%;
+`;
 
 export default BottomNav;
