@@ -19,6 +19,7 @@ import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import PostListScroll from '../../components/PostListScroll';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
+import SelectButton from '../../components/SelectButton';
 
 interface CityImages {
   [key: string]: any;
@@ -70,9 +71,7 @@ const PopularTravel: React.FC = () => {
             />
           </cs.tapTitle2>
 
-          {!isFilterClicked && (
-            <button>{isFilterClicked ? 'test' : 'test'}</button>
-          )}
+          {isFilterClicked && <SelectButton />}
         </cs.TitleBox>
 
         <PostListScroll
