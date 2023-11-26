@@ -22,8 +22,8 @@ export interface ButtonProps
 
 const StyledInterestButton = styled.button<ButtonProps>`
 
-  background: ${(props) => (props.type === 'primary' ? '#FFF' : props.theme.colors.primary)};
-  color: ${(props) => (props.type === 'primary' ?  'black' :  props.theme.colors.white)};
+  background: ${(props) => (props.type === 'primary' ? props.theme.colors.white : props.theme.colors.primary)};
+  color: ${(props) => (props.type === 'primary' ?  props.theme.colors.black :  props.theme.colors.white)};
   padding: ${(props) => (props.size === 'large' ? '10px 20px' : props.size === 'medium' ? '4px 18px' : '2px 5px')};
   border-radius: 20px;
   border: 1px solid #D9D9D9;

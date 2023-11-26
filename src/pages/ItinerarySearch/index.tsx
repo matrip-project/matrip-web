@@ -127,7 +127,6 @@ const ItinerarySearch: React.FC = () => {
             <ms.locationBox>
               <HiMapPin size='24' />
               <ms.marginzeroP>
-                {' '}
                 현위치 : 서울 마포구 마포대로 122
               </ms.marginzeroP>
             </ms.locationBox>

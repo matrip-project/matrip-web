@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const HomeHeader = styled.div`
@@ -5,20 +6,11 @@ export const HomeHeader = styled.div`
   width: 80%;
   justify-content: space-between;
   margin-top: 30px;
+  padding: 18px 120px;
 `;
 
-export const HeaderTextCtnr = styled.div``;
-
-export const HeaderTextMain = styled.p`
-  font-size: 30px;
-  font-weight: 700;
-  margin: 5px 0px;
-`;
-
-export const HeaderTextSub = styled.div`
-  font-size: 13px;
-  color: grey;
-  margin: 10px 0px;
+export const HeaderLogo = styled.img`
+  margin: auto;
 `;
 
 export const HeaderIconCtnr = styled.div`
@@ -27,167 +19,103 @@ export const HeaderIconCtnr = styled.div`
   justify-content: space-around;
 `;
 
-export const SuggetCardCtnr = styled.div`
-  width: 100%;
+export const TitleBox = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 30px 0px;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  margin-left: 23px;
 `;
 
-export const SuggetCard = styled.div`
-  width: 80%;
-  padding-bottom: 90%;
-  background-color: #fff;
-  border-radius: 25px;
-  overflow: hidden;
+export const MainTitle = styled.div`
+  ${(props) => props.theme.texts.mainTitle};
+  margin-bottom: 8px;
+`;
+
+export const tapTitle2 = styled.div`
+  ${(props) => props.theme.texts.tapTitle2};
+  margin-bottom: 12px;
+`;
+
+export const buttonWrraperContainer = styled.div`
   position: relative;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 390px;
 `;
 
-export const SuggetCardImg = styled.img`
-  position: absolute;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-`;
-
-export const SuggetCardBtnCtnr = styled.div`
-  background-color: #fff;
-  z-index: 9999;
-  position: absolute;
-  width: 90%;
-  height: 80px;
-  left: 5%;
-  bottom: 20px;
-  border-radius: 25px;
-  background-color: rgb(255, 255, 255, 0.79);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const SuggetCardTextCtnr = styled.div`
-  margin-left: 25px;
-`;
-
-export const SuggetCardTextName = styled.div`
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-export const SuggetCardTextDate = styled.p`
-  font-size: 19px;
-`;
-
-export const BookmarkBtn = styled.div`
-  background-color: #fff;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 45px;
-  height: 45px;
+export const postContainer = styled(Link)`
+  position: fixed;
+  bottom: 80px;
   right: 25px;
-  position: absolute;
 `;
 
-export const RecommedSliderWrapper = styled.div`
-  width: 80%;
-  height: 260px;
-  overflow-x: hidden;
-  position: relative;
+export const WriteBtn = styled.img``;
+
+export const ScheduleMoreBtn = styled(Link)`
+  display: inline-flex;
+  padding: 6px 14px 6px 16px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 48px;
+  border: 0.5px solid var(--Deactivation, #adadad);
+  background: #fff;
+  margin-bottom: 40px;
+
+  color: var(--sub, #666);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 12px;
 `;
 
-interface RecommedSliderCtnrProps {
-  sliderPosition: number;
-}
-
-export const RecommedSliderCtnr = styled.div<RecommedSliderCtnrProps>`
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  display: flex;
-  flex-direction: row;
-
-  transform: ${(props) => `translateX(${-195 * props.sliderPosition}px)`};
-  transition: transform 0.5s ease;
-`;
-
-export const RecommedSliderCard = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  border-radius: 25px;
-  overflow: hidden;
-  margin-right: 15px;
-`;
-
-export const RecommedSliderCardImgCtnr = styled.div`
-  width: 180px;
-  height: 180px;
-
-  background-color: #fff;
-
-  overflow: hidden;
-  position: relative;
-`;
-
-export const RecommedSliderCardImg = styled.img`
-  object-fit: cover;
-  position: absolute;
+export const PopularTravel = styled.div`
+  ${(props) => props.theme.texts.mainTitle};
   width: 100%;
-  height: 100%;
+  text-align: left;
+  margin-left: 23px;
+  margin-bottom: 20px;
 `;
 
-export const RecommedSliderCardTextCtnr = styled.div`
-  background-color: #fff;
-  width: 100%;
-  height: 60px;
-  z-index: 999;
-  left: 10px;
-  bottom: 15px;
-
+export const PopularTravelBox = styled.div`
   display: flex;
-
-  flex-direction: column;
+  margin-left: 23px;
 `;
 
-export const RecommendTextMain = styled.p`
-  font-size: 20px;
+export const PopularImgbox = styled(Link)`
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: center;
+  margin-right: 20px;
+`;
+
+export const PopularImg = styled.img``;
+
+export const InviteFriend = styled.button`
+  display: inline-flex;
+  padding: 12px 20px;
+  align-items: flex-start;
+  gap: 6px;
+  border-radius: 50px;
+  border: 0px;
+  background: var(--Main-color, #d30065);
+  color: white;
+  margin-top: 40px;
+  margin-bottom: 118px;
+
+  color: var(--theme-white-theme-core-tokens-pure-white, #fff);
+  font-size: 16px;
+  font-style: normal;
   font-weight: 700;
-  margin: 9px 0px 3px 10px;
+  line-height: 12px;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const RecommendTextSub = styled.div`
-  font-size: 7px;
-  color: grey;
-  margin: 5px 0px 3px 10px;
-`;
-
-export const SliderLeft = styled.button`
-  position: absolute;
-  left: 0px;
-  top: 105px;
-  background-color: rgba(255, 255, 255, 0.7);
-  z-index: 9999;
-
-  height: 50px;
-  width: 50px;
-  border-radius: 100px;
-`;
-
-export const SliderRight = styled.button`
-  position: absolute;
-  right: 0px;
-  top: 105px;
-  background-color: rgba(255, 255, 255, 0.7);
-  z-index: 9999;
-
-  height: 50px;
-  width: 50px;
-  border-radius: 100px;
+export const InviteFriendImg = styled.img`
+  z-index: 1;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #d30065;
 `;

@@ -143,7 +143,8 @@ body{
 
 // 전체 화면 컨테이너
 export const MainContainer = styled.div`
-  width: 100%;
+  width: 390px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,16 +153,14 @@ export const MainContainer = styled.div`
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너
 export const MainBox = styled.div`
-  max-width: 600px;
-  width: 90%;
+  max-width: 390px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 30px 0 70px 0;
-  // background-color: #f0f0f0;
 
-  @media screen and (min-width: 600px) {
-    width: 600px;
+  @media screen and (min-width: 390px) {
+    width: 390px;
   }
 `;
 

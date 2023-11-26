@@ -7,7 +7,6 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme/theme';
 
 import Home from './pages/Home';
-import Main from './pages/Main';
 import MemberSearch from './pages/MemberSearch';
 import ItineraryInfo from './pages/ItineraryInfo';
 import UserProfile from './pages/UserProfile';
@@ -24,6 +23,13 @@ import Signup from './pages/Signup';
 import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
 import FAQ from './pages/FAQ';
+import CompanionList from './pages/CompanionList';
+import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
+import MyPostWrote from './pages/MyPostWrote';
+import Detail from './pages/Detail';
+import Comments from './pages/Comments';
+import PopularTravel from './pages/PopularTravel';
+import TopNav from './components/TopNav';
 
 function App() {
   const serviceTabs = [
@@ -31,17 +37,25 @@ function App() {
     { label: '고객센터', to: '/service/faq' }
   ];
 
+  const companions = [
+    { label: '관심 동행 목록', to: '/companionLog/myInterestedCompanionLog' },
+    { label: '내가 쓴 글', to: '/companionLog/myPostWrote' }
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <GlobalFonts />
         <GlobalStyle />
+        <TopNav />
         <BottomNav />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
+          <Route path='/trip/:id' element={<Detail />} />
+          <Route path='/trip/:id/comments' element={<Comments />} />
           <Route path='/memberSearch' element={<MemberSearch />} />
           <Route path='/member' element={<MemberDetail />} />
           <Route path='/itineraryInfo' element={<ItineraryInfo />} />
@@ -50,7 +64,17 @@ function App() {
           <Route path='/notifications' element={<Notificiation />} />
           <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
+          <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
+          <Route path='/popularTravel' element={<PopularTravel />} />
+          <Route path='/companionLog' element={<TabMenu tabs={companions} />}>
+            <Route
+              path='/companionLog/myInterestedCompanionLog'
+              element={<MyInterestedCompanionLog />}
+            />
+            <Route path='/companionLog/myPostWrote' element={<MyPostWrote />} />
+          </Route>
+
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
             <Route path='notice' element={<NoticeBoard />} />
             <Route path='faq' element={<FAQ />} />

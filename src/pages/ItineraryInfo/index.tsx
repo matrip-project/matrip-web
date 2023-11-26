@@ -10,7 +10,7 @@ import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
 import AddMember from '../../components/AddMember';
 import './index.scss';
-import Map from './itineraryComponents/Map';
+import Map from '../../components/Map';
 import { Link } from 'react-router-dom';
 
 const ItineraryInfo: React.FC = () => {

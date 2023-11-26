@@ -41,18 +41,18 @@ const TabMenu: React.FC<TabProps> = ({ tabs }) => {
   );
 };
 
-const TabContainer = styled.div`
+export const TabContainer = styled.div`
   width: 100%;
   height: 28px;
   display: flex;
-  justify-content: space-around;
+  gap: 40px;
   border-bottom: 2px solid ${(props) => props.theme.colors.neutral1};
   margin-bottom: 30px;
 `;
 
 const TabWrapper = styled(Link)``;
 
-const TabTitle = styled.div<{ active: boolean }>`
+export const TabTitle = styled.div<{ active: boolean }>`
   ${(props) => props.theme.texts.tapTitle1}
   color: ${(props) =>
     props.active
