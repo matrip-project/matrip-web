@@ -15,57 +15,10 @@ import navNoneHome from '../../asset/navNoneHome.svg';
 import navNoneAccompany from '../../asset/navNoneAccompany.svg';
 import navNonePopular from '../../asset/navNonePopular.svg';
 import navNoneMypage from '../../asset/navNoneMypage.svg';
-import navHomeIcon from '../../asset/navHomeIcon.svg';
-import navAccompanyIcon from '../../asset/navAccompanyIcon.svg';
-import navPopularIcon from '../../asset/navPopularIcon.svg';
-import navMupageIcon from '../../asset/navMupageIcon.svg';
-import navNoneHome from '../../asset/navNoneHome.svg';
-import navNoneAccompany from '../../asset/navNoneAccompany.svg';
-import navNonePopular from '../../asset/navNonePopular.svg';
-import navNoneMypage from '../../asset/navNoneMypage.svg';
 
 function BottomNav() {
   const [activeIcons, setActiveIcons] = useState<number[]>([1, 0, 0, 0]);
-  const [activeIcons, setActiveIcons] = useState<number[]>([1, 0, 0, 0]);
   const dispatch = useDispatch();
-
-  const getIconImage = (index: number) => {
-    if (activeIcons[index - 1]) {
-      switch (index) {
-        case 1:
-          return navHomeIcon;
-        case 2:
-          return navAccompanyIcon;
-        case 3:
-          return navPopularIcon;
-        case 4:
-          return navMupageIcon;
-        default:
-          return '';
-      }
-    } else {
-      switch (index) {
-        case 1:
-          return navNoneHome;
-        case 2:
-          return navNoneAccompany;
-        case 3:
-          return navNonePopular;
-        case 4:
-          return navNoneMypage;
-        default:
-          return '';
-      }
-    }
-  };
-
-  const handleIconClick = (index: number) => {
-    setActiveIcons((prev) => prev.map((_, i) => (i === index - 1 ? 1 : 0)));
-
-    if (index === 3) {
-      dispatch(setKeyword('제주'));
-    }
-  };
 
   const getIconImage = (index: number) => {
     if (activeIcons[index - 1]) {
