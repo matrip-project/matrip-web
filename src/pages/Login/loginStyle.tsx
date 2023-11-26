@@ -23,9 +23,31 @@ export const OptionBox = styled.div`
   font-weight: 600;
 `;
 
-export const SignupBtn = styled(Link)`
-  display: flex;
-  align-items: center;
+export const SignupBtn = styled.button`
+  background-color: ${props => props.theme.colors.neutral2};
+  border: none;
+  border-radius: 35px;
+  width: 100%;
+  color: #fff;
+  height: 46px;
+  font-size: 18px;
+`;
+
+export const SubmitBtn = styled.button`
+  background-color: ${props => props.theme.colors.primary};
+  border: none;
+  border-radius: 35px;
+  width: 100%;
+  color: #fff;
+  height: 46px;
+  font-size: 18px;
+`;
+
+export const TextBtn = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${props => props.theme.colors.black};
+  font-size: 13px;
 `;
 
 export const Or = styled.p`
@@ -65,12 +87,4 @@ export const GoogleIcon = styled.div`
   border-radius: 50%;
 `;
 
-export const SubmitBtn = styled.button`
-  background-color: #056676;
-  border: solid 1px #056676;
-  border-radius: 35px;
-  width: 100%;
-  color: #fff;
-  height: 56px;
-  font-size: 18px;
-`;
+
