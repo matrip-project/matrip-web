@@ -45,7 +45,7 @@ export const TabContainer = styled.div`
   width: 100%;
   height: 28px;
   display: flex;
-  justify-content: space-around;
+  gap: 40px;
   border-bottom: 2px solid ${(props) => props.theme.colors.neutral1};
   margin-bottom: 30px;
 `;

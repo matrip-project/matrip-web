@@ -9,7 +9,6 @@ import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import PostListScroll from '../../components/PostListScroll';
-import Collapsible from '../../components/@atoms/Collapsible';
 import SelectButton from '../../components/SelectButton';
 
 const CompanionList: React.FC = () => {
@@ -36,7 +35,6 @@ const CompanionList: React.FC = () => {
           <cs.HeaderLogo src={logo}></cs.HeaderLogo>
         </cs.HomeHeader>
         <Search />
-
         <cs.searchResult>
           <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
           {keyword} 검색 결과 입니다.
