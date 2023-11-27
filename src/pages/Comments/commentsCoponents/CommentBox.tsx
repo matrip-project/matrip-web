@@ -2,7 +2,7 @@ import styled, { useTheme } from 'styled-components';
 import { CommentProps } from '..';
 import UserIntro from '../../../components/UserIntro';
 import { ReactComponent as StaffIcon } from '../../../asset/staff.svg';
-import { ReactComponent as Lock } from '../../../asset/lock.svg';
+import { ReactComponent as Lock } from '../../../asset/Lock.svg';
 import CommentCount from '../../../components/@atoms/CommentCount';
 
 type CommentBoxProps = {
