@@ -112,7 +112,7 @@ const NavContainer = styled.div`
   position: fixed;
   bottom: 0;
   border-top: solid #dcdcdc 1px;
-  z-index: 999999;
+  z-index: 99;
 `;
 
 const NavWrap = styled.nav`
