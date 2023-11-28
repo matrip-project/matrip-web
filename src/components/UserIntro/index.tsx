@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface UserIntroProps {
   iconSize: number;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 function UserIntro({ iconSize, children }: UserIntroProps) {
@@ -19,6 +19,7 @@ function UserIntro({ iconSize, children }: UserIntroProps) {
 const InfoContainer = styled.div`
   display: flex;
   align-items: center;
+
 `;
 
 const ProfileIconWrap = styled(ProfileIcon)`
