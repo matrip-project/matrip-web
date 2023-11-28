@@ -11,6 +11,7 @@ import MemberSearch from './pages/MemberSearch';
 import ItineraryInfo from './pages/ItineraryInfo';
 import UserProfile from './pages/UserProfile';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 import ProfileViewer from './pages/ProfileViewer';
 import MapSearch from './pages/MapSearch';
 import TripSchedule from './pages/TripSchedule';
@@ -60,6 +61,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/mypage' element={<MyPageMain/>} />
           <Route path='/mypage/profile' element={<Profile/>} />
+          <Route path='/mypage/editProfile' element={<EditProfile/>} />
           <Route path='/profileView/:id' element={<ProfileViewer />}/>
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />

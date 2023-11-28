@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface UserIntroProps {
   iconSize: number;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 function UserIntro({ iconSize, children }: UserIntroProps) {

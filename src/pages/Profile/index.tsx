@@ -8,19 +8,8 @@ import ImageCarousel from '../../components/ImageCarousel';
 
 import rightIcon from '../../asset/arrowRight.svg';
 
-const userData = {
-  'hashTags': ['맛집', '자연', '불멍'],
-  'description': '즉흥적인 여행을 떠나는 여행자에요',
-  'name': 'yongho',
-  'images': [
-    'http://via.placeholder.com/137x105',
-    'http://via.placeholder.com/137x105',
-    'http://via.placeholder.com/137x105',
-    'http://via.placeholder.com/137x105',
-    'http://via.placeholder.com/137x105',
-    'http://via.placeholder.com/137x105',
-  ]
-};
+import {userData} from '../../data/userDummyData';
+
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
