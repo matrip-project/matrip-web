@@ -12,7 +12,8 @@ import UserList from '../../components/UserList';
 import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
-
+import { postdata } from '../../data/postdata';
+// {postdata.slice(0, 5).map((post: any) => (
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -27,7 +28,22 @@ const Home: React.FC = () => {
           <hs.MainTitle>동행일정</hs.MainTitle>
           <hs.tapTitle2>· 217개 동행일정을 둘러보세요.</hs.tapTitle2>
         </hs.TitleBox>
-        <UserList />
+        {postdata.slice(0, 5).map((data, index) => {
+          return (
+            <UserList
+              key={index}
+              nick={data.nick}
+              imgurl={data.imgurl}
+              destination={data.destination}
+              title={data.title}
+              post={data.post}
+              startDate={data.startDate}
+              endData={data.endData}
+              personnel={data.personnel}
+              dibs={data.dibs}
+            />
+          );
+        })}
         <hs.ScheduleMoreBtn to={'/CompanionList'}>
           일정 더보기 +
         </hs.ScheduleMoreBtn>
