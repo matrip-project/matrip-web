@@ -1,10 +1,9 @@
-import React, {ButtonHTMLAttributes} from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 type ButtonType = 'primary' | 'secondary' | 'ghost';
 type ButtonColor = 'black' | 'white' | 'black';
 type ButtonSize = 'small' | 'medium' | 'large';
-
 
 interface ContainerProps {
   type?: ButtonType;
@@ -21,13 +20,22 @@ export interface ButtonProps
 }
 
 const StyledInterestButton = styled.button<ButtonProps>`
-
-  background: ${(props) => (props.type === 'primary' ? props.theme.colors.white : props.theme.colors.primary)};
-  color: ${(props) => (props.type === 'primary' ?  props.theme.colors.black :  props.theme.colors.white)};
-  padding: ${(props) => (props.size === 'large' ? '10px 20px' : props.size === 'medium' ? '4px 18px' : '2px 5px')};
+  background: ${(props) =>
+    props.type === 'primary'
+      ? props.theme.colors.white
+      : props.theme.colors.primary};
+  color: ${(props) =>
+    props.type === 'primary'
+      ? props.theme.colors.black
+      : props.theme.colors.white};
+  padding: ${(props) =>
+    props.size === 'large'
+      ? '10px 20px'
+      : props.size === 'medium'
+      ? '4px 16px'
+      : '2px 5px'};
   border-radius: 20px;
-  border: 1px solid #D9D9D9;
-  // TODO 스타일 추가!
+  border: 1px solid ${(props) => props.theme.colors.neutral1};
 `;
 
 const InterestButton: React.FC<React.PropsWithChildren<ButtonProps>> = ({
@@ -38,12 +46,7 @@ const InterestButton: React.FC<React.PropsWithChildren<ButtonProps>> = ({
   ...rest
 }) => {
   return (
-    <StyledInterestButton
-      type={type}
-      color={color}
-      size={size}
-      {...rest}
-    >
+    <StyledInterestButton type={type} color={color} size={size} {...rest}>
       {children}
     </StyledInterestButton>
   );

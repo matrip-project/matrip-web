@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components';
-import { ReactComponent as Lock } from '../../asset/Lock.svg';
+import { ReactComponent as Lock } from '../../asset/lock.svg';
 import { ReactComponent as Register } from '../../asset/registerButton.svg';
 
 function CommentInput() {
