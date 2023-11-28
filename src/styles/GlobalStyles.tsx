@@ -50,6 +50,7 @@ ul,
 li,
 fieldset,
 form,
+textarea,
 label,
 legend,
 table,
@@ -134,6 +135,9 @@ a {
 html{
   font-size: 62.5%;
 }
+input, textarea {
+  outline: none;
+}
 
 body{
   background: ${(props) => props.theme.colors.white};
@@ -157,7 +161,7 @@ export const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px 0 70px 0;
+  margin: 0px 0 70px 0;
 
   @media screen and (min-width: 390px) {
     width: 390px;

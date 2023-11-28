@@ -52,7 +52,7 @@ function Header({ edit }: IsEdit) {
         </BackWrap>
         {edit && (
           <div>
-            <CompleteBtn>완료</CompleteBtn>
+            <CompleteBtn>저장</CompleteBtn>
           </div>
         )}
       </NavWrap>
@@ -66,8 +66,7 @@ const NavContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  border-bottom: solid #dcdcdc 1px;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const NavWrap = styled.nav`
@@ -75,8 +74,8 @@ const NavWrap = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media screen and (min-width: 600px) {
-    width: 600px;
+  @media screen and (min-width: 390px) {
+    width: 390px;
   }
 `;
 
@@ -99,7 +98,7 @@ const BackBtn = styled.button`
 const CompleteBtn = styled.button`
   border: none;
   background: none;
-  color: #056676;
+  color: ${(props) => props.theme.colors.black};
   font-size: 16px;
   font-weight: 600;
 `;

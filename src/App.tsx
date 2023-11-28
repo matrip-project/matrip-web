@@ -34,8 +34,8 @@ import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
 import TopNav from './components/TopNav';
-
-
+import Posting from './pages/Posting';
+import ScrollToTop from './utils/scrollToTop';
 
 function App() {
   const serviceTabs = [
@@ -51,6 +51,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <ScrollToTop />
         <GlobalFonts />
         <GlobalStyle />
         <TopNav />
@@ -59,16 +60,17 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/mypage' element={<MyPageMain/>} />
-          <Route path='/mypage/profile' element={<Profile/>} />
-          <Route path='/mypage/editProfile' element={<EditProfile/>} />
-          <Route path='/profileView/:id' element={<ProfileViewer />}/>
+          <Route path='/mypage' element={<MyPageMain />} />
+          <Route path='/mypage/profile' element={<Profile />} />
+          <Route path='/mypage/editProfile' element={<EditProfile />} />
+          <Route path='/profileView/:id' element={<ProfileViewer />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />
           <Route path='/trip/:id/comments' element={<Comments />} />
           <Route path='/memberSearch' element={<MemberSearch />} />
           <Route path='/member' element={<MemberDetail />} />
           <Route path='/itineraryInfo' element={<ItineraryInfo />} />
+          <Route path='/posting' element={<Posting />} />
           <Route path='/userProfile' element={<UserProfile />} />
           <Route path='/tripSchedule' element={<TripSchedule />} />
           <Route path='/notifications' element={<Notificiation />} />

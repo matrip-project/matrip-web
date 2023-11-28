@@ -79,7 +79,7 @@ const Home: React.FC = () => {
         </hs.InviteFriend>
 
         <hs.buttonWrraperContainer>
-          <hs.postContainer to={'/ItineraryInfo'}>
+          <hs.postContainer to={'/posting'}>
             <hs.WriteBtn src={addPostButton}></hs.WriteBtn>
           </hs.postContainer>
         </hs.buttonWrraperContainer>
