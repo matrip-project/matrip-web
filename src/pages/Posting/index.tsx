@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { MainBox, MainContainer } from '../../styles/GlobalStyles';
+import { ReactComponent as Exclamation } from '../../asset/exclamation.svg';
 import ImageUpload from './postingComponents/ImageUpload';
 import SpotSelect from './postingComponents/SpotSelect';
 import TitleInput from './postingComponents/TitleInput';
@@ -21,6 +22,7 @@ export interface StateProps {
 }
 
 function Posting() {
+  const [end, setEnd] = useState(false);
   const [destination, setDestination] = useState('');
   const [title, setTitle] = useState('');
   const [personnel, setPersonnel] = useState(0);
@@ -53,6 +55,17 @@ function Posting() {
           <TextField limit={50} state={tag} setState={setTag} />
         </PostingContainer>
         <LocationSelect center={location} />
+        <ChangeStateWrap>
+          <ChangeStateBtn onClick={() => setEnd(true)}>
+            모집 마감
+          </ChangeStateBtn>
+          <HelpBox>
+            <Exclamation />
+            <HelpWrap>
+              동행 인원이 마감되었을 경우 ‘모집 마감’을 눌러주세요.
+            </HelpWrap>
+          </HelpBox>
+        </ChangeStateWrap>
       </MainBox>
     </MainContainer>
   );
@@ -71,6 +84,29 @@ export const HelpWrap = styled.p`
   font-size: 1rem;
   line-height: 20px;
   margin-left: 3px;
+`;
+
+const ChangeStateWrap = styled.div`
+  width: 90%;
+  margin: 15px 0;
+`;
+
+const ChangeStateBtn = styled.button`
+  width: 100%;
+  height: 46px;
+  font-size: 16px;
+  font-weight: 700;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.primary};
+  border: solid 1px ${(props) => props.theme.colors.primary};
+  border-radius: 50px;
+`;
+
+const HelpBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
 `;
 
 export default Posting;
