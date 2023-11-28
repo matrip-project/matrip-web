@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-
-import { postdata } from '../../data/postdata';
 import * as us from './userListStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 
 interface Postdata {
   key: number;
+  id: number;
   nick: string;
   imgurl: string;
   destination: string;
@@ -17,13 +16,8 @@ interface Postdata {
   dibs: boolean;
 }
 
-interface PostListScrollProps {
-  onNoPosts: () => void; 
-  onShowTitleBox: () => void;
-}
-
-const UserList: React.FC<React.PropsWithChildren<Postdata>> = ({
-  key,
+const UserList: React.FC<Postdata> = ({
+  id,
   nick,
   imgurl,
   destination,
@@ -36,7 +30,10 @@ const UserList: React.FC<React.PropsWithChildren<Postdata>> = ({
 }) => {
   return (
     <>
-      <us.postBox key={key} to={`/trip/${key}`}>
+      <us.postBox
+        to={`/trip/${id}`}
+        // style={{ border: isListIconClicked ? '2px solid red' : 'none' }}
+      >
         <us.contentsBox>
           <us.contentsTopBox>
             <us.postDibsBtn>

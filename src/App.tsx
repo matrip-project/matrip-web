@@ -10,9 +10,13 @@ import Home from './pages/Home';
 import MemberSearch from './pages/MemberSearch';
 import ItineraryInfo from './pages/ItineraryInfo';
 import UserProfile from './pages/UserProfile';
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import ProfileViewer from './pages/ProfileViewer';
 import MapSearch from './pages/MapSearch';
 import TripSchedule from './pages/TripSchedule';
 import Notificiation from './pages/Notification';
+import MyPageMain from './pages/MyPageMain';
 import Dibs from './pages/Dibs';
 import NotFound from './pages/NotFound';
 import Management from './pages/Management';
@@ -30,6 +34,8 @@ import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
 import TopNav from './components/TopNav';
+
+
 
 function App() {
   const serviceTabs = [
@@ -53,6 +59,10 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/mypage' element={<MyPageMain/>} />
+          <Route path='/mypage/profile' element={<Profile/>} />
+          <Route path='/mypage/editProfile' element={<EditProfile/>} />
+          <Route path='/profileView/:id' element={<ProfileViewer />}/>
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />
           <Route path='/trip/:id/comments' element={<Comments />} />

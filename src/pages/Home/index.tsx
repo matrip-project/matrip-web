@@ -13,7 +13,6 @@ import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import { postdata } from '../../data/postdata';
-// {postdata.slice(0, 5).map((post: any) => (
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -32,6 +31,7 @@ const Home: React.FC = () => {
           return (
             <UserList
               key={index}
+              id={data.id}
               nick={data.nick}
               imgurl={data.imgurl}
               destination={data.destination}
@@ -41,6 +41,7 @@ const Home: React.FC = () => {
               endData={data.endData}
               personnel={data.personnel}
               dibs={data.dibs}
+              
             />
           );
         })}

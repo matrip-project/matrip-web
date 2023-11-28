@@ -13,22 +13,24 @@ const TripSchedule: React.FC = () => {
       <iss.MainContainer>
         <iss.wantList>찜 목록</iss.wantList>
         <iss.userList>
-        {postdata.map((data, index) => {
-        return (
-          <UserList
-            key={index}
-            nick={data.nick}
-            imgurl={data.imgurl}
-            destination={data.destination}
-            title={data.title}
-            post={data.post}
-            startDate={data.startDate}
-            endData={data.endData}
-            personnel={data.personnel}
-            dibs={data.dibs}
-          />
-        );
-      })}
+          {postdata.map((data, index) => {
+            return (
+              <UserList
+                key={index}
+                id={data.id}
+                nick={data.nick}
+                imgurl={data.imgurl}
+                destination={data.destination}
+                title={data.title}
+                post={data.post}
+                startDate={data.startDate}
+                endData={data.endData}
+                personnel={data.personnel}
+                dibs={data.dibs}
+                
+              />
+            );
+          })}
         </iss.userList>
       </iss.MainContainer>
     </gs.MainContainer>
