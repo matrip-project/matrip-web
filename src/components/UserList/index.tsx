@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as us from './userListStyle';
+import * as gs from '../../styles/GlobalStyles';
 import recruitingImage from '../../asset/recruiting.svg';
 
 interface Postdata {
@@ -16,7 +17,9 @@ interface Postdata {
   dibs: boolean;
 }
 
-const UserList: React.FC<Postdata> = ({
+const UserList: React.FC<
+  React.PropsWithChildren<Postdata & { isListIconClicked: boolean }>
+> = ({
   id,
   nick,
   imgurl,
@@ -26,13 +29,14 @@ const UserList: React.FC<Postdata> = ({
   startDate,
   endData,
   personnel,
-  dibs
+  dibs,
+  isListIconClicked
 }) => {
   return (
-    <>
+    <us.postwrapper>
       <us.postBox
         to={`/trip/${id}`}
-        // style={{ border: isListIconClicked ? '2px solid red' : 'none' }}
+        style={{ display: isListIconClicked ? '' : 'none' }}
       >
         <us.contentsBox>
           <us.contentsTopBox>
@@ -57,7 +61,20 @@ const UserList: React.FC<Postdata> = ({
           <us.postImg src={imgurl} alt='유저 프로필' />
         </us.postImgBox>
       </us.postBox>
-    </>
+
+      <us.titleContentsBox
+        to={`/trip/${id}`}
+        style={{ display: isListIconClicked ? 'none' : '' }}
+      >
+        <us.titlePostImgBox>
+          <us.titlePostImg src={imgurl} alt='유저 프로필' />
+        </us.titlePostImgBox>
+
+        <us.titlePostContent>
+          [{destination}] {title}
+        </us.titlePostContent>
+      </us.titleContentsBox>
+    </us.postwrapper>
   );
 };
 

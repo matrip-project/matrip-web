@@ -49,3 +49,9 @@ export const ListIcon = styled.img`
   width: 20px;
   cursor: pointer;
 `;
+
+export const DataUserPost = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+`;

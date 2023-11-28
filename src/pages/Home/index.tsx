@@ -41,7 +41,7 @@ const Home: React.FC = () => {
               endData={data.endData}
               personnel={data.personnel}
               dibs={data.dibs}
-              
+              isListIconClicked
             />
           );
         })}
