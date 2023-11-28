@@ -17,11 +17,6 @@ const TopNav: React.FC = () => {
     setHideTopNav(!(isInterestedCompanionLog || isPostWrote));
   }, [location]);
 
-  // 추후 마이페이지로 이동하는 동작 구현
-  const handleBackButtonClick = () => {
-    navigate(-1);
-  };
-
   if (hideTopNav) {
     return null;
   }
@@ -30,7 +25,7 @@ const TopNav: React.FC = () => {
     <gs.MainContainer>
       <mcl.TopNavBox>
         <mcl.BackPageButton
-          onClick={handleBackButtonClick}
+          onClick={() => navigate(-1)}
           src={backButtonIcon}
         ></mcl.BackPageButton>
       </mcl.TopNavBox>

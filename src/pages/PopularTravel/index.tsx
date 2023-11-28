@@ -71,7 +71,7 @@ const PopularTravel: React.FC = () => {
             />
           </cs.tapTitle2>
 
-          {isFilterClicked && <SelectButton />}
+          {!isFilterClicked && <SelectButton />}
         </cs.TitleBox>
 
         <PostListScroll
