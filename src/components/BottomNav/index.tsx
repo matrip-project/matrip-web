@@ -88,7 +88,7 @@ function BottomNav() {
           />
           <StyledText>인기여행지</StyledText>
         </NavBtn>
-        <NavBtn onClick={() => handleIconClick(4)} to={'/PopularTravel'}>
+        <NavBtn onClick={() => handleIconClick(4)} to={'/companionLog/myInterestedCompanionLog'}>
           <StyledILine isActive={activeIcons[3] === 1} />
           <StyledIconMy
             src={getIconImage(4)}

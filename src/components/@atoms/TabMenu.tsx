@@ -47,7 +47,7 @@ export const TabContainer = styled.div`
   display: flex;
   gap: 40px;
   border-bottom: 2px solid ${(props) => props.theme.colors.neutral1};
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 `;
 
 const TabWrapper = styled(Link)``;

@@ -11,6 +11,15 @@ export const BackPageButton = styled.img`
   cursor: pointer;
 `;
 
+export const noPost = styled.div`
+  ${(props) => props.theme.texts.tapTitle2};
+  font-size: 16px;
+  height: 501px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Title = styled.div`
   ${(props) => props.theme.texts.mainTitle};
   width: 100%;
@@ -39,4 +48,10 @@ export const ListIcon = styled.img`
   height: 18px;
   width: 20px;
   cursor: pointer;
+`;
+
+export const DataUserPost = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
 `;
