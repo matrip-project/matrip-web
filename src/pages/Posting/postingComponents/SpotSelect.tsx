@@ -3,7 +3,7 @@ import Label from './Label';
 import { PostingContainer, StateProps } from '..';
 import InterestButton from '../../../components/@atoms/PlaceChoiceButton';
 
-function SpotSelect({ state, setState }: StateProps) {
+function SpotSelect({ dataInput, setDataInput }: StateProps) {
   const spot = [
     '서울',
     '경기',
@@ -20,7 +20,12 @@ function SpotSelect({ state, setState }: StateProps) {
   ];
 
   const handleClick = (curr: string) => {
-    setState?.(curr);
+    if (dataInput) {
+      setDataInput?.({
+        ...dataInput,
+        city: curr
+      });
+    }
   };
 
   return (
@@ -30,7 +35,7 @@ function SpotSelect({ state, setState }: StateProps) {
         {spot.map((spot, index) => (
           <StyledInterest
             key={index}
-            $active={spot === state}
+            $active={spot === dataInput?.city}
             onClick={() => {
               handleClick(spot);
             }}
