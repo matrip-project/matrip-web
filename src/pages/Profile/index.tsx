@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import UserIntro from '../../components/UserIntro';
 import { Spacer, Text } from '../../components/@atoms';
 import ImageCarousel from '../../components/ImageCarousel';
+import Header from '../../components/Header';
 
 import rightIcon from '../../asset/arrowRight.svg';
 
@@ -13,11 +14,14 @@ import {userData} from '../../data/userDummyData';
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
+// !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
+
 const Profile = () => {
   return (
     <gs.MainContainer>
       <gs.MainBox>
-        <LinkToProfile to={'/mypage/profile'}>
+        <Header edit={false}/>
+        <LinkToProfile to={'/mypage/editProfile'}>
           <UserIntro iconSize={60}>
             <div>
               <Text type='title1'>{userData.name}</Text>
@@ -47,8 +51,16 @@ const Profile = () => {
         <History>
             <Text>동행로그</Text>
               {HISTROY.map((item, idx) => {
+                let linkPath = '/';
+                
+                if (item === '관심 동행 목록') {
+                  linkPath = '/companionLog/myInterestedCompanionLog';
+                } else if (item === '내가 쓴 글') {
+                  linkPath = '/companionLog/myPostWrote';
+                }
+
                 return(
-                  <LinkItem key={idx} to={'/'}>
+                  <LinkItem key={idx} to={linkPath}>
                     <Text>{item}</Text>  
                     <Spacer width={10}/>
                     <img src={rightIcon}/> 
@@ -62,6 +74,8 @@ const Profile = () => {
 
   );
 };
+// /companionLog/myInterestedCompanionLog
+// /companionLog/myPostWrote
 
 export default Profile;
 
