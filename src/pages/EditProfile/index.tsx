@@ -7,6 +7,7 @@ import FormInput from '../../components/FormInput';
 import { Text, InputLabel, Spacer } from '../../components/@atoms';
 import SnsConnect from '../../components/SnsConnect';
 import ImageCarousel from '../../components/ImageCarousel';
+import Header from '../../components/Header';
 
 
 import { userData } from '../../data/userDummyData';
@@ -31,6 +32,7 @@ const EditProfile = () => {
   return (
     <gs.MainContainer>
       <gs.MainBox>
+        <Header edit={true}/>
         <ImageWithName>
           <UserIntro iconSize={80}></UserIntro>
           <FormInput

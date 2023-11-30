@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import rightIcon from '../../asset/arrowRight.svg';
 import { Text, Spacer } from '../../components/@atoms';
 import UserIntro from '../../components/UserIntro';
+// import backButtonIcon from '../../asset/backButtonIcon.svg';
+import Header from '../../components/Header';
 
 
 const MENUS: string[] = ['비밀번호 재설정', '메이트립 이용방법', '공지사항', '고객센터', '이용약관', '개인정보 처리방침'];
@@ -13,6 +15,7 @@ const MyPageMain = () => {
     return (
         <gs.MainContainer>
             <gs.MainBox>
+                    <Header edit={false}/>
                     <LinkToProfile to={'/mypage/profile'}>
                         <UserIntro iconSize={60}>
                             <div>
