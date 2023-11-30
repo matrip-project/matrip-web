@@ -4,22 +4,27 @@ import { StateProps } from '..';
 
 interface LimitProps {
   limit: number;
+  name: string;
 }
 
 type TextFieldType = LimitProps & StateProps;
 
-function TextField({ limit, state, setState }: TextFieldType) {
+function TextField({ limit, name, dataInput, setDataInput }: TextFieldType) {
   const [TextCnt, setTextCnt] = useState(0);
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setState?.(e.target.value);
+    if (dataInput) {
+      setDataInput?.({
+        ...dataInput,
+        [name]: e.target.value
+      });
+    }
     setTextCnt(e.target.value.length);
   };
 
   return (
     <TextFieldContainer>
       <StyledTextArea
-        value={state}
         rows={Math.floor(limit / 25)}
         maxLength={limit}
         onChange={handleInput}

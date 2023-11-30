@@ -2,10 +2,16 @@ import styled from 'styled-components';
 import { PostingContainer, StateProps } from '..';
 import Label from './Label';
 
-function PersonnelInput({ setNumber }: StateProps) {
+function PersonnelInput({ dataInput, setDataInput }: StateProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNumber?.(parseInt(e.target.value));
+    if (dataInput) {
+      setDataInput?.({
+        ...dataInput,
+        count: parseInt(e.target.value)
+      });
+    }
   };
+
   return (
     <PostingContainer>
       <Label label='동행 모집 인원' essential={true} />

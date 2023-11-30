@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PlanProps } from '..';
+import { PlanProps } from '../../../types/postData';
 import { TabContainer, TabTitle } from '../../../components/@atoms/TabMenu';
 import styled from 'styled-components';
 
@@ -19,15 +19,13 @@ function Plan({ plan }: PlanType) {
       <PlanContainer>
         <PlanWrap>
           {plan.map((plan, index) => (
-            <>
-              <PlanTitle
-                key={index}
-                onClick={() => handleClick(plan.day)}
-                active={curr === plan.day}
-              >
-                {plan.day}일차
-              </PlanTitle>
-            </>
+            <PlanTitle
+              key={index}
+              onClick={() => handleClick(plan.day)}
+              active={curr === plan.day}
+            >
+              {plan.day}일차
+            </PlanTitle>
           ))}
         </PlanWrap>
       </PlanContainer>

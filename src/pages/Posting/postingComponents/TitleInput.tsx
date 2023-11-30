@@ -4,11 +4,16 @@ import { ReactComponent as Exclamation } from '../../../asset/exclamation.svg';
 import { HelpWrap, PostingContainer, StateProps } from '..';
 import Label from './Label';
 
-function TitleInput({ state, setState }: StateProps) {
+function TitleInput({ dataInput, setDataInput }: StateProps) {
   const [inputCnt, setInputCnt] = useState(0);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState?.(e.target.value);
+    if (dataInput) {
+      setDataInput?.({
+        ...dataInput,
+        title: e.target.value
+      });
+    }
     setInputCnt(e.target.value.length);
   };
 
@@ -22,7 +27,7 @@ function TitleInput({ state, setState }: StateProps) {
       <InputBox>
         <InputWrap
           onChange={handleInput}
-          value={state}
+          value={dataInput?.title}
           placeholder='ex)포천!! 포천아일랜드 당일여행 동행구합니다'
           maxLength={35}
         />

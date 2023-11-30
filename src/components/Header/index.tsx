@@ -33,11 +33,12 @@ const getTitle = (location: string) => {
 };
 
 // 수정 페이지인지
-type IsEdit = {
+interface HeaderProps {
   edit: boolean;
-};
+  onClick?: () => void;
+}
 
-function Header({ edit }: IsEdit) {
+function Header({ edit, onClick }: HeaderProps) {
   const navigate = useNavigate();
   const page = useLocation().pathname.substring(1);
 
@@ -52,7 +53,7 @@ function Header({ edit }: IsEdit) {
         </BackWrap>
         {edit && (
           <div>
-            <CompleteBtn>저장</CompleteBtn>
+            <CompleteBtn onClick={onClick}>저장</CompleteBtn>
           </div>
         )}
       </NavWrap>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MainBox, MainContainer } from '../../styles/GlobalStyles';
 import { ReactComponent as Exclamation } from '../../asset/exclamation.svg';
@@ -13,48 +14,86 @@ import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 import LocationSelect from './postingComponents/LocationSelect';
 import Header from '../../components/Header';
+import { DataProps, ImageProps } from '../../types/postData';
+import { uploadImage } from '../../utils/uploadImage';
 
 export interface StateProps {
-  state?: string;
-  setState?: React.Dispatch<React.SetStateAction<string>>;
-  number?: number;
-  setNumber?: React.Dispatch<React.SetStateAction<number>>;
+  dataInput?: DataProps;
+  setDataInput?: React.Dispatch<React.SetStateAction<DataProps>>;
+  imageInput?: ImageProps;
+  setImageInput?: React.Dispatch<React.SetStateAction<ImageProps>>;
 }
 
 function Posting() {
-  const [end, setEnd] = useState(false);
-  const [destination, setDestination] = useState('');
-  const [title, setTitle] = useState('');
-  const [personnel, setPersonnel] = useState(0);
-  const [detail, setDetail] = useState('');
-  const [tag, setTag] = useState('');
-  const [date, setDate] = useState({
+  const navigate = useNavigate();
+  const [dataInput, setDataInput] = useState<DataProps>({
+    title: '',
+    content: '',
+    city: '',
     startDate: dayjs(new Date()).format('YYYY.MM.DD'),
-    endDate: dayjs(addDays(new Date(), 1)).format('YYYY.MM.DD')
+    endDate: dayjs(addDays(new Date(), 1)).format('YYYY.MM.DD'),
+    count: 0,
+    latitude: 37.5665,
+    longitude: 126.978,
+    tag: '',
+    commentCnt: 0
   });
-  const [location, setLocation] = useState({
-    lat: 37.5665,
-    lng: 126.978
+  const [end, setEnd] = useState(false);
+  const center = {
+    lat: dataInput?.latitude,
+    lng: dataInput?.longitude
+  };
+  const [imageInput, setImageInput] = useState<ImageProps>({
+    id: 0,
+    path: '',
+    sequence: 0
   });
+  const [preview, setPreview] = useState<File | null>(null);
+
+  // console.log(imageInput);
+
+  const handleSave = async () => {
+    if (preview) {
+      try {
+        const uploaded = await uploadImage(preview);
+        if (uploaded) {
+          console.log(imageInput);
+          // navigate('/');
+        }
+      } catch (error) {
+        console.log('image setstate fail:', error);
+      }
+    }
+  };
 
   return (
     <MainContainer>
-      <Header edit={true} />
+      <Header edit={true} onClick={handleSave} />
       <MainBox>
-        <ImageUpload />
-        <SpotSelect state={destination} setState={setDestination} />
-        <TitleInput state={title} setState={setTitle} />
-        <DateSelect date={date} setDate={setDate} />
-        <PersonnelInput setNumber={setPersonnel} />
+        <ImageUpload url={imageInput.path} setPreivew={setPreview} />
+        <SpotSelect dataInput={dataInput} setDataInput={setDataInput} />
+        <TitleInput dataInput={dataInput} setDataInput={setDataInput} />
+        <DateSelect dataInput={dataInput} setDataInput={setDataInput} />
+        <PersonnelInput dataInput={dataInput} setDataInput={setDataInput} />
         <PostingContainer>
           <Label label='소개글' essential={true} />
-          <TextField limit={100} state={detail} setState={setDetail} />
+          <TextField
+            limit={100}
+            name='content'
+            dataInput={dataInput}
+            setDataInput={setDataInput}
+          />
         </PostingContainer>
         <PostingContainer>
           <Label label='해시태그' essential={true} />
-          <TextField limit={50} state={tag} setState={setTag} />
+          <TextField
+            limit={50}
+            name='tag'
+            dataInput={dataInput}
+            setDataInput={setDataInput}
+          />
         </PostingContainer>
-        <LocationSelect center={location} />
+        <LocationSelect center={center} />
         <ChangeStateWrap>
           <ChangeStateBtn onClick={() => setEnd(true)}>
             모집 마감

@@ -4,21 +4,11 @@ import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { ReactComponent as Calendar } from '../../../asset/calendar.svg';
 import { GoHorizontalRule } from 'react-icons/go';
-import { PostingContainer } from '..';
+import { PostingContainer, StateProps } from '..';
 import Label from './Label';
 import dayjs from 'dayjs';
 
-type DateType = {
-  startDate: string;
-  endDate: string;
-};
-
-interface DateProps {
-  date: DateType;
-  setDate: React.Dispatch<React.SetStateAction<DateType>>;
-}
-
-function DateSelect({ date, setDate }: DateProps) {
+function DateSelect({ dataInput, setDataInput }: StateProps) {
   const theme = useTheme();
   const [show, setShow] = useState(false);
   const [dateRange, setDateRange] = useState([
@@ -45,10 +35,13 @@ function DateSelect({ date, setDate }: DateProps) {
       const formattedStartDate = dayjs(startDate).format('YYYY.MM.DD');
       const formattedEndDate = dayjs(endDate).format('YYYY.MM.DD');
 
-      setDate({
-        startDate: formattedStartDate,
-        endDate: formattedEndDate
-      });
+      if (dataInput) {
+        setDataInput?.({
+          ...dataInput,
+          startDate: formattedStartDate,
+          endDate: formattedEndDate
+        });
+      }
     }
   };
 
@@ -58,9 +51,9 @@ function DateSelect({ date, setDate }: DateProps) {
       <DateButton onClick={handleCalendarClick}>
         <Calendar />
         <DateWrap>
-          <p>{date.startDate}</p>
+          <p>{dataInput?.startDate}</p>
           <GoHorizontalRule />
-          <p>{date.endDate}</p>
+          <p>{dataInput?.endDate}</p>
         </DateWrap>
       </DateButton>
       {show && (
