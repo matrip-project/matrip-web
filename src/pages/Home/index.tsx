@@ -12,9 +12,48 @@ import UserList from '../../components/UserList';
 import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
-import { postdata } from '../../data/postdata';
+import axios from 'axios';
+
+interface JourneyImage {
+  id: number;
+  path: string;
+  sequence: number;
+}
+
+interface Journey {
+  id: number;
+  memberName: string;
+  journeyImgRequestDtoList: JourneyImage[];
+  path: string;
+  city: string;
+  title: string;
+  content: string;
+  startDate: string;
+  endDate: string;
+}
+
+interface Type {
+  dtoList: Journey[];
+}
+
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+  const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
+        );
+        setJourneys(response.data || { dtoList: [] });
+      } catch (error) {
+        console.error('Error', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -27,24 +66,20 @@ const Home: React.FC = () => {
           <hs.MainTitle>동행일정</hs.MainTitle>
           <hs.tapTitle2>· 217개 동행일정을 둘러보세요.</hs.tapTitle2>
         </hs.TitleBox>
-        {postdata.slice(0, 5).map((data, index) => {
-          return (
-            <UserList
-              key={index}
-              id={data.id}
-              nick={data.nick}
-              imgurl={data.imgurl}
-              destination={data.destination}
-              title={data.title}
-              post={data.post}
-              startDate={data.startDate}
-              endData={data.endData}
-              personnel={data.personnel}
-              dibs={data.dibs}
-              isListIconClicked
-            />
-          );
-        })}
+        {journeys.dtoList.slice(0, 5).map((data, index) => (
+          <UserList
+            key={index}
+            id={data.id}
+            memberName={data.memberName}
+            imgurl={data.journeyImgRequestDtoList[0]?.path}
+            city={data.city}
+            title={data.title}
+            content={data.content}
+            startDate={data.startDate}
+            endDate={data.endDate}
+            isListIconClicked
+          />
+        ))}
         <hs.ScheduleMoreBtn to={'/CompanionList'}>
           일정 더보기 +
         </hs.ScheduleMoreBtn>

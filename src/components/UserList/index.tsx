@@ -1,35 +1,30 @@
 import React, { useEffect, useRef } from 'react';
 import * as us from './userListStyle';
-import * as gs from '../../styles/GlobalStyles';
 import recruitingImage from '../../asset/recruiting.svg';
 
-interface Postdata {
+interface Journeys {
   key: number;
   id: number;
-  nick: string;
+  memberName: string;
   imgurl: string;
-  destination: string;
+  city: string;
   title: string;
-  post: string;
+  content: string;
   startDate: string;
-  endData: string;
-  personnel: number;
-  dibs: boolean;
+  endDate: string;
 }
 
 const UserList: React.FC<
-  React.PropsWithChildren<Postdata & { isListIconClicked: boolean }>
+  React.PropsWithChildren<Journeys & { isListIconClicked: boolean }>
 > = ({
   id,
-  nick,
+  memberName,
   imgurl,
-  destination,
+  city,
   title,
-  post,
+  content,
   startDate,
-  endData,
-  personnel,
-  dibs,
+  endDate,
   isListIconClicked
 }) => {
   return (
@@ -44,17 +39,17 @@ const UserList: React.FC<
               <img src={recruitingImage} alt='모집중' />
             </us.postDibsBtn>
             <us.postPeriod>
-              {startDate}~{endData}
+              {startDate}~{endDate}
             </us.postPeriod>
           </us.contentsTopBox>
 
           <us.postContent>
             <us.postTitle>
-              [{destination}] {title}
+              [{city}] {title}
             </us.postTitle>
           </us.postContent>
 
-          <us.postNickname>{nick}</us.postNickname>
+          <us.postNickname>{memberName}</us.postNickname>
         </us.contentsBox>
 
         <us.postImgBox>
@@ -71,7 +66,7 @@ const UserList: React.FC<
         </us.titlePostImgBox>
 
         <us.titlePostContent>
-          [{destination}] {title}
+          [{city}] {title}
         </us.titlePostContent>
       </us.titleContentsBox>
     </us.postwrapper>

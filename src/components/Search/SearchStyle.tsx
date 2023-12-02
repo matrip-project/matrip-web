@@ -24,6 +24,21 @@ export const SearchInput = styled.input`
   border-radius: 50px;
   border: 1px solid var(--box-stroke, #d9d9d9);
   background: var(--theme-white-theme-core-tokens-ui-background-white, #fff);
+
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-clear-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &::-moz-search-clear-button {
+    display: none;
+  }
+
+  &::-ms-clear {
+    display: none;
+  }
 `;
 
 export const SearchBtn = styled.button`
