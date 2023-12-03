@@ -32,8 +32,8 @@ function DateSelect({ dataInput, setDataInput }: StateProps) {
     const { startDate, endDate } = dateRange[0];
 
     if (startDate && endDate) {
-      const formattedStartDate = dayjs(startDate).format('YYYY.MM.DD');
-      const formattedEndDate = dayjs(endDate).format('YYYY.MM.DD');
+      const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD');
+      const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD');
 
       if (dataInput) {
         setDataInput?.({

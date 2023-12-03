@@ -36,7 +36,8 @@ function Posting() {
     latitude: 37.5665,
     longitude: 126.978,
     tag: '',
-    commentCnt: 0
+    journeyCount: 0,
+    status: 'ACTIVE'
   });
   const [end, setEnd] = useState(false);
   const center = {
@@ -57,7 +58,7 @@ function Posting() {
       try {
         const uploaded = await uploadImage(preview);
         if (uploaded) {
-          console.log(imageInput);
+          console.log(uploaded);
           // navigate('/');
         }
       } catch (error) {
@@ -85,7 +86,7 @@ function Posting() {
           />
         </PostingContainer>
         <PostingContainer>
-          <Label label='해시태그' essential={true} />
+          <Label label='해시태그' essential={false} />
           <TextField
             limit={50}
             name='tag'
