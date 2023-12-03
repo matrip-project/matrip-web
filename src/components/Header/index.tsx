@@ -1,30 +1,18 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { BsArrowLeft, BsArrowLeftShort } from 'react-icons/bs';
-
-// type LocationType = 'notifications' | 'map' | 'friends';
-
-// const locationTitle: Record<LocationType, string> = {
-//   notifications: '알림',
-//   map: '위치 찾기',
-//   friends: '친구 '
-// };
+import { ReactComponent as Back } from '../../asset/backButtonIcon.svg';
+import { ReactComponent as Share } from '../../asset/shareNoBg.svg';
+import { copyLink } from '../../utils/copyLink';
 
 const getTitle = (location: string) => {
   let title = '';
-  if (location === 'notifications') {
-    title = '알림';
-  } else if (location === 'mapSearch') {
-    title = '지도';
-  } else if (location.includes('member')) {
-    title = '일행';
-  } else if (location === 'login') {
+  if (location === 'login') {
     title = '로그인';
   } else if (location === 'signup') {
     title = '회원가입';
-  } else if (location.includes('itinerary')) {
-    title = '여정';
+  } else if (location.includes('comments')) {
+    title = '댓글';
   } else {
     title = '';
   }
@@ -46,24 +34,22 @@ function Header({ edit, onClick }: HeaderProps) {
     <NavContainer>
       <NavWrap>
         <BackWrap>
-          <BackBtn onClick={() => navigate(-1)}>
-            <BsArrowLeftShort size='24' />
-          </BackBtn>
+          <BackBtn onClick={() => navigate(-1)} />
           <NavTitle>{getTitle(page)}</NavTitle>
         </BackWrap>
-        {edit && (
-          <div>
-            <CompleteBtn onClick={onClick}>저장</CompleteBtn>
-          </div>
-        )}
+        <ButtonsWrap>
+          {edit && <CompleteBtn onClick={onClick}>저장</CompleteBtn>}
+          {page.includes('trip') && <ShareBtn onClick={copyLink} />}
+        </ButtonsWrap>
       </NavWrap>
     </NavContainer>
   );
 }
 
 const NavContainer = styled.div`
+  position: fixed;
   width: 100%;
-  height: 55px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,17 +69,18 @@ const NavWrap = styled.nav`
 const BackWrap = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
 `;
 
 const NavTitle = styled.div`
-  margin-left: 10px;
-  font-size: 18px;
+  ${(props) => props.theme.texts.mainTitle};
 `;
 
-const BackBtn = styled.button`
-  border: none;
-  background: none;
-  padding: 0;
+const BackBtn = styled(Back)`
+  cursor: pointer;
+`;
+const ShareBtn = styled(Share)`
+  cursor: pointer;
 `;
 
 const CompleteBtn = styled.button`
@@ -102,6 +89,11 @@ const CompleteBtn = styled.button`
   color: ${(props) => props.theme.colors.black};
   font-size: 16px;
   font-weight: 600;
+`;
+
+const ButtonsWrap = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export default Header;
