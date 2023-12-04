@@ -5,26 +5,66 @@ import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
+import axios from 'axios';
 
 interface PostListScrollProps {
-  onNoPosts: () => void; 
+  onNoPosts: () => void;
   onShowTitleBox: () => void;
 }
 
-const PostListScroll: React.FC<PostListScrollProps> = ({ onShowTitleBox, onNoPosts }) => {
+interface JourneyImage {
+  id: number;
+  path: string;
+  sequence: number;
+}
+
+interface Journey {
+  id: number;
+  memberName: string;
+  journeyImgRequestDtoList: JourneyImage[];
+  path: string;
+  city: string;
+  title: string;
+  content: string;
+  startDate: string;
+  endDate: string;
+}
+
+interface Type {
+  dtoList: Journey[];
+}
+
+const PostListScroll: React.FC<PostListScrollProps> = ({
+  onShowTitleBox,
+  onNoPosts
+}) => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const searchKeyword = useSelector(selectKeyword);
   const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
-
-  // 일단 keyword 검색과 인기여행지 눌렀을 때 합쳐서 구현 - 추후 백엔드 api 들어오면 맞게 수정 예정
   const keyword = searchKeyword || popularTravelKeyword;
+  const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
+        );
+        setJourneys(response.data || { dtoList: [] });
+      } catch (error) {
+        console.error('Error', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 키워드를 기반으로 게시물 필터링
-  const filteredPosts = postdata.filter(
-    (post) =>
-      post.destination.toLowerCase().includes(keyword) ||
-      post.title.toLowerCase().includes(keyword)
+  const filteredJourneys = journeys.dtoList.filter(
+    (journey) =>
+      journey.city.toLowerCase().includes(keyword) ||
+      journey.title.toLowerCase().includes(keyword)
   );
 
   // 감지할 스크롤 이벤트 추가
@@ -46,42 +86,46 @@ const PostListScroll: React.FC<PostListScrollProps> = ({ onShowTitleBox, onNoPos
   }, []);
 
   // 필터링된 포스트 배열 길이 값 관리
+
   useEffect(() => {
-    if (filteredPosts.length === 0) {
+    if (filteredJourneys.length === 0) {
       onNoPosts();
     } else {
       onShowTitleBox();
     }
-  }, [filteredPosts, onNoPosts, onShowTitleBox]);
+  }, [filteredJourneys, onNoPosts, onShowTitleBox]);
 
   return (
     <>
-      {filteredPosts.length === 0 ? (
+      {filteredJourneys.length === 0 ? (
         <pls.noPost>게시글이 없어요.</pls.noPost>
       ) : (
-        filteredPosts.slice(0, displayCount).map((post: any) => (
-          <pls.postBox key={post.id}>
+        filteredJourneys.slice(0, displayCount).map((journey: any) => (
+          <pls.postBox key={journey.id}>
             <pls.contentsBox>
               <pls.contentsTopBox>
                 <pls.postDibsBtn>
                   <img src={recruitingImage} alt='Recruiting Image' />
                 </pls.postDibsBtn>
                 <pls.postPeriod>
-                  {post.startDate}~{post.endData}
+                  {journey.startDate}~{journey.endDate}
                 </pls.postPeriod>
               </pls.contentsTopBox>
 
               <pls.postContent>
                 <pls.postTitle>
-                  [{post.destination}] {post.title}
+                  [{journey.city}] {journey.title}
                 </pls.postTitle>
               </pls.postContent>
 
-              <pls.postNickname>{post.nick}</pls.postNickname>
+              <pls.postNickname>{journey.memberName}</pls.postNickname>
             </pls.contentsBox>
 
             <pls.postImgBox>
-              <pls.postImg src={post.imgurl} alt='유저 프로필' />
+              <pls.postImg
+                src={journey.journeyImgRequestDtoList[0]?.path}
+                alt='유저 프로필'
+              />
             </pls.postImgBox>
           </pls.postBox>
         ))

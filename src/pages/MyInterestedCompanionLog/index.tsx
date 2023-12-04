@@ -4,12 +4,50 @@ import * as gs from '../../styles/GlobalStyles';
 import UserList from '../../components/UserList';
 import listIcon from '../../asset/listIcon.svg';
 import TitleIcon from '../../asset/titleIcon.svg';
-import { postdata } from '../../data/postdata';
+import axios from 'axios';
+
+interface JourneyImage {
+  id: number;
+  path: string;
+  sequence: number;
+}
+
+interface Journey {
+  id: number;
+  memberName: string;
+  journeyImgRequestDtoList: JourneyImage[];
+  path: string;
+  city: string;
+  title: string;
+  content: string;
+  startDate: string;
+  endDate: string;
+}
+
+interface Type {
+  dtoList: Journey[];
+}
 
 const MyInterestedCompanionLog: React.FC = () => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);
+  const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
+        );
+        setJourneys(response.data || { dtoList: [] });
+      } catch (error) {
+        console.error('Error', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
@@ -48,30 +86,28 @@ const MyInterestedCompanionLog: React.FC = () => {
           src={TitleIcon}
           onClick={handleTitleIconClick}
         ></mcl.TitleIcon>
-      </mcl.TitleListIconBox>{' '}
+      </mcl.TitleListIconBox>
       <mcl.DataUserPost>
-        {postdata.length === 0 ? (
+        {journeys.dtoList.length === 0 ? (
           <mcl.noPost>게시글이 없어요.</mcl.noPost>
         ) : (
-          postdata.slice(0, displayCount).map((data, index) => {
+          journeys.dtoList.slice(0, displayCount).map((data, index) => {
             return (
               <UserList
                 key={index}
                 id={data.id}
-                nick={data.nick}
-                imgurl={data.imgurl}
-                destination={data.destination}
+                memberName={data.memberName}
+                imgurl={data.journeyImgRequestDtoList[0]?.path}
+                city={data.city}
                 title={data.title}
-                post={data.post}
+                content={data.content}
                 startDate={data.startDate}
-                endData={data.endData}
-                personnel={data.personnel}
-                dibs={data.dibs}
+                endDate={data.endDate}
                 isListIconClicked={isListIconClicked}
               />
             );
           })
-        )}{' '}
+        )}
       </mcl.DataUserPost>
     </gs.MainContainer>
   );

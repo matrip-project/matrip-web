@@ -15,7 +15,6 @@ import EditProfile from './pages/EditProfile';
 import ProfileViewer from './pages/ProfileViewer';
 import ResetPassword from './pages/ResetPassword';
 import MapSearch from './pages/MapSearch';
-import TripSchedule from './pages/TripSchedule';
 import Notificiation from './pages/Notification';
 import MyPageMain from './pages/MyPageMain';
 import Dibs from './pages/Dibs';
@@ -74,7 +73,6 @@ function App() {
           <Route path='/itineraryInfo' element={<ItineraryInfo />} />
           <Route path='/posting' element={<Posting />} />
           <Route path='/userProfile' element={<UserProfile />} />
-          <Route path='/tripSchedule' element={<TripSchedule />} />
           <Route path='/notifications' element={<Notificiation />} />
           <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
