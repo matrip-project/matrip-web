@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import {InputLabel, Spacer} from '../@atoms';
+import {InputLabel, Spacer, Text} from '../@atoms';
 
 interface Props {
   onSelectedChange: (selected: number) => void;
@@ -18,16 +18,18 @@ const RequiredInputSelect: React.FC<Props> = ({ onSelectedChange, label, values 
   return (
     <div>
       <InputLabel label={label}/>  
+      <Spacer height={13}/>
       <InputItemContainer>
         {values.map((val, index) => (
-          <div key={index}>
+          <SelectContainer key={index}>
             <StyledInput
               type='radio'
               checked={selected === index}
               onChange={() => handleChange(index)}
             />
-            <span>{val}</span>
-          </div>
+            <Text>{val}</Text>
+            <Spacer width={10}/>
+          </SelectContainer>
         ))}
       </InputItemContainer>
     </div>
@@ -36,6 +38,11 @@ const RequiredInputSelect: React.FC<Props> = ({ onSelectedChange, label, values 
 
 export default RequiredInputSelect;
 
+const SelectContainer = styled.div`
+  display: flex;
+   flex-direction: row;
+   align-items: center;
+`;
 
 const StyledInput = styled.input`
   appearance: none;

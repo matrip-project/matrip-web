@@ -7,6 +7,7 @@ import InterestButton from './PlaceChoiceButton';
 import Spacer from './Spacer';
 import TabMenu from './TabMenu';
 import Text from './Text';
+import ErrMessage from './ErrMessage';
 
 export {
   Button,
@@ -17,5 +18,6 @@ export {
   InterestButton,
   Spacer,
   TabMenu,
-  Text
+  Text,
+  ErrMessage,
 };
