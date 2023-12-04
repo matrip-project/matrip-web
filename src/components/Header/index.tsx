@@ -54,6 +54,7 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${(props) => props.theme.colors.white};
+  ;
 `;
 
 const NavWrap = styled.nav`
