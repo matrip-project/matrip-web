@@ -1,6 +1,6 @@
 import React from 'react';
 import * as gs from '../../styles/GlobalStyles';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import UserIntro from '../../components/UserIntro';
 import { Spacer, Text } from '../../components/@atoms';
@@ -9,7 +9,7 @@ import Header from '../../components/Header';
 
 import rightIcon from '../../asset/arrowRight.svg';
 
-import {userData} from '../../data/userDummyData';
+import { userData } from '../../data/userDummyData';
 
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
@@ -19,8 +19,8 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 const Profile = () => {
   return (
     <gs.MainContainer>
+      <Header edit={false} />
       <gs.MainBox>
-        <Header edit={false}/>
         <LinkToProfile to={'/mypage/editProfile'}>
           <UserIntro iconSize={60}>
             <div>
@@ -32,7 +32,7 @@ const Profile = () => {
         <UserDateText>
           <div>
             {userData.hashTags.map((tag, idx) => {
-              return(
+              return (
                 <span key={idx}>#{tag} </span>
               );
             })
@@ -42,32 +42,32 @@ const Profile = () => {
           <Text>{userData.description}</Text>
         </UserDateText>
         <ImageSection>
-          <Spacer height={16}/>
+          <Spacer height={16} />
           <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
-          <Spacer height={16}/>
-            <ImageCarousel images={userData.images}/>
+          <Spacer height={16} />
+          <ImageCarousel images={userData.images} />
         </ImageSection>
-        <Spacer height={50}/>
+        <Spacer height={50} />
         <History>
-            <Text>동행로그</Text>
-              {HISTROY.map((item, idx) => {
-                let linkPath = '/';
-                
-                if (item === '관심 동행 목록') {
-                  linkPath = '/companionLog/myInterestedCompanionLog';
-                } else if (item === '내가 쓴 글') {
-                  linkPath = '/companionLog/myPostWrote';
-                }
+          <Text>동행로그</Text>
+          {HISTROY.map((item, idx) => {
+            let linkPath = '/';
 
-                return(
-                  <LinkItem key={idx} to={linkPath}>
-                    <Text>{item}</Text>  
-                    <Spacer width={10}/>
-                    <img src={rightIcon}/> 
-                  </LinkItem>
-                );
-              })
-              }
+            if (item === '관심 동행 목록') {
+              linkPath = '/companionLog/myInterestedCompanionLog';
+            } else if (item === '내가 쓴 글') {
+              linkPath = '/companionLog/myPostWrote';
+            }
+
+            return (
+              <LinkItem key={idx} to={linkPath}>
+                <Text>{item}</Text>
+                <Spacer width={10} />
+                <img src={rightIcon} />
+              </LinkItem>
+            );
+          })
+          }
         </History>
       </gs.MainBox>
     </gs.MainContainer>
