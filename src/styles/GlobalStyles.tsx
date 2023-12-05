@@ -140,6 +140,7 @@ input, textarea {
 }
 
 body{
+  font-family: 'Noto Sans KR', sans-serif;
   background: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.black};
 }
@@ -152,7 +153,6 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Pretendard;
 `;
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너

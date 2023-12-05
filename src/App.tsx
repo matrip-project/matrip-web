@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import GlobalFonts from './styles/fonts';
 import { GlobalStyle } from './styles/GlobalStyles';
 import BottomNav from './components/BottomNav';
 import { ThemeProvider } from 'styled-components';
@@ -52,7 +51,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <ScrollToTop />
-        <GlobalFonts />
         <GlobalStyle />
         <TopNav />
         <BottomNav />
@@ -63,7 +61,7 @@ function App() {
           <Route path='/mypage' element={<MyPageMain />} />
           <Route path='/mypage/profile' element={<Profile />} />
           <Route path='/mypage/editProfile' element={<EditProfile />} />
-          <Route path='/resetPassword' element={<ResetPassword />}/>
+          <Route path='/resetPassword' element={<ResetPassword />} />
           <Route path='/profileView/:id' element={<ProfileViewer />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />
