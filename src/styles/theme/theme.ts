@@ -62,14 +62,14 @@ const texts = {
   },
   content1: {
     fontSize: '1.2rem',
-    fontWeight: '500',
-    lineHeight: '14.8px',
+    fontWeight: '400',
+    lineHeight: '17.76px',
     color: '#242424'
   },
   content2: {
     fontSize: '1.2rem',
     fontWeight: '400',
-    lineHeight: '14.8px',
+    lineHeight: '17.76px',
     color: '#666'
   }
 };
