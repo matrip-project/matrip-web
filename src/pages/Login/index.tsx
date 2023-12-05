@@ -1,13 +1,12 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
-import { IoIosArrowForward } from 'react-icons/io';
+import {Link} from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as ls from './loginStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
 import { Spacer, InputLabel, Text, CheckBox, Image } from '../../components/@atoms';
 
-
-
+import {postLogin} from '../../apis/loginApi';
 
 function Login() {
   const [input, setInput] = useState({
@@ -16,6 +15,8 @@ function Login() {
   });
   const [isAutoLogin, setIsAutoLogin] = useState(false);
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
+
+  console.log(input);
 
   useEffect(() => {
     return() => {
@@ -30,13 +31,14 @@ function Login() {
     setInput((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async(e: React.FormEvent) => {
     e.preventDefault();
     const { email, password } = input;
+    const res = await postLogin({ email, password});
+    console.log(res);
     try{
       console.log( email, password );
     }catch (e){
-      // TODO 에러 핸들링 분기처리
       setIsPasswordCorrect(true);
     }
   };
@@ -84,8 +86,10 @@ function Login() {
             <Text type='title1' color='white'>로그인</Text>
           </ls.SubmitBtn>
           <Spacer height={8} />
-          <ls.SignupBtn >
-          <Text type='title1' color='white'>회원가입</Text>
+          <ls.SignupBtn>
+            <Link to='/signup'>
+              <Text type='title1' color='white'>회원가입</Text>
+            </Link>
           </ls.SignupBtn>
         </ls.LoginForm>
         <Spacer height={12}/>
