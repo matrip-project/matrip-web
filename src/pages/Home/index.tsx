@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as hs from './homeStyle';
-import logo from '../../asset/logo.png';
 import addPostButton from '../../asset/addPostButton.svg';
 import jejuImg from '../../asset/ImgJeju.png';
 import busanImg from '../../asset/ImgBusan.png';
@@ -13,7 +11,6 @@ import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
-import Header from '../../components/Header';
 import HeaderLogo from '../../components/HeaderLogo';
 
 interface JourneyImage {

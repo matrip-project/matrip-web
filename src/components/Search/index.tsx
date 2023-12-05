@@ -7,6 +7,7 @@ import 'react-date-range/dist/theme/default.css';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/searchSlice';
 import { useNavigate } from 'react-router-dom';
+import searchHeaderIcom from '../../asset/searchHeaderIcom.svg';
 
 const Search: React.FC = () => {
   const [input, setInput] = useState('');
@@ -45,7 +46,7 @@ const Search: React.FC = () => {
           type='submit'
           onClick={handleSearch}
         >
-          <HiMiniMagnifyingGlass size='24' color='gray' />
+          <img src={searchHeaderIcom}></img>
         </ss.SearchBtn>
       </ss.SearchBox>
     </gs.MainContainer>
