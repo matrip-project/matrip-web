@@ -18,7 +18,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({label, isChecked, handleCheck, name,
             <input type="checkbox" checked={isChecked} onChange={handleCheck} name={name}/>
         </CheckBoxInput>
         <LabelContainer>
-            <Text color='black' type='title2'>{label}</Text>
+            <Text color='black' type='subtitle1'>{label}</Text>
         </LabelContainer>
         <EmptySpace />
         <LabelContents>
