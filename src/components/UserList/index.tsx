@@ -53,7 +53,7 @@ const UserList: React.FC<
         </us.contentsBox>
 
         <us.postImgBox>
-          <us.postImg src={imgurl} alt='유저 프로필' />
+          <us.postImg src={imgurl} alt='post img' />
         </us.postImgBox>
       </us.postBox>
 

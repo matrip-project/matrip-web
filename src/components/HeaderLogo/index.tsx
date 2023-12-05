@@ -21,7 +21,7 @@ export const HomeHeader = styled.div`
   width: 80%;
   justify-content: space-between;
   margin-top: 30px;
-  padding: 18px 120px;
+  padding: 18px;
 `;
 
 export const LogoLink = styled(Link)`
