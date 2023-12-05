@@ -13,6 +13,8 @@ import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
+import Header from '../../components/Header';
+import HeaderLogo from '../../components/HeaderLogo';
 
 interface JourneyImage {
   id: number;
@@ -61,9 +63,7 @@ const Home: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <hs.HomeHeader>
-          <hs.HeaderLogo src={logo}></hs.HeaderLogo>
-        </hs.HomeHeader>
+        <HeaderLogo />
         <Search />
         <hs.TitleBox>
           <hs.MainTitle>동행일정</hs.MainTitle>

@@ -11,6 +11,7 @@ import { selectKeyword } from '../../redux/modules/searchSlice';
 import PostListScroll from '../../components/PostListScroll';
 import SelectButton from '../../components/SelectButton';
 import axios from 'axios';
+import HeaderLogo from '../../components/HeaderLogo';
 
 const CompanionList: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(false);
@@ -49,9 +50,7 @@ const CompanionList: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <cs.HomeHeader>
-          <cs.HeaderLogo src={logo}></cs.HeaderLogo>
-        </cs.HomeHeader>
+        <HeaderLogo />
         <Search />
         <cs.searchResult>
           <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>

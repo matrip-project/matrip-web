@@ -21,6 +21,7 @@ import PostListScroll from '../../components/PostListScroll';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import SelectButton from '../../components/SelectButton';
 import axios from 'axios';
+import HeaderLogo from '../../components/HeaderLogo';
 
 interface CityImages {
   [key: string]: any;
@@ -71,9 +72,7 @@ const PopularTravel: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <cs.HomeHeader>
-          <cs.HeaderLogo src={logo}></cs.HeaderLogo>
-        </cs.HomeHeader>
+        <HeaderLogo />
         <Search />
         <cs.PopularImageContainer>
           <img src={cityImages[Popularkeyword]} alt={Popularkeyword} />
@@ -82,7 +81,7 @@ const PopularTravel: React.FC = () => {
         <cs.TitleBox>
           <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
-          · {totalPage} 동행일정을 둘러보세요.
+            · {totalPage} 동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
               src={isFilterClicked ? fillterIconNone : fillterIcon}
               onClick={handleFilterClick}
