@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { getColor } from '../../utils/colorUtils';
 
 export const HomeHeader = styled.div`
   display: flex;

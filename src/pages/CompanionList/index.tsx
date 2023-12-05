@@ -52,10 +52,12 @@ const CompanionList: React.FC = () => {
       <gs.MainContainer>
         <HeaderLogo />
         <Search />
-        <cs.searchResult>
-          <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
-          {keyword} 검색 결과 입니다.
-        </cs.searchResult>
+        {keyword && (
+          <cs.searchResult>
+            <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
+            {keyword} 검색 결과 입니다.
+          </cs.searchResult>
+        )}
 
         {showTitleBox && (
           <>
