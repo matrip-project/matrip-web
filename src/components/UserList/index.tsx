@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as us from './userListStyle';
 import recruitingImage from '../../asset/recruiting.svg';
+import userImgNone from '../../asset/userImgNone.png';
 
 interface Journeys {
   key: number;
@@ -49,7 +50,10 @@ const UserList: React.FC<
             </us.postTitle>
           </us.postContent>
 
-          <us.postNickname>{memberName}</us.postNickname>
+          <us.postNickname>
+            <us.userImgNone src={userImgNone}></us.userImgNone>
+            {memberName}
+          </us.postNickname>
         </us.contentsBox>
 
         <us.postImgBox>

@@ -54,6 +54,12 @@ export const Nickname = styled.h4`
   margin: 0;
 `;
 
+export const userImgNone = styled.img`
+  justify-content: center;
+  align-items: center;
+  margin-right: 6px;
+`;
+
 export const postContent = styled.div`
   width: 228px;
   display: flex;
@@ -82,7 +88,10 @@ export const postDibsBtn = styled.div`
 `;
 
 export const postNickname = styled.div`
-  ${(props) => props.theme.texts.content2};
+  ${(props) => props.theme.texts.username};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 12px;
   position: absolute;
 `;

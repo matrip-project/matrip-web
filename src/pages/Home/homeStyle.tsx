@@ -34,7 +34,9 @@ export const postContainer = styled(Link)`
   right: 25px;
 `;
 
-export const WriteBtn = styled.img``;
+export const WriteBtn = styled.img`
+  
+`;
 
 export const ScheduleMoreBtn = styled(Link)`
   display: inline-flex;

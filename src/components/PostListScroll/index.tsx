@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
+import userImgNone from '../../asset/userImgNone.png';
 
 interface PostListScrollProps {
   onNoPosts: () => void;
@@ -116,7 +117,10 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
                 </pls.postTitle>
               </pls.postContent>
 
-              <pls.postNickname>{journey.memberName}</pls.postNickname>
+              <pls.postNickname>
+                <pls.userImgNone src={userImgNone}></pls.userImgNone>
+                {journey.memberName}
+              </pls.postNickname>
             </pls.contentsBox>
 
             <pls.postImgBox>
