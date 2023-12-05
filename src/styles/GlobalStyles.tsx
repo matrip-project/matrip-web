@@ -148,11 +148,12 @@ body{
 
 // 전체 화면 컨테이너
 export const MainContainer = styled.div`
-  width: 390px;
+  width: 344px;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0px 23px 0px 23px;
 `;
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너

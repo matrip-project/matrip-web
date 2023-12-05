@@ -32,7 +32,6 @@ export const TitleBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  margin-left: 23px;
 `;
 
 export const MainTitle = styled.div`

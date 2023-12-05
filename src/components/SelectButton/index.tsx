@@ -2,8 +2,22 @@ import React, { useMemo, useState } from 'react';
 import { addDays } from 'date-fns';
 import Select, { StylesConfig } from 'react-select';
 import styled from 'styled-components';
-import { DateRange, DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import dropdownIcon from '../../asset/dropdownIcon.svg';
+
+const place = [
+  { value: '서울', label: '서울' },
+  { value: '경기', label: '경기' },
+  { value: '인천', label: '인천' },
+  { value: '부산', label: '부산' },
+  { value: '강원', label: '강원' },
+  { value: '제주', label: '제주' },
+  { value: '충남', label: '충남' },
+  { value: '전남', label: '전남' },
+  { value: '전북', label: '전북' },
+  { value: '경남', label: '경남' },
+  { value: '경북', label: '경북' }
+];
 
 const genderOptions = [
   { value: '남성', label: '남성' },
@@ -75,6 +89,12 @@ const SelectButton: React.FC = () => {
     <>
       <SelectBox>
         <Select
+          options={place}
+          placeholder='장소'
+          styles={customStyles}
+          components={{ IndicatorSeparator: () => null }}
+        />
+        <Select
           options={genderOptions}
           placeholder='성별'
           styles={customStyles}
@@ -124,7 +144,7 @@ const SelectBox = styled.div`
   text-align: center;
   color: gray;
   margin-bottom: 16px;
-  padding: 0px 20px 0px 10px;
+  /* padding: 0px 20px 0px 10px; */
 `;
 
 const DateComponent = styled.div`

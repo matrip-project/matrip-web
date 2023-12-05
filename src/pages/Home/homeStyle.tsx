@@ -6,7 +6,6 @@ export const TitleBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  margin-left: 23px;
 `;
 
 export const MainTitle = styled.div`
@@ -59,13 +58,12 @@ export const PopularTravel = styled.div`
   ${(props) => props.theme.texts.mainTitle};
   width: 100%;
   text-align: left;
-  margin-left: 23px;
   margin-bottom: 20px;
 `;
 
 export const PopularTravelBox = styled.div`
   display: flex;
-  margin-left: 23px;
+  margin-left: 24px;
 `;
 
 export const PopularImgbox = styled(Link)`
