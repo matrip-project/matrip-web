@@ -1,24 +1,6 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export const HomeHeader = styled.div`
-  display: flex;
-  width: 80%;
-  justify-content: space-between;
-  margin-top: 30px;
-  padding: 18px 120px;
-`;
-
-export const HeaderLogo = styled.img`
-  margin: auto;
-`;
-
-export const HeaderIconCtnr = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
 export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;

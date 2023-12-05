@@ -13,6 +13,8 @@ import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
+import Header from '../../components/Header';
+import HeaderLogo from '../../components/HeaderLogo';
 
 interface JourneyImage {
   id: number;
@@ -30,15 +32,17 @@ interface Journey {
   content: string;
   startDate: string;
   endDate: string;
+  totalPage: number;
 }
 
 interface Type {
   dtoList: Journey[];
+  totalPage: number;
 }
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
+  const [journeys, setJourneys] = useState<Type>({ dtoList: [], totalPage: 0 });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +51,7 @@ const Home: React.FC = () => {
           'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
         );
         setJourneys(response.data || { dtoList: [] });
+        console.log(response);
       } catch (error) {
         console.error('Error', error);
       }
@@ -58,13 +63,13 @@ const Home: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <hs.HomeHeader>
-          <hs.HeaderLogo src={logo}></hs.HeaderLogo>
-        </hs.HomeHeader>
+        <HeaderLogo />
         <Search />
         <hs.TitleBox>
           <hs.MainTitle>동행일정</hs.MainTitle>
-          <hs.tapTitle2>· 217개 동행일정을 둘러보세요.</hs.tapTitle2>
+          <hs.tapTitle2>
+            · {journeys.totalPage}개 동행일정을 둘러보세요.
+          </hs.tapTitle2>
         </hs.TitleBox>
         {journeys.dtoList.slice(0, 5).map((data, index) => (
           <UserList
