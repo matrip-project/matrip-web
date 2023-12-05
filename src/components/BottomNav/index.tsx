@@ -104,7 +104,7 @@ function BottomNav() {
 
 const NavContainer = styled.div`
   width: 100%;
-  height: 55px;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,10 +117,11 @@ const NavContainer = styled.div`
 
 const NavWrap = styled.nav`
   width: 320px;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 0px 25px 0px 35px; */
+  /* padding: 15px; */
   @media screen and (min-width: 390px) {
     width: 320px;
   }
@@ -131,6 +132,7 @@ const NavBtn = styled(Link)`
   justify-content: center;
   align-items: center;
   text-align: center;
+  height: 75px;
 `;
 
 const StyledILine = styled.div<{ isactive: boolean }>`
