@@ -4,20 +4,11 @@ import Select, { StylesConfig } from 'react-select';
 import styled from 'styled-components';
 import { DateRange } from 'react-date-range';
 import dropdownIcon from '../../asset/dropdownIcon.svg';
-
-const place = [
-  { value: '서울', label: '서울' },
-  { value: '경기', label: '경기' },
-  { value: '인천', label: '인천' },
-  { value: '부산', label: '부산' },
-  { value: '강원', label: '강원' },
-  { value: '제주', label: '제주' },
-  { value: '충남', label: '충남' },
-  { value: '전남', label: '전남' },
-  { value: '전북', label: '전북' },
-  { value: '경남', label: '경남' },
-  { value: '경북', label: '경북' }
-];
+import {
+  setSelectedAge,
+  setSelectedStatus
+} from '../../redux/modules/searchSlice';
+import { useDispatch } from 'react-redux';
 
 const genderOptions = [
   { value: '남성', label: '남성' },
@@ -39,6 +30,8 @@ const Recruitment = [
 ];
 
 const SelectButton: React.FC = () => {
+  const dispatch = useDispatch();
+
   // date
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [dateRange, setDateRange] = useState([
@@ -48,6 +41,17 @@ const SelectButton: React.FC = () => {
       key: 'selection'
     }
   ]);
+
+  const handleAgeChange = (selectedOption: any) => {
+    const numericValue = parseInt(selectedOption.value);
+    dispatch(setSelectedAge(numericValue));
+  };
+
+  const handleStatusChange = (selectedOption: any) => {
+    const statusValue =
+      selectedOption.value === '모집마감' ? 'DELETED' : 'ACTIVE';
+    dispatch(setSelectedStatus(statusValue));
+  };
 
   const handleDateBoxBtnClick = () => {
     setDatePickerVisible(!datePickerVisible);
@@ -67,70 +71,54 @@ const SelectButton: React.FC = () => {
     return '날짜';
   };
 
-  const customStyles = useMemo<StylesConfig>(
-    () => ({
-      option: (provided, state) => ({
-        ...provided,
-        height: '30px',
-        textAlign: 'center',
-        alignItems: 'center'
-      }),
-      control: (provided, state) => ({
-        ...provided
-      }),
-      singleValue: (provided, state) => ({
-        ...provided
-      })
-    }),
-    []
-  );
-
   return (
     <>
       <SelectBox>
-        <Select
-          options={place}
-          placeholder='장소'
-          styles={customStyles}
-          components={{ IndicatorSeparator: () => null }}
-        />
-        <Select
-          options={genderOptions}
-          placeholder='성별'
-          styles={customStyles}
-          components={{ IndicatorSeparator: () => null }}
-        />
-        <Select
-          options={age}
-          placeholder='나이'
-          styles={customStyles}
-          components={{ IndicatorSeparator: () => null }}
-        />
+        <DateComponentcalendar>
+          {datePickerVisible && (
+            <DateRange
+              editableDateInputs={true}
+              onChange={handleRangeChange}
+              moveRangeOnFirstSelection={false}
+              ranges={dateRange}
+              months={1}
+              direction='horizontal'
+            />
+          )}
+        </DateComponentcalendar>
+        <SelectBtn>
+          <Select
+            options={genderOptions}
+            placeholder='성별'
+            components={{ IndicatorSeparator: () => null }}
+          />
+        </SelectBtn>
+        <SelectBtn>
+          <Select
+            options={age}
+            placeholder='나이'
+            components={{ IndicatorSeparator: () => null }}
+            onChange={handleAgeChange}
+          />
+        </SelectBtn>
 
-        <DateComponent onClick={handleDateBoxBtnClick}>
-          <DateComponentText>
-            날짜 <img src={dropdownIcon} />
-          </DateComponentText>
-          <DateComponentcalendar></DateComponentcalendar>
-        </DateComponent>
+        <SelectBtn>
+          <DateComponent onClick={handleDateBoxBtnClick}>
+            <DateComponentText>
+              날짜 <img src={dropdownIcon} />
+            </DateComponentText>
+          </DateComponent>
+        </SelectBtn>
 
-        <Select
-          options={Recruitment}
-          placeholder='모집상태'
-          styles={customStyles}
-          components={{ IndicatorSeparator: () => null }}
-        />
+        <SelectBtn>
+          <Select
+            options={Recruitment}
+            placeholder='모집상태'
+            components={{ IndicatorSeparator: () => null }}
+            onChange={handleStatusChange}
+          />
+        </SelectBtn>
       </SelectBox>
-      {datePickerVisible && (
-        <DateRange
-          editableDateInputs={true}
-          onChange={handleRangeChange}
-          moveRangeOnFirstSelection={false}
-          ranges={dateRange}
-          months={1}
-          direction='horizontal'
-        />
-      )}
     </>
   );
 };
@@ -144,14 +132,29 @@ const SelectBox = styled.div`
   text-align: center;
   color: gray;
   margin-bottom: 16px;
-  /* padding: 0px 20px 0px 10px; */
+  white-space: nowrap;
+
+  .css-qbdosj-Input {
+    width: 100%;
+    z-index: -1;
+  }
+
+  .css-1fdsijx-ValueContainer {
+    padding-right: 0px;
+  }
+`;
+
+const SelectBtn = styled.div`
+  width: 80px;
+  height: 38px;
 `;
 
 const DateComponent = styled.div`
   border-radius: 5px 5px 0px 0px;
   border: 1px solid var(--box-stroke, #d9d9d9);
   background: #fff;
-  width: 60px;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   text-align: center;
   align-items: center;
@@ -166,5 +169,75 @@ const DateComponentText = styled.div`
 `;
 
 const DateComponentcalendar = styled.div`
-  top: 200px;
+  position: absolute;
+  top: 310px;
+  z-index: 1;
+
+  // 오른쪽 구석의 화살표를 안보이게 한다.
+  .DayPickerKeyboardShortcuts_buttonReset {
+    display: none;
+  }
+
+  // 달력 각 칸의 기본 스타일.
+  .CalendarDay__default {
+    border: none;
+    border-radius: 50%;
+    vertical-align: middle;
+    outline: none;
+  }
+
+  // 달력 각 칸에 호버가 되었을 때 스타일
+  .CalendarDay__default:hover {
+    background: transparent;
+    border: none;
+    color: black;
+    box-shadow: inset 0 0 0 1px black;
+  }
+
+  // 체크인 체크아웃이 선택되었을 때 그 사의 날짜들에 대한 스타일
+  .CalendarDay__selected_span {
+    background-color: #f7f7f7;
+    border: none;
+    color: black;
+  }
+
+  // 체크인 체크아웃이 선택되었을 때 그 사의 날짜들에 호버 혹은 클릭했을 시 스타일
+  .CalendarDay__selected_span:active,
+  .CalendarDay__selected_span:hover {
+    color: black;
+    background-color: #f7f7f7;
+  }
+
+  // 선택된 체크인 체크아웃 날짜에 대한 스타일
+  .CalendarDay__selected,
+  .CalendarDay__selected:active,
+  .CalendarDay__selected:hover {
+    background: black;
+    border: none;
+    color: white;
+  }
+
+  // 블록된 날짜에 대한 스타일링
+  .CalendarDay__blocked_calendar,
+  .CalendarDay__blocked_calendar:active,
+  .CalendarDay__blocked_calendar:hover {
+    background: white;
+    border: none;
+    color: #d2d2d2;
+    box-shadow: none;
+    text-decoration: line-through;
+  }
+
+  // 선택될 범위에 대한 스타일링
+  .CalendarDay__hovered_span,
+  .CalendarDay__hovered_span:hover {
+    color: black;
+    background-color: #f7f7f7;
+    border: none;
+  }
+
+  // 요일 표시 부분에 대한 스타일.
+  .CalendarMonth_caption {
+    margin-bottom: 10px;
+  }
 `;

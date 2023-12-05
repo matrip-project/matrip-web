@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import * as pls from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
-import { selectKeyword } from '../../redux/modules/searchSlice';
+import {
+  AddSelectedAge,
+  AddSelectedStatus,
+  selectKeyword
+} from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
 import userImgNone from '../../asset/userImgNone.png';
@@ -28,6 +32,8 @@ interface Journey {
   content: string;
   startDate: string;
   endDate: string;
+  status: string;
+  memberAge: string;
 }
 
 interface Type {
@@ -42,6 +48,8 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const searchKeyword = useSelector(selectKeyword);
   const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
+  const SelectedAge = useSelector(AddSelectedAge);
+  const SelectedStatus = useSelector(AddSelectedStatus);
   const keyword = searchKeyword || popularTravelKeyword;
   const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
 
@@ -61,11 +69,15 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   }, []);
 
   // 키워드를 기반으로 게시물 필터링
-  const filteredJourneys = journeys.dtoList.filter(
-    (journey) =>
-      journey.city.toLowerCase().includes(keyword) ||
-      journey.title.toLowerCase().includes(keyword)
-  );
+  const filteredJourneys = journeys.dtoList.filter((journey) => {
+    const includesKeyword = journey.city.toLowerCase().includes(keyword);
+    const includesTitleKeyword = journey.title.toLowerCase().includes(keyword);
+
+    const meetsAgeCriteria = !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
+    const meetsSelectedStatus = !SelectedStatus || journey.status === SelectedStatus;
+    
+    return includesKeyword && (includesTitleKeyword && meetsAgeCriteria && meetsSelectedStatus);
+  });
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
