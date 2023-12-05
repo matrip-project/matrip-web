@@ -41,6 +41,12 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const [journeys, setJourneys] = useState<Type>({ dtoList: [], totalPage: 0 });
 
+  const handleInviteFriend = () => {
+    const urlToCopy = 'http://matrip.s3-website.ap-northeast-2.amazonaws.com/';
+    navigator.clipboard.writeText(urlToCopy);
+    alert('링크가 복사되었습니다!');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -111,7 +117,7 @@ const Home: React.FC = () => {
           </hs.PopularImgbox>
         </hs.PopularTravelBox>
 
-        <hs.InviteFriend>
+        <hs.InviteFriend onClick={() => handleInviteFriend()}>
           친구 초대하기 <hs.InviteFriendImg src={share} />
         </hs.InviteFriend>
 
