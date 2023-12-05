@@ -1,25 +1,44 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as ss from './signupStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
 import BirthdayInput from '../../components/BirthdayInput';
 import RequiredInputSelect from '../../components/RequiredInputSelect';
-import {CheckBox, Spacer} from '../../components/@atoms';
+import {CheckBox, Spacer, Text, InputLabel, ErrMessage} from '../../components/@atoms';
 
 import BottomAlert from '../../components/Alert';
 
+import {postSignup} from '../../apis/signupApi';
+
+type SignupInput = {
+  email: string;
+  password: string;
+  passwordCheck: string;
+  gender: string;
+  birthDate: Date | null;
+  name: string;
+  nickName: string;
+};
 
 function Signup() {
-  const [input, setInput] = useState({
+  
+  const [input, setInput] = useState<SignupInput>({
     email: '',
     password: '',
     passwordCheck: '',
     gender: '',
-    birthDate: '',
+    birthDate: null,
     name: '',
     nickName: ''
   });
+
+  const [isValid, setIsValid] = useState({
+    isPasswordValid: true,
+    isNicknameValid: true,
+  });
+
+  // 처음엔 텍스트 렌더링을 안하고 특정조건 (비밀번호를 타이핑하고 일치하지 않는 경우)에만 텍스트가 보여야함 
 
   const [eventTerm, setEventTerm] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -38,11 +57,21 @@ function Signup() {
     marketing: '마케팅 활용 어쩌고'
 };
 
-
+  // !! TODO 이메일, 비밀번호 유효성 검사
+  // !! 생일 input 숫자만 입력 제한 
+  // !! 알람창 UI 수정
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setInput((prevState) => ({ ...prevState, [name]: value }));
+    // 비밀번호 유효성 검사
+    if (name === 'password' || name === 'passwordCheck') {
+      if (value !== input.password && value !== input.passwordCheck) {
+        setIsValid((prevState) => ({ ...prevState, isPasswordValid: false }));
+      } else {
+        setIsValid((prevState) => ({ ...prevState, isPasswordValid: true }));
+      }
+    }
   };
 
   const handleAllCheck = (event: ChangeEvent<HTMLInputElement>) => {
@@ -60,16 +89,29 @@ function Signup() {
     setIsTerm((prevState) => ({ ...prevState, [name]: checked }));
   };
 
-  const handleBirthdateChange = useCallback((newBirthdate: any) => {
-    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
+  const handleBirthdateChange = useCallback((newBirthdate: Date) => {
+    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate })); 
   }, []);
 
   const handleSelectedChange = (selected: number) => {
     console.log(`Selected index: ${selected}`);
   };
 
-  const handleSignup = () => {
-    setIsAlertOpen(true);
+  const handleSignup = async() => {
+    console.log(input);
+    try{
+      const { email, password, name, birthDate, nickName: nickname } = input;
+      if (birthDate === null) {
+        console.log('Birth date is not selected');
+        return;
+      }
+      const ppp = await postSignup({ email, password, name, birth: birthDate, nickname });
+      console.log(ppp);
+      setIsAlertOpen(true);
+    } catch(err) {
+      console.log(err);
+    }
+    
     // 유효성 검사 로직 추가
     // 배경 블러처리, 클릭 막기
     
@@ -85,39 +127,47 @@ function Signup() {
       <gs.MainBox>
         <ss.SignupForm>
           <FormInput
-            lable='이메일'
+            label='이메일'
             placeHolder='matrip@naver.com'
             formType='email'
             name='email'
             onChange={handleInputChange}
             value={input.email}
+            isCompulsory={true}
           />
           <Spacer height={33} />
           <FormInput
-            lable='비밀번호'
+            label='비밀번호'
             placeHolder='00000000'
             formType='password'
             name='password'
             onChange={handleInputChange}
             value={input.password}
+            isCompulsory={true}
           />
           <Spacer height={33} />
           <FormInput
-            lable='비밀번호 확인'
+            label='비밀번호 확인'
             placeHolder='00000000'
             formType='password'
             name='passwordCheck'
             onChange={handleInputChange}
             value={input.passwordCheck}
+            isCompulsory={true}
           />
+          <ErrMessage 
+            errMsg='다시 확인'
+            isError={!isValid.isPasswordValid}
+            />
           <Spacer height={33} />
           <FormInput
-            lable='이름'
+            label='이름'
             placeHolder='홍길동'
             formType='text'
             name='name'
             onChange={handleInputChange}
             value={input.name}
+            isCompulsory={true}
           />
           <Spacer height={33} />
           <BirthdayInput
@@ -126,7 +176,7 @@ function Signup() {
           />
           <Spacer height={33} />
           <FormInput
-            lable='닉네임'
+            label='닉네임'
             placeHolder='잔망루피'
             formType='text'
             name='nickName'
@@ -140,6 +190,8 @@ function Signup() {
             values={['수신','비수신']}
           /> 
           <Spacer height={33} />
+          <InputLabel label='사이트 이용을 위한 약관에 동의' />  
+          <Spacer height={12}/>
           <CheckBox
             name='all'
             label='전체 동의'

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import InputLabel from '../@atoms/InputLabel';
 
 interface BirthdayInputProps {
-    onBirthdateChange: (birthdate: string) => void;
+    onBirthdateChange: (birthdate: Date) => void;
     label: string;
 }
 
@@ -29,7 +29,9 @@ const BirthdayInput: React.FC<BirthdayInputProps> = ({ onBirthdateChange, label 
 
     useEffect(() => {
         if (day.length === 2) {
-            onBirthdateChange(`${year}-${month}-${day}`);
+            // onBirthdateChange(`${year}-${month}-${day}`); // string 형식
+            const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            onBirthdateChange(date);
         }
     }, [day, month, year, onBirthdateChange]);
 

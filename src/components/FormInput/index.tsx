@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
 import InputLabel from '../@atoms/InputLabel';
+import { Spacer, Text } from '../@atoms';
 
 type FormType = 'text' | 'password' | 'date' | 'email';
 
@@ -8,16 +9,23 @@ type FormInputProps = {
   value: string;
   formType: FormType;
   name: string;
-  lable?: string;
+  label?: string;
+  isCompulsory?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeHolder?: string;
 };
 
-function FormInput({ formType, value, onChange, placeHolder, name, lable }: FormInputProps) {
+function FormInput({ formType, value, onChange, placeHolder, name, label, isCompulsory }: FormInputProps) {
   return (
     <div>
-      {lable &&
-        <InputLabel label={lable}/>
+      {label &&
+      <InputLabelWithOption>
+        <InputLabel label={label}/>
+        <Spacer width={10}/>
+        {isCompulsory&&
+          <Text color='primary'>필수</Text>
+        }
+      </InputLabelWithOption>
       }
       <Input
         name={name}
@@ -29,6 +37,11 @@ function FormInput({ formType, value, onChange, placeHolder, name, lable }: Form
     </div>
   );
 }
+
+const InputLabelWithOption = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const Input = styled.input`
   width: 100%;

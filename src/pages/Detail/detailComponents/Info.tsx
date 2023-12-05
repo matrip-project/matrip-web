@@ -1,31 +1,47 @@
 import * as D from '../detailStyle';
 import { ReactComponent as ArrowRight } from '../../../asset/arrowRight.svg';
 import recruitingImage from '../../../asset/recruiting.svg';
+import recruitingEndImage from '../../../asset/recruitingEnd.svg';
 import UserIntro from '../../../components/UserIntro';
 import { DataProps } from '../../../types/postData';
+import { encodeEmail } from '../../../utils/encodeEmail';
 
 type InfoType = {
   data: DataProps;
 };
 
 function Info({ data }: InfoType) {
+  const replaceDash = (str: string) => {
+    const result = str.replace(/-/g, '.');
+    console.log(result);
+
+    return result;
+  };
+
   return (
     <D.InfoContainer>
       <D.TitleContainer>
         <D.Title>{data.title}</D.Title>
         <div>
-          <img src={recruitingImage} alt='모집중' />
+          {data.status === 'ACTIVE' ? (
+            <img src={recruitingImage} alt='모집중' />
+          ) : (
+            <img src={recruitingEndImage} alt='모집완료' />
+          )}
         </div>
       </D.TitleContainer>
       <D.InfoWrap>
         <D.InfoText>지역 - {data.city}</D.InfoText>
         <D.InfoText>
-          여행 일정 - {data.startDate}-{data.endDate}
+          여행일정 - {replaceDash(data.startDate)}-{replaceDash(data.endDate)}
         </D.InfoText>
         <D.InfoText>모집인원 - {data.count}명</D.InfoText>
       </D.InfoWrap>
       <UserIntro iconSize={18}>
-        <D.UserIntroText>홍길동 30대 남자</D.UserIntroText>
+        <D.UserIntroText>
+          {data.memberName}({encodeEmail(data.memberEmail!)}) {data.memberAge}대{' '}
+          {data.memberSex}
+        </D.UserIntroText>
         <ArrowRight />
       </UserIntro>
       <D.ContentContainer>

@@ -13,6 +13,7 @@ import UserProfile from './pages/UserProfile';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import ProfileViewer from './pages/ProfileViewer';
+import ResetPassword from './pages/ResetPassword';
 import MapSearch from './pages/MapSearch';
 import Notificiation from './pages/Notification';
 import MyPageMain from './pages/MyPageMain';
@@ -62,6 +63,7 @@ function App() {
           <Route path='/mypage' element={<MyPageMain />} />
           <Route path='/mypage/profile' element={<Profile />} />
           <Route path='/mypage/editProfile' element={<EditProfile />} />
+          <Route path='/resetPassword' element={<ResetPassword />}/>
           <Route path='/profileView/:id' element={<ProfileViewer />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />

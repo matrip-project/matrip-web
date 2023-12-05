@@ -7,8 +7,14 @@ export interface DataProps {
   count: number;
   latitude: number;
   longitude: number;
-  tag: string;
-  commentCnt: number;
+  tag?: string;
+  journeyCount: number; //댓글수
+  memberId?: number;
+  memberAge?: number;
+  memberEmail?: string;
+  memberName?: string;
+  memberSex?: string;
+  status: string;
 }
 
 export interface PlanProps {

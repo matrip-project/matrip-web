@@ -24,7 +24,10 @@ const StyledButton = styled.button<ButtonProps>`
   background: ${(props) => (props.type === 'primary' ? props.theme.colors.primary : props.theme.colors.white)};
   color: ${(props) => (props.color ? props.color : 'black')};
   padding: ${(props) => (props.size === 'large' ? '10px 20px' : props.size === 'medium' ? '5px 10px' : '2px 5px')};
-  border-radius: 11px;
+  border-radius: 30px;
+  border: none;
+  width: 100%;
+  height: 46px;
   // TODO 스타일 추가!
 `;
 

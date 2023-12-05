@@ -31,18 +31,18 @@ export const TitleContainer = styled.div`
 export const InfoWrap = styled.div`
   display: flex;
   margin-bottom: 10px;
+  gap: 10px;
 `;
 
 export const InfoText = styled.p`
   ${(props) => props.theme.texts.menuSelect};
   color: ${(props) => props.theme.colors.neutral4};
-  margin-right: 10px;
 `;
 
 export const UserIntroText = styled.p`
   ${(props) => props.theme.texts.menuSelect};
   color: ${(props) => props.theme.colors.neutral3};
-  margin-right: 8px;
+  word-spacing: 5px;
 `;
 
 export const ContentContainer = styled.div`
@@ -52,6 +52,7 @@ export const ContentContainer = styled.div`
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 15px;
   width: 90%;
 
   & > div {
