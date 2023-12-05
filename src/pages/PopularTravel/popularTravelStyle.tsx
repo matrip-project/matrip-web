@@ -14,7 +14,6 @@ export const HeaderLogo = styled.img`
   margin: auto;
 `;
 
-
 export const noPost = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   font-size: 16px;
@@ -23,7 +22,6 @@ export const noPost = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 
 export const HeaderIconCtnr = styled.div`
   display: flex;
@@ -48,6 +46,10 @@ export const tapTitle2 = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   margin-bottom: 16px;
   position: relative;
+  
+  & span {
+    color: #D30065;
+  }
 `;
 
 export const tapTitle2Fillter = styled.img`

@@ -37,6 +37,10 @@ export const tapTitle2 = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   margin-bottom: 16px;
   position: relative;
+
+  & span {
+    color: #d30065;
+  }
 `;
 
 export const tapTitle2Fillter = styled.img`

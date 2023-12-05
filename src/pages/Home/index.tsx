@@ -68,7 +68,7 @@ const Home: React.FC = () => {
         <hs.TitleBox>
           <hs.MainTitle>동행일정</hs.MainTitle>
           <hs.tapTitle2>
-            · {journeys.totalPage}개 동행일정을 둘러보세요.
+            <span>· {journeys.totalPage} </span>동행일정을 둘러보세요.
           </hs.tapTitle2>
         </hs.TitleBox>
         {journeys.dtoList.slice(0, 5).map((data, index) => (
