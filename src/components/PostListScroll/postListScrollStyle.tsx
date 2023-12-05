@@ -36,8 +36,8 @@ export const contentsTopBox = styled.div`
 export const contentsBox = styled.div``;
 
 export const postImgBox = styled.div`
-  width: 94px;
-  height: 71px;
+  width: 85px;
+  height: 65px;
   margin-top: 20px;
 `;
 
@@ -52,6 +52,12 @@ export const Nickname = styled.h4`
   font-size: 12px;
   font-weight: 600;
   margin: 0;
+`;
+
+export const userImgNone = styled.img`
+  justify-content: center;
+  align-items: center;
+  margin-right: 6px;
 `;
 
 export const postContent = styled.div`
@@ -82,7 +88,10 @@ export const postDibsBtn = styled.div`
 `;
 
 export const postNickname = styled.div`
-  ${(props) => props.theme.texts.content2};
+  ${(props) => props.theme.texts.username};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 12px;
   position: absolute;
 `;

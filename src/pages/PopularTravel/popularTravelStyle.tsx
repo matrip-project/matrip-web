@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { getColor } from '../../utils/colorUtils';
 
 export const HomeHeader = styled.div`
   display: flex;
@@ -14,7 +12,6 @@ export const HeaderLogo = styled.img`
   margin: auto;
 `;
 
-
 export const noPost = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   font-size: 16px;
@@ -23,7 +20,6 @@ export const noPost = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 
 export const HeaderIconCtnr = styled.div`
   display: flex;
@@ -48,6 +44,10 @@ export const tapTitle2 = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   margin-bottom: 16px;
   position: relative;
+
+  & span {
+    color: #d30065;
+  }
 `;
 
 export const tapTitle2Fillter = styled.img`
@@ -73,5 +73,14 @@ export const searchResultIcon = styled.img`
 `;
 
 export const PopularImageContainer = styled.div`
+  width: 390px;
+  height: 200px;
+  overflow: hidden;
   margin-bottom: 30px;
+`;
+
+export const PopularImage = styled.img`
+  width: 390px;
+  height: 200px;
+  object-fit: cover;
 `;

@@ -1,11 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../../asset/logo.png';
 
 const HeaderLogo: React.FC = () => {
-  const navigate = useNavigate();
 
   return (
     <HomeHeader>
@@ -21,7 +19,7 @@ export const HomeHeader = styled.div`
   width: 80%;
   justify-content: space-between;
   margin-top: 30px;
-  padding: 18px 120px;
+  padding: 18px;
 `;
 
 export const LogoLink = styled(Link)`

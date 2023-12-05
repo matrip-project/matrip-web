@@ -52,17 +52,19 @@ const CompanionList: React.FC = () => {
       <gs.MainContainer>
         <HeaderLogo />
         <Search />
-        <cs.searchResult>
-          <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
-          {keyword} 검색 결과 입니다.
-        </cs.searchResult>
+        {keyword && (
+          <cs.searchResult>
+            <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
+            {keyword} 검색 결과 입니다.
+          </cs.searchResult>
+        )}
 
         {showTitleBox && (
           <>
             <cs.TitleBox>
               <cs.MainTitle>동행일정</cs.MainTitle>
               <cs.tapTitle2>
-                · {totalPage} 동행일정을 둘러보세요.
+                <span>· {totalPage} </span>동행일정을 둘러보세요.
                 <cs.tapTitle2Fillter
                   src={isFilterClicked ? fillterIconNone : fillterIcon}
                   onClick={handleFilterClick}

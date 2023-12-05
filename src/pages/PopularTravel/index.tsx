@@ -31,6 +31,7 @@ const PopularTravel: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(true);
   const Popularkeyword = useSelector(selectPopularTravelKeyword);
   const [totalPage, setTotalPage] = useState<number>(0);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -75,13 +76,17 @@ const PopularTravel: React.FC = () => {
         <HeaderLogo />
         <Search />
         <cs.PopularImageContainer>
-          <img src={cityImages[Popularkeyword]} alt={Popularkeyword} />
+          <cs.PopularImage
+            src={cityImages[Popularkeyword]}
+            alt={Popularkeyword}
+            onLoad={() => setIsImageLoaded(true)}
+          />
         </cs.PopularImageContainer>
 
         <cs.TitleBox>
           <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
-            · {totalPage} 동행일정을 둘러보세요.
+            <span>· {totalPage} </span>동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
               src={isFilterClicked ? fillterIconNone : fillterIcon}
               onClick={handleFilterClick}

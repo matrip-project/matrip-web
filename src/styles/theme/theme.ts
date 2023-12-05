@@ -71,6 +71,12 @@ const texts = {
     fontWeight: '400',
     lineHeight: '17.76px',
     color: '#666'
+  },
+  username: {
+    fontSize: '0.9rem',
+    fontWeight: '400',
+    lineHeight: '17.76px',
+    color: '#ADADAD'
   }
 };
 

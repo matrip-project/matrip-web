@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as hs from './homeStyle';
-import logo from '../../asset/logo.png';
 import addPostButton from '../../asset/addPostButton.svg';
 import jejuImg from '../../asset/ImgJeju.png';
 import busanImg from '../../asset/ImgBusan.png';
@@ -13,7 +11,6 @@ import Search from '../../components/Search';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
-import Header from '../../components/Header';
 import HeaderLogo from '../../components/HeaderLogo';
 
 interface JourneyImage {
@@ -44,6 +41,12 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const [journeys, setJourneys] = useState<Type>({ dtoList: [], totalPage: 0 });
 
+  const handleInviteFriend = () => {
+    const urlToCopy = 'http://matrip.s3-website.ap-northeast-2.amazonaws.com/';
+    navigator.clipboard.writeText(urlToCopy);
+    alert('링크가 복사되었습니다!');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,7 +71,7 @@ const Home: React.FC = () => {
         <hs.TitleBox>
           <hs.MainTitle>동행일정</hs.MainTitle>
           <hs.tapTitle2>
-            · {journeys.totalPage}개 동행일정을 둘러보세요.
+            <span>· {journeys.totalPage} </span>동행일정을 둘러보세요.
           </hs.tapTitle2>
         </hs.TitleBox>
         {journeys.dtoList.slice(0, 5).map((data, index) => (
@@ -114,7 +117,7 @@ const Home: React.FC = () => {
           </hs.PopularImgbox>
         </hs.PopularTravelBox>
 
-        <hs.InviteFriend>
+        <hs.InviteFriend onClick={() => handleInviteFriend()}>
           친구 초대하기 <hs.InviteFriendImg src={share} />
         </hs.InviteFriend>
 

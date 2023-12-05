@@ -17,6 +17,10 @@ export const MainTitle = styled.div`
 export const tapTitle2 = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   margin-bottom: 12px;
+
+  & span {
+    color: #d30065;
+  }
 `;
 
 export const buttonWrraperContainer = styled.div`
@@ -30,7 +34,9 @@ export const postContainer = styled(Link)`
   right: 25px;
 `;
 
-export const WriteBtn = styled.img``;
+export const WriteBtn = styled.img`
+  
+`;
 
 export const ScheduleMoreBtn = styled(Link)`
   display: inline-flex;

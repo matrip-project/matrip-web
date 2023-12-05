@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { postdata } from '../../data/postdata';
 import * as pls from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
+import userImgNone from '../../asset/userImgNone.png';
 
 interface PostListScrollProps {
   onNoPosts: () => void;
@@ -86,7 +86,6 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   }, []);
 
   // 필터링된 포스트 배열 길이 값 관리
-
   useEffect(() => {
     if (filteredJourneys.length === 0) {
       onNoPosts();
@@ -118,7 +117,10 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
                 </pls.postTitle>
               </pls.postContent>
 
-              <pls.postNickname>{journey.memberName}</pls.postNickname>
+              <pls.postNickname>
+                <pls.userImgNone src={userImgNone}></pls.userImgNone>
+                {journey.memberName}
+              </pls.postNickname>
             </pls.contentsBox>
 
             <pls.postImgBox>
