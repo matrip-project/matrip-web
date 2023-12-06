@@ -31,11 +31,11 @@ function Info({ data }: InfoType) {
         </div>
       </D.TitleContainer>
       <D.InfoWrap>
-        <D.InfoText>지역 - {data.city}</D.InfoText>
-        <D.InfoText>
+        <D.Content1>지역 - {data.city}</D.Content1>
+        <D.Content1>
           여행일정 - {replaceDash(data.startDate)}-{replaceDash(data.endDate)}
-        </D.InfoText>
-        <D.InfoText>모집인원 - {data.count}명</D.InfoText>
+        </D.Content1>
+        <D.Content1>모집인원 - {data.count}명</D.Content1>
       </D.InfoWrap>
       <UserIntro iconSize={18}>
         <D.UserIntroText>
