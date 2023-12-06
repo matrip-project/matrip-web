@@ -23,7 +23,7 @@ function Detail() {
     const getData = async () => {
       if (id) {
         await getJourneyDetail(parseInt(id)).then((res) => {
-          console.log('get data success: ', res);
+          console.log('get journey success: ', res);
           const detailData = getCleanDetailInfo(res);
 
           setImage(detailData.journeyImgRequestDtoList);
@@ -65,7 +65,7 @@ function Detail() {
             {/* <Plan plan={plan} /> */}
             <D.CommentContainer>
               <CommentInput />
-              <CommentCount cnt={detail.journeyCount} />
+              <CommentCount cnt={detail.journeyCount!} />
             </D.CommentContainer>
           </>
         )}

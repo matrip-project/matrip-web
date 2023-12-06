@@ -110,13 +110,13 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
   return (
     <>
       <LoadScript
-        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || ''}
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY!}
         libraries={['places']}
       >
         <GoogleMap
           mapContainerStyle={{
             width: '100%',
-            height: '85vh',
+            height: '81vh',
             position: 'relative'
           }}
           zoom={zoom}

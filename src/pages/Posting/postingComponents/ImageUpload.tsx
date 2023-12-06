@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as None } from '../../../asset/imageNone.svg';
 import { PostingContainer } from '..';
+
 interface UploadProps {
   url?: string;
   setPreivew: React.Dispatch<React.SetStateAction<File | null>>;
@@ -61,11 +62,12 @@ const UploadWrap = styled.input`
 `;
 
 const UploadBtn = styled(None)`
+  width: 100%;
   cursor: pointer;
 `;
 
 const ImageWrap = styled.img`
-  width: 390px;
+  width: 100%;
   height: 240px;
   object-fit: cover;
   cursor: pointer;
