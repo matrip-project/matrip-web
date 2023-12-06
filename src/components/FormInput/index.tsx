@@ -23,7 +23,7 @@ function FormInput({ formType, value, onChange, placeHolder, name, label, isComp
         <InputLabel label={label}/>
         <Spacer width={10}/>
         {isCompulsory&&
-          <Text color='primary'>필수</Text>
+          <Text color='primary' type='subtitle1'>(필수)</Text>
         }
       </InputLabelWithOption>
       }
@@ -41,6 +41,7 @@ function FormInput({ formType, value, onChange, placeHolder, name, label, isComp
 const InputLabelWithOption = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 const Input = styled.input`

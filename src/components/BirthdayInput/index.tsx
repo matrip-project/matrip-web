@@ -36,7 +36,7 @@ const BirthdayInput: React.FC<BirthdayInputProps> = ({ onBirthdateChange, label 
     }, [day, month, year, onBirthdateChange]);
 
     return (
-        <>
+        <BirthInputContainer>
             <InputLabel label={label} />
             <BirthDayContaineer>
                 <InputTimeInfo
@@ -63,18 +63,23 @@ const BirthdayInput: React.FC<BirthdayInputProps> = ({ onBirthdateChange, label 
                     placeholder='01'
                 />
             </BirthDayContaineer>
-        </>
+        </BirthInputContainer>
     );
 };
 
 export default BirthdayInput;
 
+const BirthInputContainer = styled.div`
+    width: 100%;
+`;
+
 const BirthDayContaineer = styled.div`
     display: flex;
+    width: 100%;
 `;
 
 const InputTimeInfo = styled.input`
-    flex: 1;
+    width: 33.3%;
     height: 40px;
     border-width: 0 0 1px 0;
     border-bottom-color: #9c9c9c;

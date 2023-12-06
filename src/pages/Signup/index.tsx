@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import * as gs from '../../styles/GlobalStyles';
 import * as ss from './signupStyle';
 import Header from '../../components/Header';
@@ -38,8 +39,6 @@ function Signup() {
     isNicknameValid: true,
   });
 
-  // 처음엔 텍스트 렌더링을 안하고 특정조건 (비밀번호를 타이핑하고 일치하지 않는 경우)에만 텍스트가 보여야함 
-
   const [eventTerm, setEventTerm] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
@@ -51,10 +50,10 @@ function Signup() {
   });
 
   const labelObj = {
-    age: '14세이상 어쩌고',
-    use: '개인정보 사용 어쩌고',
-    privacy: '개인정보 동의 어쩌고',
-    marketing: '마케팅 활용 어쩌고'
+    age: '만 14세이상 입니다',
+    use: '이용약관 동의',
+    privacy: '개인정보 수집 및 이용에 대한 동의',
+    marketing: '개인정보 수집 및 이용안내'
 };
 
   // !! TODO 이메일, 비밀번호 유효성 검사
@@ -98,15 +97,15 @@ function Signup() {
   };
 
   const handleSignup = async() => {
-    console.log(input);
     try{
       const { email, password, name, birthDate, nickName: nickname } = input;
       if (birthDate === null) {
         console.log('Birth date is not selected');
         return;
       }
-      const ppp = await postSignup({ email, password, name, birth: birthDate, nickname });
-      console.log(ppp);
+      const response = await postSignup({ email, password, name, birth: birthDate, nickname });
+      // response 데이터 저장하는 로직 추가
+      // console.log(response);
       setIsAlertOpen(true);
     } catch(err) {
       console.log(err);
@@ -128,7 +127,7 @@ function Signup() {
         <ss.SignupForm>
           <FormInput
             label='이메일'
-            placeHolder='matrip@naver.com'
+            placeHolder='본인소유의 이메일을 입력해 주세요'
             formType='email'
             name='email'
             onChange={handleInputChange}
@@ -138,7 +137,7 @@ function Signup() {
           <Spacer height={33} />
           <FormInput
             label='비밀번호'
-            placeHolder='00000000'
+            placeHolder='영문+숫자+특수문자 조합 8~16자리'
             formType='password'
             name='password'
             onChange={handleInputChange}
@@ -148,7 +147,7 @@ function Signup() {
           <Spacer height={33} />
           <FormInput
             label='비밀번호 확인'
-            placeHolder='00000000'
+            placeHolder='영문+숫자+특수문자 조합 8~16자리 '
             formType='password'
             name='passwordCheck'
             onChange={handleInputChange}
@@ -162,7 +161,7 @@ function Signup() {
           <Spacer height={33} />
           <FormInput
             label='이름'
-            placeHolder='홍길동'
+            placeHolder='ex) 홍길동 '
             formType='text'
             name='name'
             onChange={handleInputChange}
@@ -177,7 +176,7 @@ function Signup() {
           <Spacer height={33} />
           <FormInput
             label='닉네임'
-            placeHolder='잔망루피'
+            placeHolder='ex) 잔망루피'
             formType='text'
             name='nickName'
             onChange={handleInputChange}
@@ -204,7 +203,7 @@ function Signup() {
           {Object.keys(term).map((key) => {
             const termKey = key as keyof typeof term;
             return (
-              <>
+              <div key={key}>
                 <CheckBox
                   name={termKey}
                   label={labelObj[termKey]}
@@ -212,17 +211,18 @@ function Signup() {
                   handleCheck={handleTermChange}
                 />
                 <Spacer height={8}/>
-              </>
+              </div>
             );
           })}
           <Spacer height={30}/>
           
           {/* 약관 동의 추가 필요 */}
           <ss.SubmitBtn onClick={handleSignup}>확인</ss.SubmitBtn>
+          <Overlay modalOpen={isAlertOpen} />
           <BottomAlert 
-            header='head'
-            body='head'
-            buttonText='head'
+            header='회원가입 완료'
+            body='회원가입이 성공적으로 완료되었습니다'
+            buttonText='확인'
             onClose={handleCloseAlert}
             modalOpen={isAlertOpen}
           />
@@ -233,3 +233,18 @@ function Signup() {
 }
 
 export default Signup;
+
+interface OverlayProps {
+  modalOpen: boolean;
+}
+
+const Overlay = styled.div<OverlayProps>`
+    display: ${({modalOpen}) => modalOpen ? 'block' : 'none'};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+`;

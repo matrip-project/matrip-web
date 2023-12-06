@@ -35,6 +35,7 @@ function Login() {
     e.preventDefault();
     const { email, password } = input;
     const res = await postLogin({ email, password});
+    // 로그인 처리
     console.log(res);
     try{
       console.log( email, password );
