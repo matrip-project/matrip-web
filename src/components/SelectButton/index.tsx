@@ -55,6 +55,7 @@ const SelectButton: React.FC = () => {
 
   const handleDateBoxBtnClick = () => {
     setDatePickerVisible(!datePickerVisible);
+    formatSelectedDate();
   };
 
   const handleRangeChange = (ranges: any) => {
@@ -62,14 +63,15 @@ const SelectButton: React.FC = () => {
   };
 
   const formatSelectedDate = () => {
-    const { startDate, endDate } = dateRange[0];
-    if (startDate && endDate) {
-      const formattedStartDate = startDate.toLocaleDateString();
-      const formattedEndDate = endDate.toLocaleDateString();
-      return `${formattedStartDate} ~ ${formattedEndDate}`;
-    }
-    return '날짜';
+    // const { startDate, endDate } = dateRange[0];
+    // if (startDate && endDate) {
+    //   const formattedStartDate = startDate.toLocaleDateString();
+    //   const formattedEndDate = endDate.toLocaleDateString();
+    //   return `${formattedStartDate} ~ ${formattedEndDate}`;
+    // }
+    // return '날짜';
   };
+  console.log(dateRange[0]);
 
   return (
     <>
