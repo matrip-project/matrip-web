@@ -36,16 +36,9 @@ import TopNav from './components/TopNav';
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
 
-import { useAppSelector } from './redux/hooks';
-
 
 
 function App() {
-  const userState = useAppSelector(state => state.userData);
-  useEffect(() => {
-    console.log(userState);
-  }, [userState]);
-
 
   const serviceTabs = [
     { label: '공지사항', to: '/service/notice' },
@@ -70,7 +63,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/mypage' element={<MyPageMain />} />
           <Route path='/mypage/profile' element={<Profile />} />
-          <Route path='/mypage/editProfile' element={<EditProfile />} />
+          <Route path='/editProfile' element={<EditProfile />} />
           <Route path='/resetPassword' element={<ResetPassword />} />
           <Route path='/profileView/:id' element={<ProfileViewer />} />
           <Route path='/ItinerarySearch' element={<ItinerarySearch />} />

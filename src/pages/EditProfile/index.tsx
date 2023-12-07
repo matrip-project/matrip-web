@@ -8,15 +8,16 @@ import { Text, InputLabel, Spacer } from '../../components/@atoms';
 import SnsConnect from '../../components/SnsConnect';
 import ImageCarousel from '../../components/ImageCarousel';
 import Header from '../../components/Header';
+import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 
 
-import { userData } from '../../data/userDummyData';
+import { userDataEx } from '../../data/userDummyData';
 
 const EditProfile = () => {
-
+  const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
   const [input, setInput] = useState({
-    nickname: userData.nickName,
-    description: userData.description,
+    nickname: userData.nickname,
+    description: userData.intro,
   });
 
   const [fields, setFields] = useState(['']);
@@ -29,21 +30,25 @@ const EditProfile = () => {
     });
   };
 
+  const handleSave = () => {
+    console.log('saved');
+  };
+
   return (
     <gs.MainContainer>
+      <Header edit={true} onClick={handleSave}/>
       <gs.MainBox>
-        <Header edit={true}/>
         <ImageWithName>
-          <UserIntro iconSize={80}></UserIntro>
+          <ProfileIcon width={80} height={80}/>
           <FormInput
             name='nickname'
             formType='text'
             value={input.nickname}
             onChange={handleInputChange}
-            placeHolder={userData.nickName}
+            placeHolder={userData.nickname}
           />
         </ImageWithName>
-
+        <Spacer height={54}/>
         <UserInfoContainer>
           <InputLabel label='회원정보' />
           <Text type='body1'>이메일</Text>
@@ -55,7 +60,7 @@ const EditProfile = () => {
             name='description'
             value={input.description}
             onChange={handleInputChange}
-            placeholder={userData.description}
+            placeholder={userDataEx.description}
           />
         </BoxContainer>
         <BoxContainer>
@@ -63,8 +68,9 @@ const EditProfile = () => {
           <SnsConnect fields={fields} setFields={setFields} />
         </BoxContainer>
         <BoxContainer>
-          <button>사진 추가</button>
-          <ImageCarousel images={userData.images}/>
+          <Text type='title1'>나를 표현할 수 있는 사진을 올려주세요</Text>
+          <Text type='subtitle1'>내가 좋아하는 곳, 내 여행 스타일등 나의 캐릭터를 보여줄 수 있는 사진이면 더 좋아요.</Text>
+          <ImageCarousel images={userDataEx.images}/>
         </BoxContainer>
       </gs.MainBox>
     </gs.MainContainer>
@@ -97,4 +103,5 @@ const TextArea = styled.textarea`
 const UserInfoContainer = styled.div`
     width: 100%;
     border-bottom: 1px solid ${props => props.theme.colors.neutral1};
+    padding: 0px 0px 16px;
 `;

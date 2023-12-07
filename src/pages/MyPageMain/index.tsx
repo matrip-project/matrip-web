@@ -6,7 +6,7 @@ import rightIcon from '../../asset/arrowRight.svg';
 import { Text, Spacer } from '../../components/@atoms';
 import UserIntro from '../../components/UserIntro';
 import Header from '../../components/Header';
-import {getMyUserData} from '../../apis/api/userData';
+import { useAppSelector } from '../../redux/hooks';
 
 
 const MENUS = {
@@ -19,18 +19,21 @@ const MENUS = {
 };
 
 const MyPageMain = () => {
-
-
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
 
     return (
         <gs.MainContainer>
             <Header edit={false} />
             <gs.MainBox>
-                <LinkToProfile to={'/mypage/profile'}>
+                <LinkToProfile to='/profile'>
                     <UserIntro iconSize={60}>
                         <div>
-                            <Text type='title1'>ssss</Text>
-                            <Text type='body2'>ssss</Text>
+                            {userData &&
+                                <>
+                                    <Text type='title1'>{userData.name}</Text>
+                                    <Text type='body2'>{userData.email}</Text>
+                                </>
+                            }
                         </div>
                     </UserIntro>
                 </LinkToProfile>

@@ -1,4 +1,4 @@
-export const userData = {
+export const userDataEx = {
     name: 'yongho',
     nickName: '용용',
     birthDay: '1995-12-12',
