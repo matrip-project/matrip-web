@@ -30,7 +30,7 @@ const MyPageMain = () => {
                         <div>
                             {userData &&
                                 <>
-                                    <Text type='title1'>{userData.name}</Text>
+                                    <Text type='title1'>{userData.nickname}</Text>
                                     <Text type='body2'>{userData.email}</Text>
                                 </>
                             }

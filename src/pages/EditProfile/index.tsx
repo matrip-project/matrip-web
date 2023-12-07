@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import styled from 'styled-components';
-
+import {useNavigate} from 'react-router-dom';
 import UserIntro from '../../components/UserIntro';
 import FormInput from '../../components/FormInput';
 import { Text, InputLabel, Spacer } from '../../components/@atoms';
@@ -9,15 +9,19 @@ import SnsConnect from '../../components/SnsConnect';
 import ImageCarousel from '../../components/ImageCarousel';
 import Header from '../../components/Header';
 import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
+import {updateUserProfile} from '../../apis/api/editProfile';
 
 
 import { userDataEx } from '../../data/userDummyData';
+import {getMyUserData} from '../../apis/api/userData';
 
+// !!TODO 회원 데이터 수정 api, 사진 등록 api
 const EditProfile = () => {
+  const navigate = useNavigate();
   const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
   const [input, setInput] = useState({
     nickname: userData.nickname,
-    description: userData.intro,
+    intro: userData.intro,
   });
 
   const [fields, setFields] = useState(['']);
@@ -30,7 +34,11 @@ const EditProfile = () => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const res = await updateUserProfile(userData.id, input);
+    await getMyUserData(userData.id);
+    navigate('/mypage');
+
     console.log('saved');
   };
 
@@ -57,8 +65,8 @@ const EditProfile = () => {
         <BoxContainer>
           <InputLabel label='소개글' />
           <TextArea
-            name='description'
-            value={input.description}
+            name='intro'
+            value={input.intro}
             onChange={handleInputChange}
             placeholder={userDataEx.description}
           />

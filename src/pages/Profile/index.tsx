@@ -30,7 +30,7 @@ const Profile = () => {
                         <ProfileIcon width={60} height={60}/>
                         <Spacer width={15}/>
                         <div>
-                            <Text type='title1'>{userData.name}</Text>
+                            <Text type='title1'>{userData.nickname}</Text>
                             <Text type='body2'>{userData.email}</Text>
                         </div>
                     </LinkToProfile>
@@ -44,7 +44,7 @@ const Profile = () => {
                             }
                             <span>를 선호합니다.</span>
                         </div>
-                        <Text>{userDataEx.description}</Text>
+                        <Text>{userData.intro}</Text>
                     </UserDateText>
                     <ImageSection>
                         <Spacer height={16}/>
