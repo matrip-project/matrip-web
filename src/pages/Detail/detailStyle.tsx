@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Title = styled.div`
   ${(props) => props.theme.texts.mainTitle};
+  font-weight: 500;
   width: 80%;
 `;
 
@@ -40,7 +41,7 @@ export const InfoText = styled.p`
 `;
 
 export const UserIntroText = styled.p`
-  ${(props) => props.theme.texts.menuSelect};
+  ${(props) => props.theme.texts.content2};
   color: ${(props) => props.theme.colors.neutral3};
   word-spacing: 5px;
 `;

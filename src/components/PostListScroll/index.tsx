@@ -4,6 +4,8 @@ import recruitingImage from '../../asset/recruiting.svg';
 import { useSelector } from 'react-redux';
 import {
   AddSelectedAge,
+  AddSelectedEndDate,
+  AddSelectedStartDate,
   AddSelectedStatus,
   selectKeyword
 } from '../../redux/modules/searchSlice';
@@ -50,6 +52,8 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
   const SelectedAge = useSelector(AddSelectedAge);
   const SelectedStatus = useSelector(AddSelectedStatus);
+  const SelectedStartDate = useSelector(AddSelectedStartDate);
+  const SelectedEndDate = useSelector(AddSelectedEndDate);
   const keyword = searchKeyword || popularTravelKeyword;
   const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
 
@@ -72,11 +76,26 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   const filteredJourneys = journeys.dtoList.filter((journey) => {
     const includesKeyword = journey.city.toLowerCase().includes(keyword);
     const includesTitleKeyword = journey.title.toLowerCase().includes(keyword);
+    const journeyStartDate = new Date(journey.startDate).toISOString();
+    const journeyEndDate = new Date(journey.endDate).toISOString();
 
-    const meetsAgeCriteria = !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
-    const meetsSelectedStatus = !SelectedStatus || journey.status === SelectedStatus;
-    
-    return includesKeyword && (includesTitleKeyword && meetsAgeCriteria && meetsSelectedStatus);
+    const meetsAgeCriteria =
+      !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
+    const meetsSelectedStatus =
+      !SelectedStatus || journey.status === SelectedStatus;
+    const meetsStartDateCriteria =
+      !SelectedStartDate || journeyStartDate >= SelectedStartDate;
+    const meetsEndDateCriteria =
+      !SelectedEndDate || journeyEndDate <= SelectedEndDate;
+
+    return (
+      includesKeyword &&
+      includesTitleKeyword &&
+      meetsAgeCriteria &&
+      meetsSelectedStatus &&
+      meetsStartDateCriteria &&
+      meetsEndDateCriteria
+    );
   });
 
   // 감지할 스크롤 이벤트 추가
@@ -105,7 +124,7 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
       onShowTitleBox();
     }
   }, [filteredJourneys, onNoPosts, onShowTitleBox]);
-
+  
   return (
     <>
       {filteredJourneys.length === 0 ? (
