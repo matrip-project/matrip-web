@@ -3,14 +3,14 @@ import { styled } from 'styled-components';
 
 export const SearchBox = styled.div`
   display: flex;
-  align-items: center;
   width: 298px;
-  height: 48px;
-  justify-content: center;
-  align-items: center;
   gap: 8px;
   position: relative;
   margin-bottom: 30px;
+  height: 48px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SearchInput = styled.input`

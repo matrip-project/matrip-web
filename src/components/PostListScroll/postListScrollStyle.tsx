@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const postBox = styled.div`
-  width: 337px;
-  height: 115px;
+  width: 313px;
+  height: 98px;
   justify-content: center;
   margin: auto;
   border-bottom: solid #c5c5c5 1px;
@@ -29,7 +29,7 @@ export const noPost = styled.div`
 export const contentsTopBox = styled.div`
   width: 100%;
   display: flex;
-  margin-bottom: 11px;
+  margin-bottom: 6px;
   align-items: center;
 `;
 

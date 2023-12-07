@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as cs from './CompanionListStyle';
-import logo from '../../asset/logo.png';
 import fillterIcon from '../../asset/fillterIcon.svg';
 import fillterIconNone from '../../asset/fillterIconNone.svg';
 import searchIcon from '../../asset/searchIcon.svg';
@@ -18,6 +17,8 @@ const CompanionList: React.FC = () => {
   const [showTitleBox, setShowTitleBox] = useState(true);
   const keyword = useSelector(selectKeyword);
   const [totalPage, setTotalPage] = useState<number>(0);
+  const [filteredJourneysLength, setFilteredJourneysLength] =
+    useState<number>(0);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -37,7 +38,7 @@ const CompanionList: React.FC = () => {
         const response = await axios.get(
           'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
         );
-        setTotalPage(response.data.totalPage || 0);
+        setTotalPage(response.data.dtoList.length || 0);
         // console.log(response);
       } catch (error) {
         console.error('Error', error);
@@ -59,26 +60,24 @@ const CompanionList: React.FC = () => {
           </cs.searchResult>
         )}
 
-        {showTitleBox && (
-          <>
-            <cs.TitleBox>
-              <cs.MainTitle>동행일정</cs.MainTitle>
-              <cs.tapTitle2>
-                <span>· {totalPage} </span>동행일정을 둘러보세요.
-                <cs.tapTitle2Fillter
-                  src={isFilterClicked ? fillterIconNone : fillterIcon}
-                  onClick={handleFilterClick}
-                />
-              </cs.tapTitle2>
+        {/* {showTitleBox && <></>} */}
+        <cs.TitleBox>
+          <cs.MainTitle>동행일정</cs.MainTitle>
+          <cs.tapTitle2>
+            <span>· {filteredJourneysLength} </span>동행일정을 둘러보세요.
+            <cs.tapTitle2Fillter
+              src={isFilterClicked ? fillterIconNone : fillterIcon}
+              onClick={handleFilterClick}
+            />
+          </cs.tapTitle2>
 
-              {!isFilterClicked && <SelectButton />}
-            </cs.TitleBox>
-          </>
-        )}
+          {!isFilterClicked && <SelectButton />}
+        </cs.TitleBox>
 
         <PostListScroll
           onShowTitleBox={handleShowTitleBox}
           onNoPosts={handleNoPosts}
+          filteredJourneysLength={filteredJourneysLength}
         />
       </gs.MainContainer>
     </>
