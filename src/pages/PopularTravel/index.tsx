@@ -99,6 +99,7 @@ const PopularTravel: React.FC = () => {
         <PostListScroll
           onShowTitleBox={handleShowTitleBox}
           onNoPosts={handleNoPosts}
+          filteredJourneysLength={filteredJourneysLength}
         />
       </gs.MainContainer>
     </>

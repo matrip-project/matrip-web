@@ -16,6 +16,7 @@ import userImgNone from '../../asset/userImgNone.png';
 interface PostListScrollProps {
   onNoPosts: () => void;
   onShowTitleBox: () => void;
+  filteredJourneysLength: number;
 }
 
 interface JourneyImage {
@@ -44,7 +45,8 @@ interface Type {
 
 const PostListScroll: React.FC<PostListScrollProps> = ({
   onShowTitleBox,
-  onNoPosts
+  onNoPosts,
+  filteredJourneysLength
 }) => {
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
@@ -74,28 +76,32 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
 
   // 키워드를 기반으로 게시물 필터링
   const filteredJourneys = journeys.dtoList.filter((journey) => {
-    const includesKeyword = journey.city.toLowerCase().includes(keyword);
-    const includesTitleKeyword = journey.title.toLowerCase().includes(keyword);
-    const journeyStartDate = new Date(journey.startDate).toISOString();
-    const journeyEndDate = new Date(journey.endDate).toISOString();
+    const includesKeywordOrTitle =
+      journey.city.toLowerCase().includes(keyword) ||
+      journey.title.toLowerCase().includes(keyword);
 
-    const meetsAgeCriteria =
-      !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
-    const meetsSelectedStatus =
-      !SelectedStatus || journey.status === SelectedStatus;
-    const meetsStartDateCriteria =
-      !SelectedStartDate || journeyStartDate >= SelectedStartDate;
-    const meetsEndDateCriteria =
-      !SelectedEndDate || journeyEndDate <= SelectedEndDate;
+    if (includesKeywordOrTitle) {
+      const journeyStartDate = new Date(journey.startDate).toISOString();
+      const journeyEndDate = new Date(journey.endDate).toISOString();
 
-    return (
-      includesKeyword &&
-      includesTitleKeyword &&
-      meetsAgeCriteria &&
-      meetsSelectedStatus &&
-      meetsStartDateCriteria &&
-      meetsEndDateCriteria
-    );
+      const meetsAgeCriteria =
+        !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
+      const meetsSelectedStatus =
+        !SelectedStatus || journey.status === SelectedStatus;
+      const meetsStartDateCriteria =
+        !SelectedStartDate || journeyStartDate >= SelectedStartDate;
+      const meetsEndDateCriteria =
+        !SelectedEndDate || journeyEndDate <= SelectedEndDate;
+
+      return (
+        meetsAgeCriteria &&
+        meetsSelectedStatus &&
+        meetsStartDateCriteria &&
+        meetsEndDateCriteria
+      );
+    }
+
+    return false;
   });
 
   // 감지할 스크롤 이벤트 추가
@@ -124,7 +130,7 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
       onShowTitleBox();
     }
   }, [filteredJourneys, onNoPosts, onShowTitleBox]);
-  
+
   return (
     <>
       {filteredJourneys.length === 0 ? (

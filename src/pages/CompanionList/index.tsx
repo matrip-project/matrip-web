@@ -17,7 +17,8 @@ const CompanionList: React.FC = () => {
   const [showTitleBox, setShowTitleBox] = useState(true);
   const keyword = useSelector(selectKeyword);
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [filteredJourneysLength, setFilteredJourneysLength] = useState<number>(0);
+  const [filteredJourneysLength, setFilteredJourneysLength] =
+    useState<number>(0);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -76,6 +77,7 @@ const CompanionList: React.FC = () => {
         <PostListScroll
           onShowTitleBox={handleShowTitleBox}
           onNoPosts={handleNoPosts}
+          filteredJourneysLength={filteredJourneysLength}
         />
       </gs.MainContainer>
     </>
