@@ -5,8 +5,8 @@ import * as gs from '../../styles/GlobalStyles';
 import rightIcon from '../../asset/arrowRight.svg';
 import { Text, Spacer } from '../../components/@atoms';
 import UserIntro from '../../components/UserIntro';
-// import backButtonIcon from '../../asset/backButtonIcon.svg';
 import Header from '../../components/Header';
+import {getMyUserData} from '../../apis/api/userData';
 
 
 const MENUS = {
@@ -19,6 +19,9 @@ const MENUS = {
 };
 
 const MyPageMain = () => {
+
+
+
     return (
         <gs.MainContainer>
             <Header edit={false} />

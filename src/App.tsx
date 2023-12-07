@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalStyle } from './styles/GlobalStyles';
 import BottomNav from './components/BottomNav';
@@ -36,7 +36,17 @@ import TopNav from './components/TopNav';
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
 
+import { useAppSelector } from './redux/hooks';
+
+
+
 function App() {
+  const userState = useAppSelector(state => state.userData);
+  useEffect(() => {
+    console.log(userState);
+  }, [userState]);
+
+
   const serviceTabs = [
     { label: '공지사항', to: '/service/notice' },
     { label: '고객센터', to: '/service/faq' }

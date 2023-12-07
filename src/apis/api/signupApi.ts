@@ -1,4 +1,4 @@
-import { baseAPI } from './axiosInstance';
+import { baseAPI } from '../axiosInstance';
 
 type SignupProps = {
     email: string

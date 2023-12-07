@@ -10,7 +10,7 @@ import {CheckBox, Spacer, Text, InputLabel, ErrMessage} from '../../components/@
 
 import BottomAlert from '../../components/Alert';
 
-import {postSignup} from '../../apis/signupApi';
+import {postSignup} from '../../apis/api/signupApi';
 
 type SignupInput = {
   email: string;
@@ -23,7 +23,7 @@ type SignupInput = {
 };
 
 function Signup() {
-  
+
   const [input, setInput] = useState<SignupInput>({
     email: '',
     password: '',
@@ -57,7 +57,7 @@ function Signup() {
 };
 
   // !! TODO 이메일, 비밀번호 유효성 검사
-  // !! 생일 input 숫자만 입력 제한 
+  // !! 생일 input 숫자만 입력 제한
   // !! 알람창 UI 수정
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +89,7 @@ function Signup() {
   };
 
   const handleBirthdateChange = useCallback((newBirthdate: Date) => {
-    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate })); 
+    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
   }, []);
 
   const handleSelectedChange = (selected: number) => {
@@ -110,10 +110,10 @@ function Signup() {
     } catch(err) {
       console.log(err);
     }
-    
+
     // 유효성 검사 로직 추가
     // 배경 블러처리, 클릭 막기
-    
+
   };
 
   const handleCloseAlert = () => {
@@ -154,7 +154,7 @@ function Signup() {
             value={input.passwordCheck}
             isCompulsory={true}
           />
-          <ErrMessage 
+          <ErrMessage
             errMsg='다시 확인'
             isError={!isValid.isPasswordValid}
             />
@@ -183,13 +183,13 @@ function Signup() {
             value={input.nickName}
           />
           <Spacer height={80} />
-          <RequiredInputSelect 
+          <RequiredInputSelect
             onSelectedChange={handleSelectedChange}
             label='이벤트 정보'
             values={['수신','비수신']}
-          /> 
+          />
           <Spacer height={33} />
-          <InputLabel label='사이트 이용을 위한 약관에 동의' />  
+          <InputLabel label='사이트 이용을 위한 약관에 동의' />
           <Spacer height={12}/>
           <CheckBox
             name='all'
@@ -215,11 +215,11 @@ function Signup() {
             );
           })}
           <Spacer height={30}/>
-          
+
           {/* 약관 동의 추가 필요 */}
           <ss.SubmitBtn onClick={handleSignup}>확인</ss.SubmitBtn>
           <Overlay modalOpen={isAlertOpen} />
-          <BottomAlert 
+          <BottomAlert
             header='회원가입 완료'
             body='회원가입이 성공적으로 완료되었습니다'
             buttonText='확인'
