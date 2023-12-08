@@ -1,17 +1,76 @@
 import styled, { useTheme } from 'styled-components';
 import { ReactComponent as Lock } from '../../asset/lock.svg';
 import { ReactComponent as Register } from '../../asset/registerButton.svg';
+import { useState } from 'react';
+import { postComments } from '../../apis/api/comment';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectParentId } from '../../redux/modules/replySlice';
 
-function CommentInput() {
+type CommentType = {
+  journeyId: number;
+  memberId: number;
+  newComment?: boolean;
+  setNew?: React.Dispatch<React.SetStateAction<boolean>>;
+  inputFocus?: React.RefObject<HTMLInputElement>;
+};
+
+function CommentInput({
+  journeyId,
+  memberId,
+  setNew,
+  newComment,
+  inputFocus
+}: CommentType) {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const [input, setInput] = useState('');
+  const [secret, setSecret] = useState(false);
+  const parentId = useSelector(selectParentId);
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    const body = {
+      id: 0,
+      content: input,
+      secret: secret,
+      parentId: parentId,
+      journeyId: journeyId,
+      memberId: memberId
+    };
+
+    if (input.length > 0) {
+      console.log(body);
+
+      await postComments(body).then((res) => {
+        console.log('post comments success: ', res);
+
+        setInput('');
+
+        if (setNew) {
+          setNew(!newComment);
+        } else {
+          navigate(`/trip/${journeyId}/comments`);
+        }
+      });
+    }
+  };
 
   return (
     <CommentInputContainer>
-      <LockWrap>
-        <Lock stroke={theme.colors.neutral2} />
+      <LockWrap $isSecret={secret} onClick={() => setSecret(!secret)}>
+        <Lock stroke={secret ? theme.colors.white : theme.colors.neutral2} />
       </LockWrap>
-      <InputWrap type='text' placeholder='댓글을 입력해주세요' />
-      <RegisterWrap>
+      <InputWrap
+        type='text'
+        placeholder='댓글을 입력해주세요'
+        ref={inputFocus}
+        onChange={handleInput}
+      />
+      <RegisterWrap onClick={handleSubmit}>
         <Register fill={theme.colors.primary} />
       </RegisterWrap>
     </CommentInputContainer>
@@ -28,13 +87,19 @@ const CommentInputContainer = styled.div`
   border-radius: 8px;
 `;
 
-const LockWrap = styled.div`
+const LockWrap = styled.div<{ $isSecret: boolean }>`
   width: 20px;
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.colors.neutral1};
+  border: 1px solid
+    ${(props) =>
+      props.$isSecret
+        ? props.theme.colors.primary
+        : props.theme.colors.neutral1};
+  background-color: ${(props) =>
+    props.$isSecret ? props.theme.colors.primary : props.theme.colors.white};
   border-radius: 8px;
   cursor: pointer;
 `;
@@ -50,6 +115,8 @@ const InputWrap = styled.input`
   }
 `;
 
-const RegisterWrap = styled.div``;
+const RegisterWrap = styled.div`
+  cursor: pointer;
+`;
 
 export default CommentInput;
