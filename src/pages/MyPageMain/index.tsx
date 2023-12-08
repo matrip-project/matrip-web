@@ -25,30 +25,33 @@ const MyPageMain = () => {
         <gs.MainContainer>
             <Header edit={false} />
             <gs.MainBox>
-                <LinkToProfile to='/profile'>
-                    <UserIntro iconSize={60}>
-                        <div>
-                            {userData &&
-                                <>
-                                    <Text type='title1'>{userData.nickname}</Text>
-                                    <Text type='body2'>{userData.email}</Text>
-                                </>
-                            }
-                        </div>
-                    </UserIntro>
-                </LinkToProfile>
-                {/* MENUS */}
-                {Object.entries(MENUS).map(([menu, path], idx) => {
-                    return (
-                        <LinkToEach key={idx} to={path}>
-                            <MenuLable>
-                                <Text type='subtitle1'>{menu}</Text>
-                                <Spacer width={10} />
-                                <img src={rightIcon} height={14} />
-                            </MenuLable>
-                        </LinkToEach>
-                    );
-                })}
+                {userData &&
+                    <LinkToProfile to='/profile'>
+                        <UserIntro iconSize={60}>
+                            <div>
+                                {userData &&
+                                    <>
+                                        <Text type='title1'>{userData.nickname}</Text>
+                                        <Text type='body2'>{userData.email}</Text>
+                                    </>
+                                }
+                            </div>
+                        </UserIntro>
+                    </LinkToProfile>
+                }
+                    {Object.entries(MENUS).map(([menu, path], idx) => {
+                            return (
+                                <LinkToEach key={idx} to={path}>
+                                    <MenuLable>
+                                        <Text type='subtitle1'>{menu}</Text>
+                                        <Spacer width={10} />
+                                        <img src={rightIcon} height={14} />
+                                    </MenuLable>
+                                </LinkToEach>
+                            );
+                        })}
+
+
             </gs.MainBox>
         </gs.MainContainer>
     );

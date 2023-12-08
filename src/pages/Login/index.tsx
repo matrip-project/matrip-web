@@ -7,6 +7,7 @@ import FormInput from '../../components/FormInput';
 import { Spacer, InputLabel, Text, CheckBox, Image } from '../../components/@atoms';
 
 import {postLogin} from '../../apis/api/loginApi';
+import {getMyUserData} from '../../apis/api/userData';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
 
@@ -44,6 +45,9 @@ function Login() {
         console.log(res.data);
         sessionStorage.setItem('authToken', res.data.token);
         sessionStorage.setItem('myId', res.data.id);
+        const userData = await getMyUserData(res.data.id);
+        console.log(userData);
+        sessionStorage.setItem('userData', JSON.stringify(userData));
         dispatch(loginSuccess(res.data.id));
         dispatch(fetchUserData(res.data.id));
         navigate('/');
