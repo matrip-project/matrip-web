@@ -8,7 +8,7 @@ export interface DataProps {
   latitude: number;
   longitude: number;
   tag?: string;
-  journeyCount: number; //댓글수
+  journeyCount?: number; //댓글수
   memberId?: number;
   memberAge?: number;
   memberEmail?: string;
@@ -27,3 +27,5 @@ export interface ImageProps {
   path: string;
   sequence: number;
 }
+
+export type DataType = DataProps & ImageProps;

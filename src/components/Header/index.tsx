@@ -22,13 +22,13 @@ const getTitle = (location: string) => {
   return title;
 };
 
-// 수정 페이지인지
 interface HeaderProps {
   edit: boolean;
   onClick?: () => void;
+  cnt?: number;
 }
 
-function Header({ edit, onClick }: HeaderProps) {
+function Header({ edit, onClick, cnt }: HeaderProps) {
   const navigate = useNavigate();
   const page = useLocation().pathname.substring(1);
 
@@ -37,11 +37,14 @@ function Header({ edit, onClick }: HeaderProps) {
       <NavWrap>
         <BackWrap>
           <BackBtn onClick={() => navigate(-1)} />
-          <NavTitle>{getTitle(page)}</NavTitle>
+          <NavTitle>
+            {getTitle(page)}
+            {cnt && <CntWrap>{cnt}</CntWrap>}
+          </NavTitle>
         </BackWrap>
         <ButtonsWrap>
           {edit && <CompleteBtn onClick={onClick}>저장</CompleteBtn>}
-          {page.includes('trip') && <ShareBtn onClick={copyLink} />}
+          {onClick && page.includes('trip') && <ShareBtn onClick={copyLink} />}
         </ButtonsWrap>
       </NavWrap>
     </NavContainer>
@@ -56,7 +59,6 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${(props) => props.theme.colors.white};
-  ;
 `;
 
 const NavWrap = styled.nav`
@@ -69,6 +71,10 @@ const NavWrap = styled.nav`
   }
 `;
 
+const CntWrap = styled.p`
+  color: ${(props) => props.theme.colors.primary};
+`;
+
 const BackWrap = styled.div`
   display: flex;
   align-items: center;
@@ -77,6 +83,8 @@ const BackWrap = styled.div`
 
 const NavTitle = styled.div`
   ${(props) => props.theme.texts.mainTitle};
+  display: flex;
+  gap: 5px;
 `;
 
 const BackBtn = styled(Back)`

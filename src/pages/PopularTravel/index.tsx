@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as cs from './popularTravelStyle';
-import logo from '../../asset/logo.png';
 import fillterIcon from '../../asset/fillterIcon.svg';
 import fillterIconNone from '../../asset/fillterIconNone.svg';
 import 부산 from '../../asset/popularImg/busan.png';
@@ -20,8 +19,8 @@ import { useSelector } from 'react-redux';
 import PostListScroll from '../../components/PostListScroll';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import SelectButton from '../../components/SelectButton';
-import axios from 'axios';
 import HeaderLogo from '../../components/HeaderLogo';
+import { selectTotalPage } from '../../redux/modules/totalPageSlice';
 
 interface CityImages {
   [key: string]: any;
@@ -30,8 +29,8 @@ interface CityImages {
 const PopularTravel: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(true);
   const Popularkeyword = useSelector(selectPopularTravelKeyword);
-  const [totalPage, setTotalPage] = useState<number>(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const totalPage = useSelector(selectTotalPage);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -54,22 +53,6 @@ const PopularTravel: React.FC = () => {
     전남
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
-        );
-        setTotalPage(response.data.totalPage || 0);
-        // console.log(response);
-      } catch (error) {
-        console.error('Error', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
       <gs.MainContainer>
@@ -86,7 +69,7 @@ const PopularTravel: React.FC = () => {
         <cs.TitleBox>
           <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
-            <span>· {totalPage} </span>동행일정을 둘러보세요.
+            <span>· {totalPage}개 </span>동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
               src={isFilterClicked ? fillterIconNone : fillterIcon}
               onClick={handleFilterClick}

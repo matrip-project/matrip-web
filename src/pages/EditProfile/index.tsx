@@ -13,7 +13,9 @@ import {updateUserProfile, addUserProfilePic, deleteUserProfilePic, addUserSocia
 import {getMyUserData } from '../../apis/api/userData';
 import {uploadImage} from '../../utils/uploadImage';
 import { userDataEx } from '../../data/userDummyData';
+
 import {fetchUserDataWithSessionStorage} from '../../storage/fetchUserDataWithSessionStorage';
+
 
 
 const EditProfile = () => {
@@ -25,8 +27,10 @@ const EditProfile = () => {
     intro: userData.intro,
   });
   const [file, setFile] = useState<File | null>(null);
+
   // const [fields, setFields] = useState(userData.link_list);
   const [fields, setFields] = useState(['']);
+
 
   const onAdd = () => {
     fileInput.current?.click();  // 파일 입력 요소 클릭 이벤트 트리거
@@ -48,10 +52,12 @@ const EditProfile = () => {
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files: FileList | null = e.target.files;
     if (files){
+
       setFile(files[0]);
       const filePath = await uploadImage(files[0]);
       const upl = await addUserProfilePic(userData.id, filePath);
       // await fetchUserDataWithSessionStorage;
+
   }
   };
 
@@ -107,9 +113,11 @@ const EditProfile = () => {
             onChange={handleInputChange}
             placeHolder={userData.nickname}
 
+
           />
           <Spacer height={4}/>
           <Text color='primary' type='body1'>닉네임은 한달에 한번 변경가능합니다.</Text>
+
 
         </ImageWithName>
         <Spacer height={54}/>
@@ -134,13 +142,16 @@ const EditProfile = () => {
         </BoxContainer>
         <BoxContainer>
           <InputLabel label='소셜 계정 연동' />
+
           <Spacer height={6}/>
           <Text color='primary' type='body1'>소셜 연동은 최대 5개까지 연동 가능합니다</Text>
+
           {/*<SnsConnect fields={fields} setFields={setFields} />*/}
           <SnsConnect fields={fields} setFields={setFields} />
         </BoxContainer>
         <BoxContainer>
           <Text type='title1'>나를 표현할 수 있는 사진을 올려주세요</Text>
+
           <Spacer height={4}/>
           <Text type='body1'>내가 좋아하는 곳, 내 여행 스타일등 나의 캐릭터를 보여줄 수 있는 사진이면 더 좋아요.</Text>
           <Spacer height={10}/>
@@ -149,6 +160,7 @@ const EditProfile = () => {
                 isEditable={true}
                 onAdd={onAdd}
                 onRemove={() => console.log('del')}
+
           />
           <input type="file" onChange={onFileChange}  ref={fileInput} style={{ display: 'none' }}/>
         </BoxContainer>

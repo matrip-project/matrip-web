@@ -1,26 +1,20 @@
-
-
-
-
 interface GeocodeRes {
-    address: string;
-    location: any;
-  }
-  
+  address: string;
+  location: any;
+}
 
 export const performReverseGeocode = (
   latLng: google.maps.LatLng,
   callback: (address: GeocodeRes) => void
 ) => {
-    const geocoder = new google.maps.Geocoder(); // geocoder 객체 초기화
-    geocoder.geocode({ location: latLng }, (results, status) => {
+  const geocoder = new google.maps.Geocoder(); // geocoder 객체 초기화
+  geocoder.geocode({ location: latLng }, (results, status) => {
     if (status === google.maps.GeocoderStatus.OK && results) {
-      
-      const res : GeocodeRes = {
-        address : results[0].formatted_address,
-        location:{
-            lat : latLng.lat(),
-            lng : latLng.lat()
+      const res: GeocodeRes = {
+        address: results[0].formatted_address,
+        location: {
+          lat: latLng.lat(),
+          lng: latLng.lat()
         }
       };
       callback(res);

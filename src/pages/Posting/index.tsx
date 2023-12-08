@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { MainBox, MainContainer } from '../../styles/GlobalStyles';
 import { ReactComponent as Exclamation } from '../../asset/exclamation.svg';
 import ImageUpload from './postingComponents/ImageUpload';
@@ -16,6 +18,7 @@ import LocationSelect from './postingComponents/LocationSelect';
 import Header from '../../components/Header';
 import { DataProps, ImageProps } from '../../types/postData';
 import { uploadImage } from '../../utils/uploadImage';
+import { postJourney } from '../../apis/api/journey';
 
 export interface StateProps {
   dataInput?: DataProps;
@@ -26,40 +29,55 @@ export interface StateProps {
 
 function Posting() {
   const navigate = useNavigate();
+  const { lat, lng } = useSelector((state: RootState) => state.location);
+  const [end, setEnd] = useState('ACTIVE');
   const [dataInput, setDataInput] = useState<DataProps>({
     title: '',
     content: '',
     city: '',
-    startDate: dayjs(new Date()).format('YYYY.MM.DD'),
-    endDate: dayjs(addDays(new Date(), 1)).format('YYYY.MM.DD'),
+    startDate: dayjs(new Date()).format('YYYY-MM-DD'),
+    endDate: dayjs(addDays(new Date(), 1)).format('YYYY-MM-DD'),
     count: 0,
-    latitude: 37.5665,
-    longitude: 126.978,
+    latitude: lat,
+    longitude: lng,
     tag: '',
-    journeyCount: 0,
-    status: 'ACTIVE'
+    status: end,
+    memberId: 1
   });
-  const [end, setEnd] = useState(false);
   const center = {
     lat: dataInput?.latitude,
     lng: dataInput?.longitude
   };
-  const [imageInput, setImageInput] = useState<ImageProps>({
-    id: 0,
-    path: '',
-    sequence: 0
-  });
+  const imageInput = {
+    journeyImgRequestDtoList: [
+      {
+        path: '',
+        sequence: 0
+      }
+    ]
+  };
   const [preview, setPreview] = useState<File | null>(null);
 
-  // console.log(imageInput);
-
   const handleSave = async () => {
+    if (
+      dataInput.city.length === 0 ||
+      dataInput.title.length === 0 ||
+      dataInput.content.length === 0 ||
+      !preview
+    ) {
+      alert('필수 항목을 채워주세요!');
+    }
     if (preview) {
       try {
         const uploaded = await uploadImage(preview);
         if (uploaded) {
           console.log(uploaded);
-          // navigate('/');
+          imageInput.journeyImgRequestDtoList[0].path = uploaded;
+
+          const dataMerged = { ...dataInput, ...imageInput };
+          console.log(dataMerged);
+
+          postData(dataMerged);
         }
       } catch (error) {
         console.log('image setstate fail:', error);
@@ -67,11 +85,21 @@ function Posting() {
     }
   };
 
+  const postData = async (data: object) => {
+    await postJourney(data).then((res) => {
+      console.log('post journey success: ', res);
+      navigate('/');
+    });
+  };
+
   return (
     <MainContainer>
       <Header edit={true} onClick={handleSave} />
-      <MainBox>
-        <ImageUpload url={imageInput.path} setPreivew={setPreview} />
+      <PostMainbox>
+        <ImageUpload
+          url={imageInput.journeyImgRequestDtoList[0].path}
+          setPreivew={setPreview}
+        />
         <SpotSelect dataInput={dataInput} setDataInput={setDataInput} />
         <TitleInput dataInput={dataInput} setDataInput={setDataInput} />
         <DateSelect dataInput={dataInput} setDataInput={setDataInput} />
@@ -85,7 +113,7 @@ function Posting() {
             setDataInput={setDataInput}
           />
         </PostingContainer>
-        <PostingContainer>
+        {/* <PostingContainer>
           <Label label='해시태그' essential={false} />
           <TextField
             limit={50}
@@ -93,12 +121,10 @@ function Posting() {
             dataInput={dataInput}
             setDataInput={setDataInput}
           />
-        </PostingContainer>
+        </PostingContainer> */}
         <LocationSelect center={center} />
         <ChangeStateWrap>
-          <ChangeStateBtn onClick={() => setEnd(true)}>
-            모집 마감
-          </ChangeStateBtn>
+          <ChangeStateBtn onClick={() => setEnd('')}>모집 마감</ChangeStateBtn>
           <HelpBox>
             <Exclamation />
             <HelpWrap>
@@ -106,7 +132,7 @@ function Posting() {
             </HelpWrap>
           </HelpBox>
         </ChangeStateWrap>
-      </MainBox>
+      </PostMainbox>
     </MainContainer>
   );
 }
@@ -147,6 +173,10 @@ const HelpBox = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 5px;
+`;
+
+const PostMainbox = styled(MainBox)`
+  width: 100%;
 `;
 
 export default Posting;

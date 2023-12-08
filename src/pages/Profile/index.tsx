@@ -21,6 +21,7 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 // !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
 
 const Profile = () => {
+
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
     return (
         <gs.MainContainer>
@@ -28,6 +29,7 @@ const Profile = () => {
             {userData ?
                 <gs.MainBox>
                     <LinkToProfile to='/editProfile'>
+
                         <ProfileIcon width={60} height={60} />
                         <Spacer width={15}/>
                         <div>
@@ -37,6 +39,7 @@ const Profile = () => {
                         </div>
                     </LinkToProfile>
                     <Spacer height={32}/>
+
                     <UserDateText>
                         <div>
                             {userDataEx.hashTags.map((tag: string, idx: number) => {
@@ -46,6 +49,7 @@ const Profile = () => {
                             })
                             }
                             <span>를 선호합니다.</span>
+
                             <Text>즉흥적인 여행을 떠나는 여행자에요</Text>
                         </div>
                         <Text>{userData.intro}</Text>
@@ -62,6 +66,7 @@ const Profile = () => {
                         <Spacer width={10}/>
                         <MdShare size={20}/>
                     </SnsSection>
+
                     <ImageSection>
                         <Spacer height={16}/>
                         <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
@@ -71,9 +76,11 @@ const Profile = () => {
                     </ImageSection>
                     <Spacer height={50}/>
                     <History>
+
                         <LinkTitle>
                             <Text>동행로그</Text>
                         </LinkTitle>
+
                         {HISTROY.map((item, idx) => {
                             let linkPath = '/';
 

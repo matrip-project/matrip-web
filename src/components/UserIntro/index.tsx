@@ -7,6 +7,7 @@ interface UserIntroProps {
   iconSize: number;
   children?: ReactNode;
   id:number;
+
 }
 
 function UserIntro({ iconSize, children, id }: UserIntroProps) {
