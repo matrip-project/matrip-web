@@ -14,6 +14,7 @@ type CommentBoxProps = {
 function CommentBox({ comment, inputFocus }: CommentBoxProps) {
   const theme = useTheme();
 
+
   const isReply = comment.parentId > 0 ? true : false;
 
   const formatTime = (time: string) => {
@@ -30,9 +31,11 @@ function CommentBox({ comment, inputFocus }: CommentBoxProps) {
   };
 
 
+
   return (
     <CommentBoxWrap $isWriter={comment.isWriter!} $isReply={isReply}>
       <ProfileContainer>
+
 
         <UserIntro iconSize={18} id={comment.memberId}>
           <Content2>

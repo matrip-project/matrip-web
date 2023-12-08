@@ -1,13 +1,17 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
-
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-
 import * as gs from '../../styles/GlobalStyles';
 import rightIcon from '../../asset/arrowRight.svg';
 import {Text, Spacer} from '../../components/@atoms';
 import UserIntro from '../../components/UserIntro';
 import Header from '../../components/Header';
+import {useAppSelector} from '../../redux/hooks';
+import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
+import * as hs from '../Home/homeStyle';
+import share from '../../asset/share.svg';
+import addPostButton from '../../asset/addPostButton.svg';
+
 
 import {useAppSelector} from '../../redux/hooks';
 import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
@@ -45,14 +49,12 @@ const MyPageMain = () => {
         alert('링크가 복사되었습니다!');
     };
 
-
     return (
         <gs.MainContainer>
             <Header edit={false}/>
             <gs.MainBox>
                 {userData &&
                     <LinkToProfile to='/profile'>
-
                         <ProfileIcon width={60} height={60} />
                         <Spacer width={15}/>
                             <div>
@@ -83,8 +85,6 @@ const MyPageMain = () => {
                         <hs.WriteBtn src={addPostButton}></hs.WriteBtn>
                     </hs.postContainer>
                 </hs.buttonWrraperContainer>
-
-
             </gs.MainBox>
         </gs.MainContainer>
     );
@@ -121,5 +121,6 @@ const LinkToEach = styled(Link)`
 `;
 
 const UseProfile = styled.div`
+
 
 `;
