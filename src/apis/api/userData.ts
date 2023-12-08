@@ -1,13 +1,11 @@
-import { baseAPI } from '../axiosInstance';
+import { baseAPI,authAPI } from '../axiosInstance';
 
 export const getMyUserData = async (memberId: number) => {
     try {
         const { data } = await baseAPI.get(`/member/${memberId}`);
-        const storageDate = JSON.stringify(data);
-        console.log(storageDate);
-        sessionStorage.setItem('userData', storageDate);
+        console.log(data);
         return data;
     } catch (error) {
-        console.log('get journey detail fail:', error);
+        console.log('GET USER DATA FAILED:', error);
     }
 };

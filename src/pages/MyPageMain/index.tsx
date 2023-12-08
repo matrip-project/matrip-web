@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import rightIcon from '../../asset/arrowRight.svg';
 import { Text, Spacer } from '../../components/@atoms';
 import UserIntro from '../../components/UserIntro';
 import Header from '../../components/Header';
 import { useAppSelector } from '../../redux/hooks';
+import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 
 
 const MENUS = {
@@ -19,7 +20,15 @@ const MENUS = {
 };
 
 const MyPageMain = () => {
-    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    const navigate = useNavigate();
+    const storedData = sessionStorage.getItem('userData');
+    const userData = storedData ? JSON.parse(storedData) : null;
+    console.log(userData);
+    useEffect(() => {
+        if(!userData)  {
+            navigate('/login');
+        }
+    },[userData, navigate]);
 
     return (
         <gs.MainContainer>
@@ -27,7 +36,7 @@ const MyPageMain = () => {
             <gs.MainBox>
                 {userData &&
                     <LinkToProfile to='/profile'>
-                        <UserIntro iconSize={60}>
+                        <ProfileIcon width={60} height={60}>
                             <div>
                                 {userData &&
                                     <>
@@ -36,7 +45,7 @@ const MyPageMain = () => {
                                     </>
                                 }
                             </div>
-                        </UserIntro>
+                        </ProfileIcon>
                     </LinkToProfile>
                 }
                     {Object.entries(MENUS).map(([menu, path], idx) => {

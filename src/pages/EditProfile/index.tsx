@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import styled from 'styled-components';
 import {useNavigate} from 'react-router-dom';
@@ -17,16 +17,18 @@ import { userDataEx } from '../../data/userDummyData';
 
 const EditProfile = () => {
   const navigate = useNavigate();
+  const fileInput = useRef<HTMLInputElement>(null);
   const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
   const [input, setInput] = useState({
     nickname: userData.nickname,
     intro: userData.intro,
   });
   const [file, setFile] = useState<File | null>(null);
-  console.log(file);
-
   const [fields, setFields] = useState(userData.link_list);
 
+  const onAdd = () => {
+    fileInput.current?.click();  // 파일 입력 요소 클릭 이벤트 트리거
+  };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setInput({
@@ -47,6 +49,7 @@ const EditProfile = () => {
     setFile(files[0]);
     const filePath = await uploadImage(files[0]);
     const upl = await addUserProfilePic(userData.id, filePath);
+    await getMyUserData(userData.id);
   }
   };
 
@@ -126,8 +129,13 @@ const EditProfile = () => {
         <BoxContainer>
           <Text type='title1'>나를 표현할 수 있는 사진을 올려주세요</Text>
           <Text type='subtitle1'>내가 좋아하는 곳, 내 여행 스타일등 나의 캐릭터를 보여줄 수 있는 사진이면 더 좋아요.</Text>
-          <ImageCarousel images={userDataEx.images}/>
-          <input type="file" onChange={onFileChange} />
+          <ImageCarousel
+                images={userData.profile_list}
+                isEditable={true}
+                onAdd={onAdd}
+                onRemove={() => onFileChange}
+          />
+          <input type="file" onChange={onFileChange}  ref={fileInput} style={{ display: 'none' }}/>
         </BoxContainer>
       </gs.MainBox>
     </gs.MainContainer>

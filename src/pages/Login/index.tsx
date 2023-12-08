@@ -40,16 +40,13 @@ function Login() {
     try{
       const { email, password } = input;
       const res = await postLogin({ email, password});
-      // 로그인 처리
       if (res){
-        console.log(res.data);
         sessionStorage.setItem('authToken', res.data.token);
         sessionStorage.setItem('myId', res.data.id);
         const userData = await getMyUserData(res.data.id);
-        console.log(userData);
         sessionStorage.setItem('userData', JSON.stringify(userData));
-        dispatch(loginSuccess(res.data.id));
-        dispatch(fetchUserData(res.data.id));
+        // dispatch(loginSuccess(res.data.id));
+        // dispatch(fetchUserData(res.data.id));
         navigate('/');
       }
     }catch (e){
