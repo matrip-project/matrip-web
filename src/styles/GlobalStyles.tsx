@@ -148,12 +148,11 @@ body{
 
 // 전체 화면 컨테이너
 export const MainContainer = styled.div`
-  width: 344px;
+  width: 390px;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px 23px 0px 23px;
 
   @media screen and (max-width: 390px) {
     width: 100%;
@@ -162,7 +161,7 @@ export const MainContainer = styled.div`
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너
 export const MainBox = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;

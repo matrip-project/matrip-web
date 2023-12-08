@@ -39,7 +39,7 @@ function Info({ data }: InfoType) {
       </D.InfoWrap>
       <UserIntro iconSize={18}>
         <D.UserIntroText>
-          {data.memberName}({encodeEmail(data.memberEmail!)}) {data.memberAge}대{' '}
+          {data.memberName}({encodeEmail(data.memberEmail!)}) {data.memberAge}살{' '}
           {data.memberSex}
         </D.UserIntroText>
         <ArrowRight />

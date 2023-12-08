@@ -3,22 +3,22 @@ import { styled } from 'styled-components';
 
 export const postwrapper = styled.div`
   display: flex;
+  width: 100%;
+  margin-bottom: 22px;
+  border-radius: 16px;
+  background: ${(props) => props.theme.colors.white};
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
 `;
 
 export const postBox = styled(Link)`
-  width: 313px;
+  width: calc(100% - 24px);
   height: 98px;
   justify-content: center;
   margin: auto;
-  border-bottom: solid #c5c5c5 1px;
   position: relative;
   display: flex;
+  flex-direction: column;
   padding: 12px;
-
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
-  margin-bottom: 22px;
 `;
 
 export const contentsTopBox = styled.div`
@@ -28,12 +28,14 @@ export const contentsTopBox = styled.div`
   align-items: center;
 `;
 
-export const contentsBox = styled.div``;
+export const contentsBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 export const postImgBox = styled.div`
   width: 85px;
-  height: 65px;
-  margin-top: 20px;
+  aspect-ratio: 17 / 13;
 `;
 
 export const postImg = styled.img`
@@ -50,20 +52,25 @@ export const Nickname = styled.h4`
 `;
 
 export const postContent = styled.div`
-  width: 228px;
+  width: calc(100% - 100px);
+  height: 100%;
+  height: calc(100% - 20px);
+  padding-bottom: 20px;
   display: flex;
   text-decoration: none;
-  color: #242424;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  margin-right: 10px;
+  ${(props) => props.theme.texts.tapTitle1};
 `;
 
 export const postTitle = styled.div`
   ${(props) => props.theme.texts.tapTitle1};
   margin-bottom: 4px;
-  margin-right: 12px;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 `;
 
 export const postPeriod = styled.div`

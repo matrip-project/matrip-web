@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { MainBox, MainContainer } from '../../styles/GlobalStyles';
+import { MainContainer } from '../../styles/GlobalStyles';
 import * as D from './detailStyle';
 import Map from '../../components/Map';
 import Info from './detailComponents/Info';
@@ -53,7 +53,7 @@ function Detail() {
   return (
     <MainContainer>
       <Header edit={false} />
-      <MainBox>
+      <D.DeatilMainBox>
         <Thumbnail url={image[0]?.path} />
         {detail && (
           <>
@@ -69,7 +69,7 @@ function Detail() {
             </D.CommentContainer>
           </>
         )}
-      </MainBox>
+      </D.DeatilMainBox>
     </MainContainer>
   );
 }
