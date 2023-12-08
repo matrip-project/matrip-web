@@ -6,6 +6,7 @@ export const TitleBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
+  margin-left: 23px;
 `;
 
 export const MainTitle = styled.div`
@@ -59,11 +60,12 @@ export const PopularTravel = styled.div`
   width: 100%;
   text-align: left;
   margin-bottom: 20px;
+  margin-left: 23px;
 `;
 
 export const PopularTravelBox = styled.div`
   display: flex;
-  margin-left: 24px;
+  margin-left: 23px;
 `;
 
 export const PopularImgbox = styled(Link)`

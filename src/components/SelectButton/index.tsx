@@ -66,28 +66,16 @@ const SelectButton: React.FC = () => {
 
     const updatedStartDate = new Date(selectedRange.startDate);
     const updatedEndDate = new Date(selectedRange.endDate);
-  
+
     updatedStartDate.setDate(updatedStartDate.getDate() + 0.9);
     updatedEndDate.setDate(updatedEndDate.getDate() + 1.1);
-  
+
     dispatch(setSelectedStartDate(updatedStartDate.toISOString()));
     dispatch(setSelectedEndDate(updatedEndDate.toISOString()));
   };
   return (
     <>
       <SelectBox>
-        <DateComponentcalendar>
-          {datePickerVisible && (
-            <DateRange
-              editableDateInputs={true}
-              onChange={handleRangeChange}
-              moveRangeOnFirstSelection={false}
-              ranges={dateRange}
-              months={1}
-              direction='horizontal'
-            />
-          )}
-        </DateComponentcalendar>
         <SelectBtn>
           <Select
             options={genderOptions}
@@ -121,6 +109,18 @@ const SelectButton: React.FC = () => {
           />
         </SelectBtn>
       </SelectBox>
+      <DateComponentcalendar>
+        {datePickerVisible && (
+          <DateRange
+            editableDateInputs={true}
+            onChange={handleRangeChange}
+            moveRangeOnFirstSelection={false}
+            ranges={dateRange}
+            months={1}
+            direction='horizontal'
+          />
+        )}
+      </DateComponentcalendar>
     </>
   );
 };
@@ -175,7 +175,5 @@ const DateComponentText = styled.div`
 `;
 
 const DateComponentcalendar = styled.div`
-  position: absolute;
-  top: 310px;
   z-index: 1;
 `;

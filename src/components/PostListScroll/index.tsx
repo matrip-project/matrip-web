@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as pls from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AddSelectedAge,
   AddSelectedEndDate,
@@ -12,11 +12,11 @@ import {
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
 import userImgNone from '../../asset/userImgNone.png';
+import { setTotalPage } from '../../redux/modules/totalPageSlice';
 
 interface PostListScrollProps {
   onNoPosts: () => void;
   onShowTitleBox: () => void;
-  filteredJourneysLength: number;
 }
 
 interface JourneyImage {
@@ -45,9 +45,9 @@ interface Type {
 
 const PostListScroll: React.FC<PostListScrollProps> = ({
   onShowTitleBox,
-  onNoPosts,
-  filteredJourneysLength
+  onNoPosts
 }) => {
+  const dispatch = useDispatch();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const searchKeyword = useSelector(selectKeyword);
@@ -100,7 +100,6 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
         meetsEndDateCriteria
       );
     }
-
     return false;
   });
 
@@ -129,7 +128,8 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
     } else {
       onShowTitleBox();
     }
-  }, [filteredJourneys, onNoPosts, onShowTitleBox]);
+
+  }, [filteredJourneys, onNoPosts, onShowTitleBox, displayCount, dispatch]);
 
   return (
     <>

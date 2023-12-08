@@ -86,7 +86,7 @@ const PopularTravel: React.FC = () => {
         <cs.TitleBox>
           <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
           <cs.tapTitle2>
-            <span>· {totalPage} </span>동행일정을 둘러보세요.
+            <span>· {totalPage}개 </span>동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
               src={isFilterClicked ? fillterIconNone : fillterIcon}
               onClick={handleFilterClick}
@@ -99,7 +99,6 @@ const PopularTravel: React.FC = () => {
         <PostListScroll
           onShowTitleBox={handleShowTitleBox}
           onNoPosts={handleNoPosts}
-          filteredJourneysLength={filteredJourneysLength}
         />
       </gs.MainContainer>
     </>
