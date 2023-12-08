@@ -13,6 +13,14 @@ import share from '../../asset/share.svg';
 import addPostButton from '../../asset/addPostButton.svg';
 
 
+import {useAppSelector} from '../../redux/hooks';
+import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
+import * as hs from '../Home/homeStyle';
+import share from '../../asset/share.svg';
+import addPostButton from '../../asset/addPostButton.svg';
+
+
+
 
 const MENUS = {
     '비밀번호 재설정': '/resetpassword',
@@ -77,7 +85,6 @@ const MyPageMain = () => {
                         <hs.WriteBtn src={addPostButton}></hs.WriteBtn>
                     </hs.postContainer>
                 </hs.buttonWrraperContainer>
-
             </gs.MainBox>
         </gs.MainContainer>
     );

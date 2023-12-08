@@ -74,6 +74,7 @@ const Profile = () => {
                         <LinkTitle>
                             <Text>동행로그</Text>
                         </LinkTitle>
+
                         {HISTROY.map((item, idx) => {
                             let linkPath = '/';
 

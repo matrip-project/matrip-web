@@ -5,6 +5,7 @@ import UserList from '../../components/UserList';
 import listIcon from '../../asset/listIcon.svg';
 import TitleIcon from '../../asset/titleIcon.svg';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 interface JourneyImage {
   id: number;
@@ -29,6 +30,9 @@ interface Type {
 }
 
 const MyInterestedCompanionLog: React.FC = () => {
+  const storedId = sessionStorage.getItem('userId');
+
+  const { id = storedId || '1' } = useParams();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);
@@ -38,16 +42,18 @@ const MyInterestedCompanionLog: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
+          `http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys/mypage?memberId=${id}`
         );
-        setJourneys(response.data || { dtoList: [] });
+        setJourneys({ dtoList: response.data.dtoList || [] });
       } catch (error) {
-        console.error('Error', error);
+        console.error('Error fetching data:', error);
+        setJourneys({ dtoList: [] });
       }
     };
 
     fetchData();
-  }, []);
+  }, [id]);
+
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {

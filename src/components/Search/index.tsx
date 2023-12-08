@@ -30,26 +30,20 @@ const Search: React.FC = () => {
   };
 
   return (
-    <gs.MainContainer>
-      <ss.SearchBox>
-        <ss.SearchInput
-          type='search'
-          placeholder='검색'
-          id='searchInput'
-          value={input}
-          onChange={getValue}
-          onKeyDown={handleKeyPress}
-        />
+    <ss.SearchBox>
+      <ss.SearchInput
+        type='search'
+        placeholder='검색'
+        id='searchInput'
+        value={input}
+        onChange={getValue}
+        onKeyDown={handleKeyPress}
+      />
 
-        <ss.SearchBtn
-          className='searchIcon'
-          type='submit'
-          onClick={handleSearch}
-        >
-          <img src={searchHeaderIcom}></img>
-        </ss.SearchBtn>
-      </ss.SearchBox>
-    </gs.MainContainer>
+      <ss.SearchBtn className='searchIcon' type='submit' onClick={handleSearch}>
+        <img src={searchHeaderIcom}></img>
+      </ss.SearchBtn>
+    </ss.SearchBox>
   );
 };
 

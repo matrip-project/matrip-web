@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import * as pls from './postListScrollStyle';
 import recruitingImage from '../../asset/recruiting.svg';
-import { useSelector } from 'react-redux';
-import { selectKeyword } from '../../redux/modules/searchSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  AddSelectedAge,
+  AddSelectedEndDate,
+  AddSelectedStartDate,
+  AddSelectedStatus,
+  selectKeyword
+} from '../../redux/modules/searchSlice';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
 import userImgNone from '../../asset/userImgNone.png';
+import { setTotalPage } from '../../redux/modules/totalPageSlice';
 
 interface PostListScrollProps {
   onNoPosts: () => void;
@@ -28,6 +35,8 @@ interface Journey {
   content: string;
   startDate: string;
   endDate: string;
+  status: string;
+  memberAge: string;
 }
 
 interface Type {
@@ -38,12 +47,18 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   onShowTitleBox,
   onNoPosts
 }) => {
+  const dispatch = useDispatch();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const searchKeyword = useSelector(selectKeyword);
   const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
+  const SelectedAge = useSelector(AddSelectedAge);
+  const SelectedStatus = useSelector(AddSelectedStatus);
+  const SelectedStartDate = useSelector(AddSelectedStartDate);
+  const SelectedEndDate = useSelector(AddSelectedEndDate);
   const keyword = searchKeyword || popularTravelKeyword;
   const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
+  const [localTotalPage, setLocalTotalPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,11 +76,33 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   }, []);
 
   // 키워드를 기반으로 게시물 필터링
-  const filteredJourneys = journeys.dtoList.filter(
-    (journey) =>
+  const filteredJourneys = journeys.dtoList.filter((journey) => {
+    const includesKeywordOrTitle =
       journey.city.toLowerCase().includes(keyword) ||
-      journey.title.toLowerCase().includes(keyword)
-  );
+      journey.title.toLowerCase().includes(keyword);
+
+    if (includesKeywordOrTitle) {
+      const journeyStartDate = new Date(journey.startDate).toISOString();
+      const journeyEndDate = new Date(journey.endDate).toISOString();
+
+      const meetsAgeCriteria =
+        !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
+      const meetsSelectedStatus =
+        !SelectedStatus || journey.status === SelectedStatus;
+      const meetsStartDateCriteria =
+        !SelectedStartDate || journeyStartDate >= SelectedStartDate;
+      const meetsEndDateCriteria =
+        !SelectedEndDate || journeyEndDate <= SelectedEndDate;
+
+      return (
+        meetsAgeCriteria &&
+        meetsSelectedStatus &&
+        meetsStartDateCriteria &&
+        meetsEndDateCriteria
+      );
+    }
+    return false;
+  });
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
@@ -92,7 +129,15 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
     } else {
       onShowTitleBox();
     }
-  }, [filteredJourneys, onNoPosts, onShowTitleBox]);
+
+    const newLocalTotalPage = filteredJourneys.length;
+    setLocalTotalPage(newLocalTotalPage);
+
+  }, [filteredJourneys, onNoPosts, onShowTitleBox, displayCount, dispatch, localTotalPage]);
+
+  useEffect(() => {
+    dispatch(setTotalPage(localTotalPage));
+  }, [localTotalPage, dispatch]);
 
   return (
     <>

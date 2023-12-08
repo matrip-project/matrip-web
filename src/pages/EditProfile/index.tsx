@@ -25,8 +25,13 @@ const EditProfile = () => {
     intro: userData.intro,
   });
   const [file, setFile] = useState<File | null>(null);
+
   // const [fields, setFields] = useState(userData.link_list);
   const [fields, setFields] = useState(['']);
+
+  const onAdd = () => {
+    fileInput.current?.click();  // 파일 입력 요소 클릭 이벤트 트리거
+  };
 
   const onAdd = () => {
     fileInput.current?.click();  // 파일 입력 요소 클릭 이벤트 트리거
@@ -48,10 +53,12 @@ const EditProfile = () => {
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files: FileList | null = e.target.files;
     if (files){
+
       setFile(files[0]);
       const filePath = await uploadImage(files[0]);
       const upl = await addUserProfilePic(userData.id, filePath);
       // await fetchUserDataWithSessionStorage;
+
   }
   };
 
@@ -106,10 +113,10 @@ const EditProfile = () => {
             value={input.nickname}
             onChange={handleInputChange}
             placeHolder={userData.nickname}
-
           />
           <Spacer height={4}/>
           <Text color='primary' type='body1'>닉네임은 한달에 한번 변경가능합니다.</Text>
+
 
         </ImageWithName>
         <Spacer height={54}/>
@@ -134,8 +141,10 @@ const EditProfile = () => {
         </BoxContainer>
         <BoxContainer>
           <InputLabel label='소셜 계정 연동' />
+
           <Spacer height={6}/>
           <Text color='primary' type='body1'>소셜 연동은 최대 5개까지 연동 가능합니다</Text>
+
           {/*<SnsConnect fields={fields} setFields={setFields} />*/}
           <SnsConnect fields={fields} setFields={setFields} />
         </BoxContainer>

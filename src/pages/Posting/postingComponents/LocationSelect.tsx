@@ -3,13 +3,13 @@ import { PostingContainer } from '..';
 import Map from '../../../components/Map';
 import Label from './Label';
 
-type LocationType = {
+type CenterType = {
   lat: number;
   lng: number;
 };
 
 interface LocationProps {
-  center: LocationType;
+  center: CenterType;
 }
 
 function LocationSelect({ center }: LocationProps) {

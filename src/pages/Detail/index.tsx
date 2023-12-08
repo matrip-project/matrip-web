@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom';
-import { MainBox, MainContainer } from '../../styles/GlobalStyles';
+import { useNavigate, useParams } from 'react-router-dom';
+import { MainContainer } from '../../styles/GlobalStyles';
 import * as D from './detailStyle';
 import Map from '../../components/Map';
 import Info from './detailComponents/Info';
@@ -14,6 +14,7 @@ import { getCleanDetailInfo } from '../../apis/services/journey';
 import Header from '../../components/Header';
 
 function Detail() {
+  const navigate = useNavigate();
   const id = useParams().id;
   const [detail, setDetail] = useState<DataProps>();
   const [image, setImage] = useState<any[]>([]);
@@ -23,7 +24,7 @@ function Detail() {
     const getData = async () => {
       if (id) {
         await getJourneyDetail(parseInt(id)).then((res) => {
-          console.log('get data success: ', res);
+          console.log('get journey success: ', res);
           const detailData = getCleanDetailInfo(res);
 
           setImage(detailData.journeyImgRequestDtoList);
@@ -50,10 +51,16 @@ function Detail() {
     }
   ];
 
+  const onCommentClick = () => {
+    if (id) {
+      return navigate(`/trip/${parseInt(id)}/comments`);
+    }
+  };
+
   return (
     <MainContainer>
       <Header edit={false} />
-      <MainBox>
+      <D.DeatilMainBox>
         <Thumbnail url={image[0]?.path} />
         {detail && (
           <>
@@ -64,12 +71,15 @@ function Detail() {
             />
             {/* <Plan plan={plan} /> */}
             <D.CommentContainer>
-              <CommentInput />
-              <CommentCount cnt={detail.journeyCount} />
+              <CommentInput journeyId={parseInt(id!)} memberId={1} />
+              <CommentCount
+                cnt={detail.journeyCount!}
+                onClick={onCommentClick}
+              />
             </D.CommentContainer>
           </>
         )}
-      </MainBox>
+      </D.DeatilMainBox>
     </MainContainer>
   );
 }
