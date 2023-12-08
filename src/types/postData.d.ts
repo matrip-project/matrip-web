@@ -1,4 +1,5 @@
 export interface DataProps {
+  id?: number;
   title: string;
   city: string;
   content: string;

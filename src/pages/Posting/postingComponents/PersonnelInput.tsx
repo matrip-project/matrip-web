@@ -1,21 +1,32 @@
 import styled from 'styled-components';
 import { PostingContainer, StateProps } from '..';
 import Label from './Label';
+import { useDispatch } from 'react-redux';
+import { setData } from '../../../redux/modules/postSlice';
 
-function PersonnelInput({ dataInput, setDataInput }: StateProps) {
+function PersonnelInput({ dataInput }: StateProps) {
+  const dispatch = useDispatch();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (dataInput) {
-      setDataInput?.({
-        ...dataInput,
-        count: parseInt(e.target.value)
-      });
+      dispatch(
+        setData({
+          ...dataInput,
+          count: parseInt(e.target.value)
+        })
+      );
     }
   };
 
   return (
     <PostingContainer>
       <Label label='동행 모집 인원' essential={true} />
-      <InputWrap type='number' min={0} onChange={handleChange} />
+      <InputWrap
+        type='number'
+        min={0}
+        onChange={handleChange}
+        value={dataInput?.count}
+      />
     </PostingContainer>
   );
 }

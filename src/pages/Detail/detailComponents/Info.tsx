@@ -13,7 +13,6 @@ type InfoType = {
 function Info({ data }: InfoType) {
   const replaceDash = (str: string) => {
     const result = str.replace(/-/g, '.');
-    console.log(result);
 
     return result;
   };

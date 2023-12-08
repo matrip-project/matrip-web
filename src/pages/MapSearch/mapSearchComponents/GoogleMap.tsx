@@ -8,8 +8,10 @@ import {
 import { performReverseGeocode } from './geocode';
 import * as ms from '../mapPageStyle';
 import { useDispatch } from 'react-redux';
-import { setLocation } from '../../../redux/modules/locationSlice';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { setData } from '../../../redux/modules/postSlice';
 
 interface GoogleMapComponentProps {
   zoom: number;
@@ -26,6 +28,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.post.data);
   const [mapCenter, setMapCenter] = useState(center);
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>();
 
@@ -110,9 +113,13 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
 
   const onSubmitLocation = (e: any) => {
     e.preventDefault;
-    if (clickedLocation) {
+    if (clickedLocation && data) {
       dispatch(
-        setLocation({ lat: clickedLocation.lat, lng: clickedLocation.lng })
+        setData({
+          ...data,
+          latitude: clickedLocation.lat,
+          longitude: clickedLocation.lng
+        })
       );
       navigate(-1);
     }

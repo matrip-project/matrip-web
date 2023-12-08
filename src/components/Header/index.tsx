@@ -23,12 +23,13 @@ const getTitle = (location: string) => {
 };
 
 interface HeaderProps {
+  mine?: boolean;
   edit: boolean;
   onClick?: () => void;
   cnt?: number;
 }
 
-function Header({ edit, onClick, cnt }: HeaderProps) {
+function Header({ mine, edit, onClick, cnt }: HeaderProps) {
   const navigate = useNavigate();
   const page = useLocation().pathname.substring(1);
 
@@ -44,7 +45,8 @@ function Header({ edit, onClick, cnt }: HeaderProps) {
         </BackWrap>
         <ButtonsWrap>
           {edit && <CompleteBtn onClick={onClick}>저장</CompleteBtn>}
-          {onClick && page.includes('trip') && <ShareBtn onClick={copyLink} />}
+          {mine && <CompleteBtn onClick={onClick}>수정</CompleteBtn>}
+          {page.includes('trip') && <ShareBtn onClick={copyLink} />}
         </ButtonsWrap>
       </NavWrap>
     </NavContainer>
@@ -52,6 +54,7 @@ function Header({ edit, onClick, cnt }: HeaderProps) {
 }
 
 const NavContainer = styled.div`
+  z-index: 99999;
   position: fixed;
   width: 100%;
   height: 60px;
