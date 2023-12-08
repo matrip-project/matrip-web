@@ -57,6 +57,7 @@ export const PopularTravel = styled.div`
   width: 100%;
   text-align: left;
   margin-bottom: 20px;
+  margin-left: 23px;
 `;
 
 export const PopularTravelBox = styled.div`

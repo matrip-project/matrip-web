@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 export const SearchBox = styled.div`
   display: flex;
-  width: 80%;
+  width: 298px;
   gap: 8px;
   position: relative;
   margin-bottom: 30px;

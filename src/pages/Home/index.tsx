@@ -54,7 +54,6 @@ const Home: React.FC = () => {
           'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
         );
         setJourneys(response.data || { dtoList: [] });
-        console.log(response);
       } catch (error) {
         console.error('Error', error);
       }
@@ -66,32 +65,31 @@ const Home: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <gs.MainBox>
-          <HeaderLogo />
-          <Search />
-          <hs.TitleBox>
-            <hs.MainTitle>동행일정</hs.MainTitle>
-            <hs.tapTitle2>
-              <span>· {journeys.dtoList.length} </span>동행일정을 둘러보세요.
-            </hs.tapTitle2>
-          </hs.TitleBox>
-          {journeys.dtoList.slice(0, 5).map((data, index) => (
-            <UserList
-              key={index}
-              id={data.id}
-              memberName={data.memberName}
-              imgurl={data.journeyImgRequestDtoList[0]?.path}
-              city={data.city}
-              title={data.title}
-              content={data.content}
-              startDate={data.startDate}
-              endDate={data.endDate}
-              isListIconClicked
-            />
-          ))}
-          <hs.ScheduleMoreBtn to={'/CompanionList'}>
-            일정 더보기 +
-          </hs.ScheduleMoreBtn>
+        <HeaderLogo />
+        <Search />
+        <hs.TitleBox>
+          <hs.MainTitle>동행일정</hs.MainTitle>
+          <hs.tapTitle2>
+            <span>· {journeys.dtoList.length} </span>동행일정을 둘러보세요.
+          </hs.tapTitle2>
+        </hs.TitleBox>
+        {journeys.dtoList.slice(0, 5).map((data, index) => (
+          <UserList
+            key={index}
+            id={data.id}
+            memberName={data.memberName}
+            imgurl={data.journeyImgRequestDtoList[0]?.path}
+            city={data.city}
+            title={data.title}
+            content={data.content}
+            startDate={data.startDate}
+            endDate={data.endDate}
+            isListIconClicked
+          />
+        ))}
+        <hs.ScheduleMoreBtn to={'/CompanionList'}>
+          일정 더보기 +
+        </hs.ScheduleMoreBtn>
 
           <hs.PopularTravel>인기 여행지 TOP3</hs.PopularTravel>
           <hs.PopularTravelBox>
@@ -127,7 +125,6 @@ const Home: React.FC = () => {
               <hs.WriteBtn src={addPostButton}></hs.WriteBtn>
             </hs.postContainer>
           </hs.buttonWrraperContainer>
-        </gs.MainBox>
       </gs.MainContainer>
     </>
   );

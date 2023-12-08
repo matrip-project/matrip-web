@@ -11,7 +11,7 @@ export const postwrapper = styled.div`
 `;
 
 export const postBox = styled(Link)`
-  width: calc(100% - 24px);
+  width: 337px;
   height: 98px;
   justify-content: center;
   margin: auto;
