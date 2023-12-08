@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MainBox } from '../../styles/GlobalStyles';
 
 export const Title = styled.div`
   ${(props) => props.theme.texts.mainTitle};
@@ -14,6 +15,10 @@ export const Content2 = styled.p`
   ${(props) => props.theme.texts.content2};
   margin-bottom: 10px;
   white-space: pre-wrap;
+`;
+
+export const DeatilMainBox = styled(MainBox)`
+  width: 100%;
 `;
 
 export const InfoContainer = styled.div`

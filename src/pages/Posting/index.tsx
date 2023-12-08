@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { MainBox, MainContainer } from '../../styles/GlobalStyles';
 import { ReactComponent as Exclamation } from '../../asset/exclamation.svg';
 import ImageUpload from './postingComponents/ImageUpload';
@@ -27,6 +29,8 @@ export interface StateProps {
 
 function Posting() {
   const navigate = useNavigate();
+  const { lat, lng } = useSelector((state: RootState) => state.location);
+  const [end, setEnd] = useState('ACTIVE');
   const [dataInput, setDataInput] = useState<DataProps>({
     title: '',
     content: '',
@@ -34,13 +38,12 @@ function Posting() {
     startDate: dayjs(new Date()).format('YYYY-MM-DD'),
     endDate: dayjs(addDays(new Date(), 1)).format('YYYY-MM-DD'),
     count: 0,
-    latitude: 37.5665,
-    longitude: 126.978,
+    latitude: lat,
+    longitude: lng,
     tag: '',
-    status: 'ACTIVE',
+    status: end,
     memberId: 1
   });
-  const [end, setEnd] = useState(false);
   const center = {
     lat: dataInput?.latitude,
     lng: dataInput?.longitude
@@ -54,8 +57,6 @@ function Posting() {
     ]
   };
   const [preview, setPreview] = useState<File | null>(null);
-
-  // console.log(imageInput);
 
   const handleSave = async () => {
     if (
@@ -94,7 +95,7 @@ function Posting() {
   return (
     <MainContainer>
       <Header edit={true} onClick={handleSave} />
-      <MainBox>
+      <PostMainbox>
         <ImageUpload
           url={imageInput.journeyImgRequestDtoList[0].path}
           setPreivew={setPreview}
@@ -123,9 +124,7 @@ function Posting() {
         </PostingContainer> */}
         <LocationSelect center={center} />
         <ChangeStateWrap>
-          <ChangeStateBtn onClick={() => setEnd(true)}>
-            모집 마감
-          </ChangeStateBtn>
+          <ChangeStateBtn onClick={() => setEnd('')}>모집 마감</ChangeStateBtn>
           <HelpBox>
             <Exclamation />
             <HelpWrap>
@@ -133,7 +132,7 @@ function Posting() {
             </HelpWrap>
           </HelpBox>
         </ChangeStateWrap>
-      </MainBox>
+      </PostMainbox>
     </MainContainer>
   );
 }
@@ -174,6 +173,10 @@ const HelpBox = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 5px;
+`;
+
+const PostMainbox = styled(MainBox)`
+  width: 100%;
 `;
 
 export default Posting;

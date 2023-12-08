@@ -5,43 +5,36 @@ export const MapContainer = styled.div`
 `;
 
 export const LocationSearchInput = styled.input`
-  z-index: 9999;
   box-sizing: border-box;
   border: 1px solid ${(props) => props.theme.colors.neutral1};
   height: 40px;
   width: 80%;
   border-radius: 25px;
   padding: 0 15px;
-  position: absolute;
+  z-index: 9999;
+  position: relative;
   left: 10%;
   top: 40px;
+  display: flex;
+  align-items: center;
+
   ${(props) => props.theme.texts.resultValue1};
+
+  &::placeholder {
+    ${(props) => props.theme.texts.subtitle};
+  }
 `;
 
 export const LocationSubmitBtn = styled.button`
   z-index: 9999;
-  width: 20%;
-  padding-bottom: 10%;
+  width: 8rem;
+  height: 5rem;
   position: absolute;
   bottom: 40px;
   left: 40%;
   border: 1px solid ${(props) => props.theme.colors.neutral1};
   border-radius: 25px;
   background-color: ${(props) => props.theme.colors.white};
-`;
-
-export const LocationSubmitBtnContents = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   ${(props) => props.theme.texts.mainTitle};
 `;
 

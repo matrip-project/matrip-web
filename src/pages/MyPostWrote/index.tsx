@@ -56,22 +56,6 @@ const MyPostWrote: React.FC = () => {
     fetchData();
   }, [id]);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     if (id) {
-  //       try {
-  //         const response = await getJourneyDetail(parseInt(id));
-  //         setJourneys(response || { dtoList: [] });
-  //         console.log('get journey success: ', response);
-  //       } catch (error) {
-  //         console.error('Error fetching journey detail: ', error);
-  //       }
-  //     }
-  //   };
-
-  //   getData();
-  // }, [id]);
-
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
     const handleScroll = () => {

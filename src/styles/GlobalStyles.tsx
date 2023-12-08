@@ -161,7 +161,7 @@ export const MainContainer = styled.div`
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너
 export const MainBox = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;

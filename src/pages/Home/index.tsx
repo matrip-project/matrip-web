@@ -91,40 +91,40 @@ const Home: React.FC = () => {
           일정 더보기 +
         </hs.ScheduleMoreBtn>
 
-        <hs.PopularTravel>인기 여행지 TOP3</hs.PopularTravel>
-        <hs.PopularTravelBox>
-          <hs.PopularImgbox
-            to={'/popularTravel'}
-            onClick={() => dispatch(setKeyword('제주'))}
-          >
-            <hs.PopularImg src={jejuImg} />
-            제주
-          </hs.PopularImgbox>
-          <hs.PopularImgbox
-            to={'/popularTravel'}
-            onClick={() => dispatch(setKeyword('부산'))}
-          >
-            <hs.PopularImg src={busanImg} />
-            부산
-          </hs.PopularImgbox>
-          <hs.PopularImgbox
-            to={'/popularTravel'}
-            onClick={() => dispatch(setKeyword('강원'))}
-          >
-            <hs.PopularImg src={gangwonImg} />
-            강원
-          </hs.PopularImgbox>
-        </hs.PopularTravelBox>
+          <hs.PopularTravel>인기 여행지 TOP3</hs.PopularTravel>
+          <hs.PopularTravelBox>
+            <hs.PopularImgbox
+              to={'/popularTravel'}
+              onClick={() => dispatch(setKeyword('제주'))}
+            >
+              <hs.PopularImg src={jejuImg} />
+              제주
+            </hs.PopularImgbox>
+            <hs.PopularImgbox
+              to={'/popularTravel'}
+              onClick={() => dispatch(setKeyword('부산'))}
+            >
+              <hs.PopularImg src={busanImg} />
+              부산
+            </hs.PopularImgbox>
+            <hs.PopularImgbox
+              to={'/popularTravel'}
+              onClick={() => dispatch(setKeyword('강원'))}
+            >
+              <hs.PopularImg src={gangwonImg} />
+              강원
+            </hs.PopularImgbox>
+          </hs.PopularTravelBox>
 
-        <hs.InviteFriend onClick={() => handleInviteFriend()}>
-          친구 초대하기 <hs.InviteFriendImg src={share} />
-        </hs.InviteFriend>
+          <hs.InviteFriend onClick={() => handleInviteFriend()}>
+            친구 초대하기 <hs.InviteFriendImg src={share} />
+          </hs.InviteFriend>
 
-        <hs.buttonWrraperContainer>
-          <hs.postContainer to={'/posting'}>
-            <hs.WriteBtn src={addPostButton}></hs.WriteBtn>
-          </hs.postContainer>
-        </hs.buttonWrraperContainer>
+          <hs.buttonWrraperContainer>
+            <hs.postContainer to={'/posting'}>
+              <hs.WriteBtn src={addPostButton}></hs.WriteBtn>
+            </hs.postContainer>
+          </hs.buttonWrraperContainer>
       </gs.MainContainer>
     </>
   );

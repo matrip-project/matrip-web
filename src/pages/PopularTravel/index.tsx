@@ -52,6 +52,7 @@ const PopularTravel: React.FC = () => {
     전북,
     전남
   };
+
   return (
     <>
       <gs.MainContainer>

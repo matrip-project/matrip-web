@@ -6,7 +6,6 @@ export const TitleBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  margin-left: 23px;
 `;
 
 export const MainTitle = styled.div`
@@ -34,9 +33,7 @@ export const postContainer = styled(Link)`
   right: 25px;
 `;
 
-export const WriteBtn = styled.img`
-  
-`;
+export const WriteBtn = styled.img``;
 
 export const ScheduleMoreBtn = styled(Link)`
   display: inline-flex;
@@ -65,7 +62,9 @@ export const PopularTravel = styled.div`
 
 export const PopularTravelBox = styled.div`
   display: flex;
-  margin-left: 23px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const PopularImgbox = styled(Link)`
@@ -75,10 +74,16 @@ export const PopularImgbox = styled(Link)`
   font-weight: 500;
   line-height: 22px;
   text-align: center;
-  margin-right: 20px;
+  width: 107px;
+  aspect-ratio: 107 / 100;
 `;
 
-export const PopularImg = styled.img``;
+export const PopularImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+`;
 
 export const InviteFriend = styled.button`
   display: inline-flex;
