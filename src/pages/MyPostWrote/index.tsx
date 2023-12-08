@@ -5,6 +5,8 @@ import UserList from '../../components/UserList';
 import listIcon from '../../asset/listIcon.svg';
 import TitleIcon from '../../asset/titleIcon.svg';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { getJourneyDetail } from '../../apis/api/journey';
 
 interface JourneyImage {
   id: number;
@@ -29,40 +31,57 @@ interface Type {
 }
 
 const MyPostWrote: React.FC = () => {
+  const storedId = sessionStorage.getItem('userId');
+
+  // 만약 세션에 id 값이 없으면 기본값을 사용
+  const { id = storedId || '0' } = useParams();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);
-  const [isTitleIconClicked, setTitleIconClicked] = useState(false);
   const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
+          `http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys/mypage?memberId=${id}`
         );
-        setJourneys(response.data || { dtoList: [] });
+        setJourneys({ dtoList: response.data.dtoList || [] });
       } catch (error) {
-        console.error('Error', error);
+        console.error('Error fetching data:', error);
+        setJourneys({ dtoList: [] });
       }
     };
 
     fetchData();
-  }, []);
+  }, [id]);
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     if (id) {
+  //       try {
+  //         const response = await getJourneyDetail(parseInt(id));
+  //         setJourneys(response || { dtoList: [] });
+  //         console.log('get journey success: ', response);
+  //       } catch (error) {
+  //         console.error('Error fetching journey detail: ', error);
+  //       }
+  //     }
+  //   };
+
+  //   getData();
+  // }, [id]);
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
     const handleScroll = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-
       if (scrolledToBottom) {
         setDisplayCount((prevCount) => prevCount + 5);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };

@@ -54,7 +54,6 @@ const Home: React.FC = () => {
           'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
         );
         setJourneys(response.data || { dtoList: [] });
-        console.log(response);
       } catch (error) {
         console.error('Error', error);
       }

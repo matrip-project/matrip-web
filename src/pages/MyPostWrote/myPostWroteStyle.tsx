@@ -1,16 +1,5 @@
 import { styled, css } from 'styled-components';
 
-export const TopNavBox = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-export const BackPageButton = styled.img`
-  margin: 33px 0px 30px 16px;
-  justify-content: left;
-  cursor: pointer;
-`;
-
 export const noPost = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   font-size: 16px;
@@ -54,4 +43,5 @@ export const DataUserPost = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: auto;
+  margin-left: 23px;
 `;
