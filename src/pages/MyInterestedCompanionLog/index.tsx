@@ -32,7 +32,7 @@ interface Type {
 const MyInterestedCompanionLog: React.FC = () => {
   const storedId = sessionStorage.getItem('userId');
 
-  const { id = storedId || '0' } = useParams();
+  const { id = storedId || '1' } = useParams();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);
@@ -53,6 +53,7 @@ const MyInterestedCompanionLog: React.FC = () => {
 
     fetchData();
   }, [id]);
+
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {

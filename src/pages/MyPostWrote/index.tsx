@@ -34,7 +34,7 @@ const MyPostWrote: React.FC = () => {
   const storedId = sessionStorage.getItem('userId');
 
   // 만약 세션에 id 값이 없으면 기본값을 사용
-  const { id = storedId || '0' } = useParams();
+  const { id = storedId || '1' } = useParams();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);

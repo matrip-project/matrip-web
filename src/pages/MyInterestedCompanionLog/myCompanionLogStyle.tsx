@@ -54,5 +54,4 @@ export const DataUserPost = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  margin-left: 23px;
 `;
