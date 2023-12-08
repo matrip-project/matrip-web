@@ -50,9 +50,7 @@ const EditProfile = () => {
     if (files){
       setFile(files[0]);
       const filePath = await uploadImage(files[0]);
-      console.log(filePath);
       const upl = await addUserProfilePic(userData.id, filePath);
-      console.log(upl);
       // await fetchUserDataWithSessionStorage;
   }
   };
