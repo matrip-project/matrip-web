@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from './modules/searchSlice';
 import dibsSlice from './modules/dibSlice';
 import keywordImgSlice from './modules/keywordImgSlice';
+import userDataSlice from './modules/userDataSlice';
 
 import userDataSlice from './modules/userDataSlice';
 
@@ -18,6 +19,7 @@ export const store = configureStore({
     postTotalPage: totalPageSlice,
     location: locationSlice,
     reply: replySlice
+
   }
 });
 

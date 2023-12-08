@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 interface UserIntroProps {
   iconSize: number;
   children?: ReactNode;
-  id: number;
+  id:number;
+
 }
 
 function UserIntro({ iconSize, children, id }: UserIntroProps) {

@@ -18,6 +18,7 @@ function Info({ data }: InfoType) {
     return result;
   };
 
+
   return (
     <D.InfoContainer>
       <D.TitleContainer>
