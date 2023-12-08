@@ -1,15 +1,17 @@
 import React from 'react';
 import * as gs from '../../styles/GlobalStyles';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import UserIntro from '../../components/UserIntro';
-import { Spacer, Text } from '../../components/@atoms';
+import {Spacer, Text} from '../../components/@atoms';
 import ImageCarousel from '../../components/ImageCarousel';
 import Header from '../../components/Header';
 
 import rightIcon from '../../asset/arrowRight.svg';
+import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 
-import { userData } from '../../data/userDummyData';
+import {userDataEx} from '../../data/userDummyData';
+import {useAppSelector} from '../../redux/hooks';
 
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
@@ -17,72 +19,82 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 // !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
 
 const Profile = () => {
-  return (
-    <gs.MainContainer>
-      <Header edit={false} />
-      <gs.MainBox>
-        <LinkToProfile to={'/mypage/editProfile'}>
-          <UserIntro iconSize={60}>
-            <div>
-              <Text type='title1'>{userData.name}</Text>
-              <Text type='body2'>ssss</Text>
-            </div>
-          </UserIntro>
-        </LinkToProfile>
-        <UserDateText>
-          <div>
-            {userData.hashTags.map((tag, idx) => {
-              return (
-                <span key={idx}>#{tag} </span>
-              );
-            })
+    // const userState = useAppSelector(state => state.userData);
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    return (
+        <gs.MainContainer>
+            <Header edit={false}/>
+            {userData ?
+                <gs.MainBox>
+                    <LinkToProfile to='/editProfile'>
+                        <ProfileIcon width={60} height={60}/>
+                        <Spacer width={15}/>
+                        <div>
+                            <Text type='title1'>{userData.nickname}</Text>
+                            <Text type='body2'>{userData.email}</Text>
+                        </div>
+                    </LinkToProfile>
+                    <UserDateText>
+                        <div>
+                            {userDataEx.hashTags.map((tag: string, idx: number) => {
+                                return (
+                                    <span key={idx}>#{tag} </span>
+                                );
+                            })
+                            }
+                            <span>를 선호합니다.</span>
+                        </div>
+                        <Text>{userData.intro}</Text>
+                    </UserDateText>
+                    <ImageSection>
+                        <Spacer height={16}/>
+                        <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
+                        <Spacer height={16}/>
+                        <ImageCarousel images={userDataEx.images}/>
+                        {/*<ImageCarousel images={userState.user.profile_list} />*/}
+                    </ImageSection>
+                    <Spacer height={50}/>
+                    <History>
+                        <Text>동행로그</Text>
+                        {HISTROY.map((item, idx) => {
+                            let linkPath = '/';
+
+                            if (item === '관심 동행 목록') {
+                                linkPath = '/companionLog/myInterestedCompanionLog';
+                            } else if (item === '내가 쓴 글') {
+                                linkPath = '/companionLog/myPostWrote';
+                            }
+
+                            return (
+                                <LinkItem key={idx} to={linkPath}>
+                                    <Text>{item}</Text>
+                                    <Spacer width={10}/>
+                                    <img src={rightIcon}/>
+                                </LinkItem>
+                            );
+                        })
+                        }
+                    </History>
+                </gs.MainBox>
+                :
+                <>
+                </>
             }
-            <span>를 선호합니다.</span>
-          </div>
-          <Text>{userData.description}</Text>
-        </UserDateText>
-        <ImageSection>
-          <Spacer height={16} />
-          <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
-          <Spacer height={16} />
-          <ImageCarousel images={userData.images} />
-        </ImageSection>
-        <Spacer height={50} />
-        <History>
-          <Text>동행로그</Text>
-          {HISTROY.map((item, idx) => {
-            let linkPath = '/';
 
-            if (item === '관심 동행 목록') {
-              linkPath = '/companionLog/myInterestedCompanionLog';
-            } else if (item === '내가 쓴 글') {
-              linkPath = '/companionLog/myPostWrote';
-            }
+        </gs.MainContainer>
 
-            return (
-              <LinkItem key={idx} to={linkPath}>
-                <Text>{item}</Text>
-                <Spacer width={10} />
-                <img src={rightIcon} />
-              </LinkItem>
-            );
-          })
-          }
-        </History>
-      </gs.MainBox>
-    </gs.MainContainer>
-
-  );
+    );
 };
-// /companionLog/myInterestedCompanionLog
-// /companionLog/myPostWrote
+
 
 export default Profile;
 
 const LinkToProfile = styled(Link)`
-    width: 100%;
-    height: 90px;
-    
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  
 `;
 
 const UserDateText = styled.div`

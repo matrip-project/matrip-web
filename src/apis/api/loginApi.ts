@@ -1,4 +1,4 @@
-import { baseAPI } from './axiosInstance';
+import { baseAPI } from '../axiosInstance';
 
 type LoginProps = {
     email: string
@@ -7,7 +7,7 @@ type LoginProps = {
 
 export const postLogin = async({email, password}: LoginProps) => {
     try{
-        const response = await baseAPI.post('/join', {
+        const response = await baseAPI.post('/login', {
             email,
             password,
         });

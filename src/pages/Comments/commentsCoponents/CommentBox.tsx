@@ -11,11 +11,12 @@ type CommentBoxProps = {
 
 function CommentBox({ comment }: CommentBoxProps) {
   const theme = useTheme();
-
+  // 임시데이터
+  const id = 1;
   return (
     <CommentBoxWrap isWriter={comment.isWriter} isReply={comment.isReply}>
       <ProfileContainer>
-        <UserIntro iconSize={18}>
+        <UserIntro iconSize={18} id={id}>
           <Content2>{comment.name}</Content2>
           {comment.isSecret && <Lock stroke={theme.colors.neutral3} />}
         </UserIntro>
