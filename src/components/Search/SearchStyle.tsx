@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 export const SearchBox = styled.div`
   display: flex;
-  width: 298px;
+  width: 80%;
   gap: 8px;
   position: relative;
   margin-bottom: 30px;
@@ -15,7 +15,7 @@ export const SearchBox = styled.div`
 
 export const SearchInput = styled.input`
   display: inline-flex;
-  width: 298px;
+  width: 100%;
   height: 48px;
   padding: 12px 16px;
   justify-content: center;

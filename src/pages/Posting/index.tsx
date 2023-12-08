@@ -58,8 +58,6 @@ function Posting() {
   };
   const [preview, setPreview] = useState<File | null>(null);
 
-  // console.log(imageInput);
-
   const handleSave = async () => {
     if (
       dataInput.city.length === 0 ||
@@ -94,18 +92,10 @@ function Posting() {
     });
   };
 
-  const updateLocation = (lat: number, lng: number) => {
-    setDataInput({
-      ...dataInput,
-      latitude: lat,
-      longitude: lng
-    });
-  };
-
   return (
     <MainContainer>
       <Header edit={true} onClick={handleSave} />
-      <MainBox>
+      <PostMainbox>
         <ImageUpload
           url={imageInput.journeyImgRequestDtoList[0].path}
           setPreivew={setPreview}
@@ -142,7 +132,7 @@ function Posting() {
             </HelpWrap>
           </HelpBox>
         </ChangeStateWrap>
-      </MainBox>
+      </PostMainbox>
     </MainContainer>
   );
 }
@@ -183,6 +173,10 @@ const HelpBox = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 5px;
+`;
+
+const PostMainbox = styled(MainBox)`
+  width: 100%;
 `;
 
 export default Posting;
