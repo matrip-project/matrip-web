@@ -15,6 +15,7 @@ export const addUserProfilePic = async (memberId: number, path: any) => {
         const response = await baseAPI.post(`/member/${memberId}/profile`, {
             path
         });
+        console.log(response);
         return response;
     } catch (error) {
         console.log('Add user profile picture fail:', error);

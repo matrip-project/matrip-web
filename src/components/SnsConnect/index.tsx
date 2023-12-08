@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
+
 
 
 interface Props {
@@ -34,9 +36,13 @@ const SnsConnect: React.FC<Props> = ({ fields, setFields }) => {
           <InputField value={field} onChange={handleInputChange(index)} />
           {index === fields.length - 1 && (
             <>
-              <AddButton onClick={handleAddField}>+</AddButton>
-              {fields.length > 1 && 
-                <RemoveButton onClick={() => handleRemoveField(index)}>-</RemoveButton>
+              <AddButton onClick={handleAddField}>
+                <CiCirclePlus size={23} />
+              </AddButton>
+              {fields.length > 1 &&
+                <RemoveButton onClick={() => handleRemoveField(index)}>
+                  <CiCircleMinus size={23}/>
+                </RemoveButton>
               }
             </>
           )}

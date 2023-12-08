@@ -13,6 +13,8 @@ const getTitle = (location: string) => {
     title = '회원가입';
   } else if (location.includes('comments')) {
     title = '댓글';
+  } else if (location === 'mypage') {
+    title = '마이페이지';
   } else {
     title = '';
   }

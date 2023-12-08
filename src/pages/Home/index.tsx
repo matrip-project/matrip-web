@@ -32,6 +32,7 @@ interface Journey {
   totalPage: number;
 }
 
+
 interface Type {
   dtoList: Journey[];
   totalPage: number;
@@ -62,6 +63,9 @@ const Home: React.FC = () => {
 
     fetchData();
   }, []);
+
+
+
 
   return (
     <>
