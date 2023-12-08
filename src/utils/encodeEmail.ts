@@ -1,5 +1,9 @@
 export function encodeEmail(email: string) {
-  const subEmail = email.substring(0, 3);
+  const subEmail = email.split('@');
 
-  return subEmail + '***';
+  if (subEmail[0].length > 3) {
+    subEmail[0] = email.substring(0, 3);
+  }
+
+  return subEmail[0] + '***';
 }
