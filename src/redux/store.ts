@@ -9,7 +9,7 @@ export const store = configureStore({
     search: searchReducer,
     dibsSlice: dibsSlice,
     keyword: keywordImgSlice,
-    totalPage: totalPageSlice
+    postTotalPage: totalPageSlice
   }
 });
 

@@ -58,6 +58,7 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
   const SelectedEndDate = useSelector(AddSelectedEndDate);
   const keyword = searchKeyword || popularTravelKeyword;
   const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
+  const [localTotalPage, setLocalTotalPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,7 +130,14 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
       onShowTitleBox();
     }
 
-  }, [filteredJourneys, onNoPosts, onShowTitleBox, displayCount, dispatch]);
+    const newLocalTotalPage = filteredJourneys.length;
+    setLocalTotalPage(newLocalTotalPage);
+
+  }, [filteredJourneys, onNoPosts, onShowTitleBox, displayCount, dispatch, localTotalPage]);
+
+  useEffect(() => {
+    dispatch(setTotalPage(localTotalPage));
+  }, [localTotalPage, dispatch]);
 
   return (
     <>

@@ -9,17 +9,14 @@ import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import PostListScroll from '../../components/PostListScroll';
 import SelectButton from '../../components/SelectButton';
-import axios from 'axios';
 import HeaderLogo from '../../components/HeaderLogo';
-import { AddTotalPage } from '../../redux/modules/totalPageSlice';
+import { selectTotalPage } from '../../redux/modules/totalPageSlice';
 
 const CompanionList: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(false);
   const [showTitleBox, setShowTitleBox] = useState(true);
   const keyword = useSelector(selectKeyword);
-  const totalPage = useSelector(AddTotalPage);
-
-  console.log(totalPage);
+  const totalPage = useSelector(selectTotalPage);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -49,7 +46,7 @@ const CompanionList: React.FC = () => {
         <cs.TitleBox>
           <cs.MainTitle>동행일정</cs.MainTitle>
           <cs.tapTitle2>
-            <span>· {totalPage} </span>동행일정을 둘러보세요.
+            <span>· {totalPage}개 </span>동행일정을 둘러보세요.
             <cs.tapTitle2Fillter
               src={isFilterClicked ? fillterIconNone : fillterIcon}
               onClick={handleFilterClick}

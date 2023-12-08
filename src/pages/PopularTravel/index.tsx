@@ -19,8 +19,8 @@ import { useSelector } from 'react-redux';
 import PostListScroll from '../../components/PostListScroll';
 import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
 import SelectButton from '../../components/SelectButton';
-import axios from 'axios';
 import HeaderLogo from '../../components/HeaderLogo';
+import { selectTotalPage } from '../../redux/modules/totalPageSlice';
 
 interface CityImages {
   [key: string]: any;
@@ -29,9 +29,8 @@ interface CityImages {
 const PopularTravel: React.FC = () => {
   const [isFilterClicked, setIsFilterClicked] = useState(true);
   const Popularkeyword = useSelector(selectPopularTravelKeyword);
-  const [totalPage, setTotalPage] = useState<number>(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [filteredJourneysLength, setFilteredJourneysLength] = useState<number>(0);
+  const totalPage = useSelector(selectTotalPage);
 
   const handleFilterClick = () => {
     setIsFilterClicked((prev) => !prev);
@@ -53,23 +52,6 @@ const PopularTravel: React.FC = () => {
     전북,
     전남
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
-        );
-        setTotalPage(response.data.dtoList.length || 0);
-        // console.log(response);
-      } catch (error) {
-        console.error('Error', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
       <gs.MainContainer>

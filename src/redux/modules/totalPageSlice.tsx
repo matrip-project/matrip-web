@@ -8,8 +8,8 @@ const initialState: TotalPageState = {
   totalPage: null
 };
 
-const totalPage = createSlice({
-  name: 'totalPage',
+export const totalPageSlice = createSlice({
+  name: 'postTotalPage',
   initialState,
   reducers: {
     setTotalPage: (state, action: PayloadAction<number | null>) => {
@@ -18,10 +18,9 @@ const totalPage = createSlice({
   }
 });
 
+export const { setTotalPage } = totalPageSlice.actions;
 
-export const { setTotalPage } = totalPage.actions;
+export const selectTotalPage = (state: { postTotalPage: TotalPageState }) =>
+  state.postTotalPage.totalPage;
 
-export const AddTotalPage = (state: { search: TotalPageState }) =>
-  state.search.totalPage;
-
-export default totalPage.reducer;
+export default totalPageSlice.reducer;
