@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { MainBox, MainContainer } from '../../styles/GlobalStyles';
+import { MainContainer } from '../../styles/GlobalStyles';
 import * as D from './detailStyle';
 import Map from '../../components/Map';
 import Info from './detailComponents/Info';
@@ -23,7 +23,7 @@ function Detail() {
     const getData = async () => {
       if (id) {
         await getJourneyDetail(parseInt(id)).then((res) => {
-          console.log('get data success: ', res);
+          console.log('get journey success: ', res);
           const detailData = getCleanDetailInfo(res);
 
           setImage(detailData.journeyImgRequestDtoList);
@@ -53,7 +53,7 @@ function Detail() {
   return (
     <MainContainer>
       <Header edit={false} />
-      <MainBox>
+      <D.DeatilMainBox>
         <Thumbnail url={image[0]?.path} />
         {detail && (
           <>
@@ -65,11 +65,11 @@ function Detail() {
             {/* <Plan plan={plan} /> */}
             <D.CommentContainer>
               <CommentInput />
-              <CommentCount cnt={detail.journeyCount} />
+              <CommentCount cnt={detail.journeyCount!} />
             </D.CommentContainer>
           </>
         )}
-      </MainBox>
+      </D.DeatilMainBox>
     </MainContainer>
   );
 }

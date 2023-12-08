@@ -2,7 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from './modules/searchSlice';
 import dibsSlice from './modules/dibSlice';
 import keywordImgSlice from './modules/keywordImgSlice';
+
 import userDataSlice from './modules/userDataSlice';
+
+import totalPageSlice from './modules/totalPageSlice';
+import locationSlice from './modules/locationSlice';
+
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +15,9 @@ export const store = configureStore({
     dibsSlice: dibsSlice,
     keyword: keywordImgSlice,
     userData: userDataSlice
+    postTotalPage: totalPageSlice,
+    location: locationSlice
+
   }
 });
 

@@ -153,11 +153,15 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 390px) {
+    width: 100%;
+  }
 `;
 
 // 그 안에 들어갈 내용을 감싸는 컨테이너
 export const MainBox = styled.div`
-  max-width: 390px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;

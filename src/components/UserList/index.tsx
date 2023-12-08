@@ -34,16 +34,15 @@ const UserList: React.FC<
         to={`/trip/${id}`}
         style={{ display: isListIconClicked ? '' : 'none' }}
       >
+        <us.contentsTopBox>
+          <us.postDibsBtn>
+            <img src={recruitingImage} alt='모집중' />
+          </us.postDibsBtn>
+          <us.postPeriod>
+            {startDate}~{endDate}
+          </us.postPeriod>
+        </us.contentsTopBox>
         <us.contentsBox>
-          <us.contentsTopBox>
-            <us.postDibsBtn>
-              <img src={recruitingImage} alt='모집중' />
-            </us.postDibsBtn>
-            <us.postPeriod>
-              {startDate}~{endDate}
-            </us.postPeriod>
-          </us.contentsTopBox>
-
           <us.postContent>
             <us.postTitle>
               [{city}] {title}
@@ -54,11 +53,11 @@ const UserList: React.FC<
             <us.userImgNone src={userImgNone}></us.userImgNone>
             {memberName}
           </us.postNickname>
-        </us.contentsBox>
 
-        <us.postImgBox>
-          <us.postImg src={imgurl} alt='post img' />
-        </us.postImgBox>
+          <us.postImgBox>
+            <us.postImg src={imgurl} alt='post img' />
+          </us.postImgBox>
+        </us.contentsBox>
       </us.postBox>
 
       <us.titleContentsBox
