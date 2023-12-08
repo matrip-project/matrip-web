@@ -7,9 +7,12 @@ import { GoHorizontalRule } from 'react-icons/go';
 import { PostingContainer, StateProps } from '..';
 import Label from './Label';
 import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { setData } from '../../../redux/modules/postSlice';
 
-function DateSelect({ dataInput, setDataInput }: StateProps) {
+function DateSelect({ dataInput }: StateProps) {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [dateRange, setDateRange] = useState([
     {
@@ -36,11 +39,13 @@ function DateSelect({ dataInput, setDataInput }: StateProps) {
       const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD');
 
       if (dataInput) {
-        setDataInput?.({
-          ...dataInput,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate
-        });
+        dispatch(
+          setData({
+            ...dataInput,
+            startDate: formattedStartDate,
+            endDate: formattedEndDate
+          })
+        );
       }
     }
   };

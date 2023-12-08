@@ -2,8 +2,14 @@ import styled from 'styled-components';
 import Label from './Label';
 import { PostingContainer, StateProps } from '..';
 import InterestButton from '../../../components/@atoms/PlaceChoiceButton';
+import { useDispatch } from 'react-redux';
+import { setData } from '../../../redux/modules/postSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
-function SpotSelect({ dataInput, setDataInput }: StateProps) {
+function SpotSelect({ dataInput }: StateProps) {
+  const data = useSelector((state: RootState) => state.post.data);
+  const dispatch = useDispatch();
   const spot = [
     '서울',
     '경기',
@@ -21,10 +27,7 @@ function SpotSelect({ dataInput, setDataInput }: StateProps) {
 
   const handleClick = (curr: string) => {
     if (dataInput) {
-      setDataInput?.({
-        ...dataInput,
-        city: curr
-      });
+      dispatch(setData({ ...dataInput, city: curr }));
     }
   };
 

@@ -19,7 +19,6 @@ function ImageUpload({ url, setPreivew }: UploadProps) {
       setPreviewPath(URL.createObjectURL(file));
     }
   };
-  console.log('preview URL:', previewPath);
 
   return (
     <PostingContainer>

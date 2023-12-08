@@ -14,6 +14,15 @@ export const postJourney = async (body: object) => {
     const { data } = await baseAPI.post('/journeys', body);
     return data;
   } catch (error) {
-    console.log('get journey detail fail:', error);
+    console.log('post journey fail:', error);
+  }
+};
+
+export const putJourney = async (body: object) => {
+  try {
+    const { data } = await baseAPI.put('/journeys', body);
+    return data;
+  } catch (error) {
+    console.log('put journey fail:', error);
   }
 };

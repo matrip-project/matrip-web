@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { StateProps } from '..';
+import { useDispatch } from 'react-redux';
+import { setData } from '../../../redux/modules/postSlice';
 
 interface LimitProps {
   limit: number;
@@ -9,15 +11,19 @@ interface LimitProps {
 
 type TextFieldType = LimitProps & StateProps;
 
-function TextField({ limit, name, dataInput, setDataInput }: TextFieldType) {
+function TextField({ limit, name, dataInput }: TextFieldType) {
   const [TextCnt, setTextCnt] = useState(0);
+  const dispatch = useDispatch();
+  const value = dataInput ? (dataInput as any)[name] : '';
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (dataInput) {
-      setDataInput?.({
-        ...dataInput,
-        [name]: e.target.value
-      });
+      dispatch(
+        setData({
+          ...dataInput,
+          [name]: e.target.value
+        })
+      );
     }
     setTextCnt(e.target.value.length);
   };
@@ -28,6 +34,7 @@ function TextField({ limit, name, dataInput, setDataInput }: TextFieldType) {
         rows={Math.floor(limit / 25)}
         maxLength={limit}
         onChange={handleInput}
+        value={value}
       />
       <TextCntWrap>
         {TextCnt}/{limit}
