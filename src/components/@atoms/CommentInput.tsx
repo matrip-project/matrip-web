@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { postComments } from '../../apis/api/comment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectParentId } from '../../redux/modules/replySlice';
+import { deleteAll, selectParentId } from '../../redux/modules/replySlice';
+import { useDispatch } from 'react-redux';
 
 type CommentType = {
   journeyId: number;
@@ -24,6 +25,7 @@ function CommentInput({
 }: CommentType) {
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [input, setInput] = useState('');
   const [secret, setSecret] = useState(false);
   const parentId = useSelector(selectParentId);
@@ -43,15 +45,15 @@ function CommentInput({
     };
 
     if (input.length > 0) {
-      console.log(body);
-
       await postComments(body).then((res) => {
         console.log('post comments success: ', res);
 
         setInput('');
+        setSecret(false);
 
         if (setNew) {
           setNew(!newComment);
+          dispatch(deleteAll());
         } else {
           navigate(`/trip/${journeyId}/comments`);
         }
@@ -69,6 +71,7 @@ function CommentInput({
         placeholder='댓글을 입력해주세요'
         ref={inputFocus}
         onChange={handleInput}
+        value={input}
       />
       <RegisterWrap onClick={handleSubmit}>
         <Register fill={theme.colors.primary} />
@@ -85,6 +88,7 @@ const CommentInputContainer = styled.div`
   justify-content: space-around;
   border: 1px solid ${(props) => props.theme.colors.neutral1};
   border-radius: 8px;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const LockWrap = styled.div<{ $isSecret: boolean }>`

@@ -5,6 +5,15 @@ import { ReactComponent as StaffIcon } from '../../../asset/staff.svg';
 import { ReactComponent as Lock } from '../../../asset/lock.svg';
 import CommentCount from '../../../components/@atoms/CommentCount';
 import { encodeEmail } from '../../../utils/encodeEmail';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import {
+  deleteAll,
+  selectParentId,
+  setReply
+} from '../../../redux/modules/replySlice';
+import { RootState } from '../../../redux/store';
+import { useUserId } from '../../../hooks/useUserId';
 
 type CommentBoxProps = {
   comment: CommentProps;
@@ -13,8 +22,10 @@ type CommentBoxProps = {
 
 function CommentBox({ comment, inputFocus }: CommentBoxProps) {
   const theme = useTheme();
-
+  const dispatch = useDispatch();
+  const parentId = useSelector((state: RootState) => state.reply.parentId);
   const isReply = comment.parentId > 0 ? true : false;
+  const isWriter = useUserId() === comment.memberId;
 
   const formatTime = (time: string) => {
     let result = time.substring(0, time.length - 10);
@@ -24,29 +35,26 @@ function CommentBox({ comment, inputFocus }: CommentBoxProps) {
   };
 
   const onReplyClick = () => {
+    if (parentId !== comment.id) {
+      dispatch(setReply(comment.id));
+    } else {
+      dispatch(deleteAll());
+    }
     if (inputFocus) {
       inputFocus.current?.focus();
     }
   };
 
-
-
-
   return (
-    <CommentBoxWrap $isWriter={comment.isWriter!} $isReply={isReply}>
+    <CommentBoxWrap $isWriter={isWriter} $isReply={isReply}>
       <ProfileContainer>
-
-
-
         <UserIntro iconSize={18} id={comment.memberId}>
           <Content2>
             {comment.memberName}({encodeEmail(comment.memberEmail)})
           </Content2>
           {comment.secret && <Lock stroke={theme.colors.neutral3} />}
-
-
         </UserIntro>
-        {comment.isWriter && <StaffIcon />}
+        {isWriter && <StaffIcon />}
       </ProfileContainer>
       <ContentWrap>{comment.content}</ContentWrap>
       <CommentFooter>

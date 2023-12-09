@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 interface GoogleMapComponentProps {
-  zoom: number;
+  zoom?: number;
   center: { lat: number; lng: number };
-
-  // maker는 여러개가 될 수 있음
-  // markers: { lat: number; lng: number };
 }
 
 function Map({ zoom, center }: GoogleMapComponentProps) {
-  const [mapCenter, setMapCenter] = useState(center);
-
   const mapOptions = {
     mapTypeControl: false,
     fullscreenControl: false,
@@ -30,7 +24,7 @@ function Map({ zoom, center }: GoogleMapComponentProps) {
             position: 'relative'
           }}
           zoom={zoom}
-          center={mapCenter}
+          center={center}
           options={mapOptions}
         >
           <Marker position={center} />

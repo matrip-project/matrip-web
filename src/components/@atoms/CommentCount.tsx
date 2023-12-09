@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectParentId, setReply } from '../../redux/modules/replySlice';
+import { selectParentId } from '../../redux/modules/replySlice';
 
 interface CountProps {
   cnt: number;
@@ -12,27 +11,15 @@ interface CountProps {
 }
 
 function CommentCount({ cnt, reply, id, onClick }: CountProps) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const parentId = useSelector(selectParentId);
   const [isReply, setIsReply] = useState(false);
 
-  const handleClick = () => {
-    onClick();
-
-    if (reply) {
-      if (parentId !== id) {
-        dispatch(setReply(id!));
-      } else {
-        dispatch(setReply(0));
-      }
-      setIsReply(!isReply);
-      // setIsReply(parentId===id);
-    }
-  };
+  useEffect(() => {
+    setIsReply(parentId === id);
+  }, [parentId, id]);
 
   return (
-    <CountContainer $isReply={isReply} onClick={handleClick}>
+    <CountContainer $isReply={isReply} onClick={onClick}>
       <CountText>{reply ? '답글' : '댓글'}</CountText>
       {cnt > 0 && <Count>{cnt}</Count>}
     </CountContainer>

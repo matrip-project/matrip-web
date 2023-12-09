@@ -75,7 +75,6 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
         const place = places[0].geometry?.location;
         // const placeName = places[0].name;
         const placeAddress = places[0].formatted_address;
-        console.log(places[0]);
 
         if (place && placeAddress) {
           setMapCenter({ lat: place.lat(), lng: place.lng() });

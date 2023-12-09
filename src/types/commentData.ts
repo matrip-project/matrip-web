@@ -8,5 +8,4 @@ export interface CommentProps {
   content: string;
   secret: boolean;
   createAt: string;
-  isWriter?: boolean;
 }

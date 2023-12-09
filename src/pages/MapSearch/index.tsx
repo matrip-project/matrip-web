@@ -3,15 +3,13 @@ import * as gs from '../../styles/GlobalStyles';
 import * as ms from './mapPageStyle';
 import GoogleMapComponent from './mapSearchComponents/GoogleMap';
 import Header from '../../components/Header';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const MapSearch = () => {
-  /**
-   * 임의값 지정
-   * 추후 geolocation추가해서 현재 위치 받아오는 기능 추가 필
-   */
-  const center = { lat: 37.5665, lng: 126.978 };
+  const data = useSelector((state: RootState) => state.post.data);
+  const center = { lat: data.latitude, lng: data.longitude };
   const zoom = 13;
-  // const markers = { lat: 37.5665, lng: 126.978 };
 
   return (
     <gs.MainContainer>

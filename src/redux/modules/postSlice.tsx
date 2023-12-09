@@ -3,6 +3,8 @@ import { DataProps, ImageProps } from '../../types/postData';
 import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 
+const userId = sessionStorage.getItem('myId');
+
 interface PostState {
   data: DataProps;
   image: ImageProps[];
@@ -21,7 +23,7 @@ const initialState: PostState = {
     longitude: 0.0,
     tag: '',
     status: 'ACTIVE',
-    memberId: 1
+    memberId: userId ? parseInt(userId) : 0
   },
   image: [
     {

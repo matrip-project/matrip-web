@@ -165,9 +165,9 @@ export const MainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 60px 0 70px 0;
+  margin: 60px 0 90px 0;
   position: relative;
-  
+
   @media screen and (min-width: 390px) {
     width: 390px;
   }
