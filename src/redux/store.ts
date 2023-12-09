@@ -5,6 +5,7 @@ import searchReducer from './modules/searchSlice';
 import dibsSlice from './modules/dibSlice';
 import keywordImgSlice from './modules/keywordImgSlice';
 import userDataSlice from './modules/userDataSlice';
+
 import totalPageSlice from './modules/totalPageSlice';
 import replySlice from './modules/replySlice';
 import postSlice from './modules/postSlice';
@@ -32,6 +33,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false })
+
 });
 
 export type RootState = ReturnType<typeof store.getState>;
