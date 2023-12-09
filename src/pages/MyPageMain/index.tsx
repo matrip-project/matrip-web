@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import rightIcon from '../../asset/arrowRight.svg';
 import { Text, Spacer } from '../../components/@atoms';
 import UserIntro from '../../components/UserIntro';
-// import backButtonIcon from '../../asset/backButtonIcon.svg';
 import Header from '../../components/Header';
+import { useAppSelector } from '../../redux/hooks';
+import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 
 
 const MENUS = {
@@ -19,30 +20,47 @@ const MENUS = {
 };
 
 const MyPageMain = () => {
+    const navigate = useNavigate();
+    const storedData = sessionStorage.getItem('userData');
+    const userData = storedData ? JSON.parse(storedData) : null;
+    console.log(userData);
+    useEffect(() => {
+        if(!userData)  {
+            navigate('/login');
+        }
+    },[userData, navigate]);
+
     return (
         <gs.MainContainer>
             <Header edit={false} />
             <gs.MainBox>
-                <LinkToProfile to={'/mypage/profile'}>
-                    <UserIntro iconSize={60}>
-                        <div>
-                            <Text type='title1'>ssss</Text>
-                            <Text type='body2'>ssss</Text>
-                        </div>
-                    </UserIntro>
-                </LinkToProfile>
-                {/* MENUS */}
-                {Object.entries(MENUS).map(([menu, path], idx) => {
-                    return (
-                        <LinkToEach key={idx} to={path}>
-                            <MenuLable>
-                                <Text type='subtitle1'>{menu}</Text>
-                                <Spacer width={10} />
-                                <img src={rightIcon} height={14} />
-                            </MenuLable>
-                        </LinkToEach>
-                    );
-                })}
+                {userData &&
+                    <LinkToProfile to='/profile'>
+                        <ProfileIcon width={60} height={60}>
+                            <div>
+                                {userData &&
+                                    <>
+                                        <Text type='title1'>{userData.nickname}</Text>
+                                        <Text type='body2'>{userData.email}</Text>
+                                    </>
+                                }
+                            </div>
+                        </ProfileIcon>
+                    </LinkToProfile>
+                }
+                    {Object.entries(MENUS).map(([menu, path], idx) => {
+                            return (
+                                <LinkToEach key={idx} to={path}>
+                                    <MenuLable>
+                                        <Text type='subtitle1'>{menu}</Text>
+                                        <Spacer width={10} />
+                                        <img src={rightIcon} height={14} />
+                                    </MenuLable>
+                                </LinkToEach>
+                            );
+                        })}
+
+
             </gs.MainBox>
         </gs.MainContainer>
     );

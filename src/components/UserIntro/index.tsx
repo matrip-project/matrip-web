@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 interface UserIntroProps {
   iconSize: number;
   children?: ReactNode;
+  id:number;
 }
 
-function UserIntro({ iconSize, children }: UserIntroProps) {
+function UserIntro({ iconSize, children, id }: UserIntroProps) {
   return (
-    <InfoContainer to={'/mypage/profile'}>
+    <InfoContainer to={`/profileView/${id}`}>
       <ProfileIconWrap width={iconSize} height={iconSize} />
       {children}
     </InfoContainer>

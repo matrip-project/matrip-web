@@ -1,12 +1,16 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as ls from './loginStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
 import { Spacer, InputLabel, Text, CheckBox, Image } from '../../components/@atoms';
 
-import {postLogin} from '../../apis/loginApi';
+import {postLogin} from '../../apis/api/loginApi';
+import {getMyUserData} from '../../apis/api/userData';
+import { useAppDispatch } from '../../redux/hooks';
+import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
+
 
 function Login() {
   const [input, setInput] = useState({
@@ -15,8 +19,8 @@ function Login() {
   });
   const [isAutoLogin, setIsAutoLogin] = useState(false);
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
-
-  console.log(input);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     return() => {
@@ -33,12 +37,18 @@ function Login() {
 
   const handleLogin = async(e: React.FormEvent) => {
     e.preventDefault();
-    const { email, password } = input;
-    const res = await postLogin({ email, password});
-    // 로그인 처리
-    console.log(res);
     try{
-      console.log( email, password );
+      const { email, password } = input;
+      const res = await postLogin({ email, password});
+      if (res){
+        sessionStorage.setItem('authToken', res.data.token);
+        sessionStorage.setItem('myId', res.data.id);
+        const userData = await getMyUserData(res.data.id);
+        sessionStorage.setItem('userData', JSON.stringify(userData));
+        // dispatch(loginSuccess(res.data.id));
+        // dispatch(fetchUserData(res.data.id));
+        navigate('/');
+      }
     }catch (e){
       setIsPasswordCorrect(true);
     }
@@ -50,6 +60,7 @@ function Login() {
 
   return (
     <gs.MainContainer>
+      <Header edit={false} />
       <Header edit={false} />
       <gs.MainBox>
         <Image height={100}/>

@@ -18,6 +18,7 @@ function Info({ data }: InfoType) {
     return result;
   };
 
+
   return (
     <D.InfoContainer>
       <D.TitleContainer>
@@ -37,7 +38,7 @@ function Info({ data }: InfoType) {
         </D.Content1>
         <D.Content1>모집인원 - {data.count}명</D.Content1>
       </D.InfoWrap>
-      <UserIntro iconSize={18}>
+      <UserIntro iconSize={18} id={Number(data.memberId)}>
         <D.UserIntroText>
           {data.memberName}({encodeEmail(data.memberEmail!)}) {data.memberAge}살{' '}
           {data.memberSex}
