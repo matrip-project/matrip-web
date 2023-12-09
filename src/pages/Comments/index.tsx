@@ -8,19 +8,24 @@ import CommentBox from './commentsCoponents/CommentBox';
 import { CommentProps } from '../../types/commentData';
 import { getComments } from '../../apis/api/comment';
 import Header from '../../components/Header';
+import { useUserId } from '../../hooks/useUserId';
+import { sortComment } from '../../apis/services/comment';
 
 function Comments() {
   const id = useParams().id;
   const [comments, setComments] = useState<CommentProps[]>([]);
   const [newComment, setNewComment] = useState<boolean>(false);
   const inputFocus = useRef<HTMLInputElement>(null);
+  const userId = useUserId();
 
   useEffect(() => {
     const getData = async () => {
       if (id) {
         await getComments(parseInt(id), 1).then((res) => {
           console.log('get comments success: ', res);
-          setComments(res);
+          const sortedComments = sortComment(res);
+
+          setComments(sortedComments);
         });
       }
     };
@@ -33,16 +38,18 @@ function Comments() {
       <Header edit={false} cnt={comments?.length} />
       <MainBox>
         <CommentContainer>
-          {comments?.map((comment, index) => (
-            <CommentWrap key={index}>
-              {comment.parentId && <ArrowDown />}
-              <CommentBox comment={comment} inputFocus={inputFocus} />
-            </CommentWrap>
-          ))}
+          <CommentWrap>
+            {comments?.map((comment, index) => (
+              <CommentBoxWrap key={index}>
+                {comment.parentId && <ArrowDown />}
+                <CommentBox comment={comment} inputFocus={inputFocus} />
+              </CommentBoxWrap>
+            ))}
+          </CommentWrap>
           <CommentInputWrap>
             <CommentInput
               journeyId={parseInt(id!)}
-              memberId={1}
+              memberId={userId}
               newComment={newComment}
               setNew={setNewComment}
               inputFocus={inputFocus}
@@ -62,6 +69,10 @@ const CommentContainer = styled.div`
 `;
 
 const CommentWrap = styled.div`
+  margin-bottom: 30px;
+`;
+
+const CommentBoxWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -69,9 +80,11 @@ const CommentWrap = styled.div`
 
 const CommentInputWrap = styled.div`
   width: calc(390px * 0.9);
+  height: 50px;
   position: fixed;
-  bottom: 15%;
+  bottom: 10%;
   z-index: 10;
+  background-color: ${(props) => props.theme.colors.white};
 
   @media screen and (max-width: 390px) {
     width: 81%;

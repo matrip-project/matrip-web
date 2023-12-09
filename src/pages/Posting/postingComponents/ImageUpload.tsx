@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as None } from '../../../asset/imageNone.svg';
 import { PostingContainer } from '..';
+import { useDispatch } from 'react-redux';
+import { setImage } from '../../../redux/modules/postSlice';
 
 interface UploadProps {
   url?: string;
@@ -9,6 +11,7 @@ interface UploadProps {
 }
 
 function ImageUpload({ url, setPreivew }: UploadProps) {
+  const dispatch = useDispatch();
   const [previewPath, setPreviewPath] = useState<string | null>(null);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,6 +20,9 @@ function ImageUpload({ url, setPreivew }: UploadProps) {
     if (file) {
       setPreivew(file);
       setPreviewPath(URL.createObjectURL(file));
+      dispatch(
+        setImage([{ id: 0, path: URL.createObjectURL(file), sequence: 0 }])
+      );
     }
   };
 

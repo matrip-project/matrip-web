@@ -33,6 +33,7 @@ function Posting() {
   const image = useSelector((state: RootState) => state.post.image);
   const [end, setEnd] = useState(false);
   const postId = location.state?.id;
+  const isNew = location.state?.new;
   const center = {
     lat: data ? data.latitude : 0.0,
     lng: data ? data.longitude : 0.0
@@ -48,10 +49,12 @@ function Posting() {
   const [preview, setPreview] = useState<File | null>(null);
 
   useEffect(() => {
-    if (!postId && data.latitude === 0 && data.longitude === 0) {
+    if (isNew && data.latitude === 0) {
       dispatch(deleteAll());
     }
-  }, [postId, data.latitude, data.longitude, dispatch]);
+  }, [isNew, dispatch, data.latitude]);
+
+  console.log(data);
 
   const handleSave = async () => {
     if (data) {
@@ -74,12 +77,12 @@ function Posting() {
           const dataMerged = {
             ...data,
             ...imageInput,
-            status: end ? 'ACTIVE' : 'ACTIVE',
+            status: end ? 'CLOSED' : 'ACTIVE',
             id: postId
           };
           console.log(dataMerged);
 
-          if (data) {
+          if (postId) {
             putData(dataMerged);
           } else {
             postData(dataMerged);
@@ -92,7 +95,7 @@ function Posting() {
       const dataMerged = {
         ...data,
         ...imageInput,
-        status: end ? 'ACTIVE' : 'ACTIVE',
+        status: end ? 'CLOSED' : 'ACTIVE',
         id: postId
       };
 

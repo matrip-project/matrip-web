@@ -14,6 +14,7 @@ import { getCleanDetailInfo } from '../../apis/services/journey';
 import Header from '../../components/Header';
 import { useDispatch } from 'react-redux';
 import { setData, setImage } from '../../redux/modules/postSlice';
+import { useUserId } from '../../hooks/useUserId';
 
 function Detail() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Detail() {
   const [detail, setDetail] = useState<DataProps>();
   const [imageData, setImageData] = useState<ImageProps[]>([]);
   const zoom = 13;
-  const userId = 1;
+  const userId = useUserId();
 
   useEffect(() => {
     const getData = async () => {

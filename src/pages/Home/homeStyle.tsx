@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const TitleBox = styled.div`
@@ -27,10 +27,11 @@ export const buttonWrraperContainer = styled.div`
   width: 390px;
 `;
 
-export const postContainer = styled(Link)`
+export const postContainer = styled.div`
   position: fixed;
   bottom: 80px;
   right: 25px;
+  cursor: pointer;
 `;
 
 export const WriteBtn = styled.img``;

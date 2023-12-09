@@ -1,16 +1,21 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as ls from './loginStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
-import { Spacer, InputLabel, Text, CheckBox, Image } from '../../components/@atoms';
+import {
+  Spacer,
+  InputLabel,
+  Text,
+  CheckBox,
+  Image
+} from '../../components/@atoms';
 
-import {postLogin} from '../../apis/api/loginApi';
-import {getMyUserData} from '../../apis/api/userData';
+import { postLogin } from '../../apis/api/loginApi';
+import { getMyUserData } from '../../apis/api/userData';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
-
 
 function Login() {
   const [input, setInput] = useState({
@@ -23,10 +28,10 @@ function Login() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    return() => {
-      setTimeout(()=>{
+    return () => {
+      setTimeout(() => {
         setIsPasswordCorrect(false);
-      },3000);
+      }, 3000);
     };
   }, [isPasswordCorrect]);
 
@@ -35,12 +40,12 @@ function Login() {
     setInput((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleLogin = async(e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try{
+    try {
       const { email, password } = input;
-      const res = await postLogin({ email, password});
-      if (res){
+      const res = await postLogin({ email, password });
+      if (res) {
         sessionStorage.setItem('authToken', res.data.token);
         sessionStorage.setItem('myId', res.data.id);
         const userData = await getMyUserData(res.data.id);
@@ -49,7 +54,7 @@ function Login() {
         // dispatch(fetchUserData(res.data.id));
         navigate('/');
       }
-    }catch (e){
+    } catch (e) {
       setIsPasswordCorrect(true);
     }
   };
@@ -61,13 +66,12 @@ function Login() {
   return (
     <gs.MainContainer>
       <Header edit={false} />
-      <Header edit={false} />
       <gs.MainBox>
-        <Image height={100}/>
+        <Image height={100} />
         <ls.LoginForm onSubmit={handleLogin}>
           <ls.InputBox>
             <InputLabel label='이메일' />
-            <Spacer height={10}/>
+            <Spacer height={10} />
             <FormInput
               name='email'
               formType='email'
@@ -78,7 +82,7 @@ function Login() {
           </ls.InputBox>
           <ls.InputBox>
             <InputLabel label='비밀번호' />
-            <Spacer height={10}/>
+            <Spacer height={10} />
             <FormInput
               formType='password'
               name='password'
@@ -87,24 +91,34 @@ function Login() {
               placeHolder='비밀번호를 입력해주세요'
             />
           </ls.InputBox>
-          {isPasswordCorrect &&
-            <Text type='subtitle1' color='primary'>비밀번호가 일치하지 않습니다.</Text>
-          }
+          {isPasswordCorrect && (
+            <Text type='subtitle1' color='primary'>
+              비밀번호가 일치하지 않습니다.
+            </Text>
+          )}
           <ls.OptionBox>
-            <CheckBox isChecked={isAutoLogin} label='자동 로그인' handleCheck={handleCheck}/>
+            <CheckBox
+              isChecked={isAutoLogin}
+              label='자동 로그인'
+              handleCheck={handleCheck}
+            />
           </ls.OptionBox>
 
           <ls.SubmitBtn type='submit'>
-            <Text type='title1' color='white'>로그인</Text>
+            <Text type='title1' color='white'>
+              로그인
+            </Text>
           </ls.SubmitBtn>
           <Spacer height={8} />
           <ls.SignupBtn>
             <Link to='/signup'>
-              <Text type='title1' color='white'>회원가입</Text>
+              <Text type='title1' color='white'>
+                회원가입
+              </Text>
             </Link>
           </ls.SignupBtn>
         </ls.LoginForm>
-        <Spacer height={12}/>
+        <Spacer height={12} />
         <div>
           <ls.TextBtn>아이디 찾기</ls.TextBtn>
           <ls.TextBtn>비밀번호 재설정</ls.TextBtn>
@@ -115,4 +129,3 @@ function Login() {
 }
 
 export default Login;
-
