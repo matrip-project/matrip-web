@@ -30,7 +30,7 @@ interface Type {
 }
 
 const MyInterestedCompanionLog: React.FC = () => {
-  const storedId = sessionStorage.getItem('userId');
+  const storedId = sessionStorage.getItem('myId');
 
   const { id = storedId || '1' } = useParams();
   const initialDisplayCount = 5;
@@ -42,9 +42,10 @@ const MyInterestedCompanionLog: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys/mypage?memberId=${id}`
+          `http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys/interest?memberId=${id}`
         );
         setJourneys({ dtoList: response.data.dtoList || [] });
+        console.log(response);
       } catch (error) {
         console.error('Error fetching data:', error);
         setJourneys({ dtoList: [] });
@@ -54,6 +55,7 @@ const MyInterestedCompanionLog: React.FC = () => {
     fetchData();
   }, [id]);
 
+  console.log(id);
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
