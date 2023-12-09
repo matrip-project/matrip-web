@@ -117,11 +117,6 @@ const UserDateText = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> ce332a8616b7348a5d5162b0d89db2e27800e743
 `;
 
 const ImageSection = styled.div`
