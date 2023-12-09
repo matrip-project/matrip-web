@@ -2,6 +2,7 @@ import React from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as ms from './mapPageStyle';
 import GoogleMapComponent from './mapSearchComponents/GoogleMap';
+import Header from '../../components/Header';
 
 const MapSearch = () => {
   /**
@@ -14,13 +15,14 @@ const MapSearch = () => {
 
   return (
     <gs.MainContainer>
+      <Header edit={false} />
       <gs.MainBox>
         <ms.MapContainer>
-          <GoogleMapComponent 
-            center={center} 
+          <GoogleMapComponent
+            center={center}
             zoom={zoom}
-            //markers={markers} 
-           />
+            //markers={markers}
+          />
         </ms.MapContainer>
       </gs.MainBox>
     </gs.MainContainer>

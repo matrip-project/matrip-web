@@ -4,6 +4,9 @@ import * as gs from '../../styles/GlobalStyles';
 import {Spacer, Text} from '../../components/@atoms';
 import {userDataEx} from '../../data/userDummyData';
 import ImageCarousel from '../../components/ImageCarousel';
+
+import rightIcon from '../../asset/arrowRight.svg';
+
 import styled from 'styled-components';
 import {Link, useParams} from 'react-router-dom';
 import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
@@ -94,6 +97,7 @@ const ProfileViewer = () => {
 
         </gs.MainContainer>
     );
+
 };
 
 export default ProfileViewer;
@@ -106,13 +110,18 @@ const LinkToProfile = styled.div`
   align-items: center;
   padding-bottom: 16px;
   border-bottom: 1px solid ${props => props.theme.colors.neutral1};
+
 `;
 
 const UserDateText = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> ce332a8616b7348a5d5162b0d89db2e27800e743
 `;
 
 const ImageSection = styled.div`
@@ -120,6 +129,7 @@ const ImageSection = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 
 const SnsSection = styled.div`
   display: flex;
@@ -131,6 +141,7 @@ const SnsSection = styled.div`
 const SnsIcons = styled.div`
   display: flex;
 `;
+
 
 const History = styled.div`
   width: 100%;

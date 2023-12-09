@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { BiHomeAlt } from 'react-icons/bi';
-import { HiMiniMagnifyingGlass } from 'react-icons/hi2';
-import { BsPerson, BsGrid } from 'react-icons/bs';
 import { getColor } from '../../utils/colorUtils';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from '../../redux/modules/keywordImgSlice';
@@ -62,37 +59,37 @@ function BottomNav() {
     <NavContainer>
       <NavWrap>
         <NavBtn onClick={() => handleIconClick(1)} to={'/'}>
-          <StyledILine isactive={activeIcons[0] === 1} />
+          <StyledILine $isActive={activeIcons[0] === 1} />
           <StyledIconHome
             src={getIconImage(1)}
-            isactive={activeIcons[0] === 1}
+            $isActive={activeIcons[0] === 1}
             alt='홈 아이콘'
           />
           <StyledText>홈</StyledText>
         </NavBtn>
         <NavBtn onClick={() => handleIconClick(2)} to={'/companionList'}>
-          <StyledILine isactive={activeIcons[1] === 1} />
+          <StyledILine $isActive={activeIcons[1] === 1} />
           <StyledIconAccompany
             src={getIconImage(2)}
-            isactive={activeIcons[1] === 1}
+            $isActive={activeIcons[1] === 1}
             alt='동행 아이콘'
           />
           <StyledText>동행리스트</StyledText>
         </NavBtn>
         <NavBtn onClick={() => handleIconClick(3)} to={'/PopularTravel'}>
-          <StyledILine isactive={activeIcons[2] === 1} />
+          <StyledILine $isActive={activeIcons[2] === 1} />
           <StyledIconPopular
             src={getIconImage(3)}
-            isactive={activeIcons[2] === 1}
+            $isActive={activeIcons[2] === 1}
             alt='인기 여행 아이콘'
           />
           <StyledText>인기여행지</StyledText>
         </NavBtn>
         <NavBtn onClick={() => handleIconClick(4)} to={'/mypage'}>
-          <StyledILine isactive={activeIcons[3] === 1} />
+          <StyledILine $isActive={activeIcons[3] === 1} />
           <StyledIconMy
             src={getIconImage(4)}
-            isactive={activeIcons[3] === 1}
+            $isActive={activeIcons[3] === 1}
             alt='마이페이지 아이콘'
           />
           <StyledText>마이페이지</StyledText>
@@ -135,8 +132,8 @@ const NavBtn = styled(Link)`
   height: 75px;
 `;
 
-const StyledILine = styled.div<{ isactive: boolean }>`
-  border-top: ${({ isactive }) => (isactive ? '4px solid #D30065' : 'none')};
+const StyledILine = styled.div<{ $isActive: boolean }>`
+  border-top: ${({ $isActive }) => ($isActive ? '4px solid #D30065' : 'none')};
   width: 45px;
   height: 100%;
   justify-content: center;
@@ -154,19 +151,19 @@ const StyledText = styled.div`
   margin-top: 8px;
 `;
 
-const StyledIconHome = styled.img<{ isactive: boolean }>`
+const StyledIconHome = styled.img<{ $isActive: boolean }>`
   margin-top: 13px;
 `;
 
-const StyledIconAccompany = styled.img<{ isactive: boolean }>`
+const StyledIconAccompany = styled.img<{ $isActive: boolean }>`
   margin-top: 13px;
 `;
 
-const StyledIconPopular = styled.img<{ isactive: boolean }>`
+const StyledIconPopular = styled.img<{ $isActive: boolean }>`
   margin-top: 13px;
 `;
 
-const StyledIconMy = styled.img<{ isactive: boolean }>`
+const StyledIconMy = styled.img<{ $isActive: boolean }>`
   margin-top: 13px;
 `;
 

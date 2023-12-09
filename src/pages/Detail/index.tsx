@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom';
-import { MainBox, MainContainer } from '../../styles/GlobalStyles';
+import { useNavigate, useParams } from 'react-router-dom';
+import { MainContainer } from '../../styles/GlobalStyles';
 import * as D from './detailStyle';
 import Map from '../../components/Map';
 import Info from './detailComponents/Info';
@@ -9,24 +9,29 @@ import Thumbnail from '../../components/@atoms/Thumbnail';
 import Plan from './detailComponents/Plan';
 import { useEffect, useState } from 'react';
 import { getJourneyDetail } from '../../apis/api/journey';
-import { DataProps } from '../../types/postData';
+import { DataProps, ImageProps } from '../../types/postData';
 import { getCleanDetailInfo } from '../../apis/services/journey';
 import Header from '../../components/Header';
+import { useDispatch } from 'react-redux';
+import { setData, setImage } from '../../redux/modules/postSlice';
 
 function Detail() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const id = useParams().id;
   const [detail, setDetail] = useState<DataProps>();
-  const [image, setImage] = useState<any[]>([]);
+  const [imageData, setImageData] = useState<ImageProps[]>([]);
   const zoom = 13;
+  const userId = 1;
 
   useEffect(() => {
     const getData = async () => {
       if (id) {
         await getJourneyDetail(parseInt(id)).then((res) => {
-          console.log('get data success: ', res);
+          console.log('get journey success: ', res);
           const detailData = getCleanDetailInfo(res);
 
-          setImage(detailData.journeyImgRequestDtoList);
+          setImageData(detailData.journeyImgRequestDtoList);
 
           delete detailData['journeyImgRequestDtoList'];
           setDetail(detailData);
@@ -50,11 +55,31 @@ function Detail() {
     }
   ];
 
+  const onCommentClick = () => {
+    if (id) {
+      return navigate(`/trip/${parseInt(id)}/comments`);
+    }
+  };
+
+  const onEditClick = () => {
+    if (detail) {
+      dispatch(setData(detail));
+    }
+    if (imageData) {
+      dispatch(setImage(imageData));
+    }
+    navigate('/posting', { state: { id: parseInt(id!) } });
+  };
+
   return (
     <MainContainer>
-      <Header edit={false} />
-      <MainBox>
-        <Thumbnail url={image[0]?.path} />
+      <Header
+        edit={false}
+        mine={userId === detail?.memberId}
+        onClick={onEditClick}
+      />
+      <D.DeatilMainBox>
+        <Thumbnail url={imageData ? imageData[0]?.path : ''} />
         {detail && (
           <>
             <Info data={detail} />
@@ -64,12 +89,15 @@ function Detail() {
             />
             {/* <Plan plan={plan} /> */}
             <D.CommentContainer>
-              <CommentInput />
-              <CommentCount cnt={detail.journeyCount} />
+              <CommentInput journeyId={parseInt(id!)} memberId={1} />
+              <CommentCount
+                cnt={detail.journeyCount!}
+                onClick={onCommentClick}
+              />
             </D.CommentContainer>
           </>
         )}
-      </MainBox>
+      </D.DeatilMainBox>
     </MainContainer>
   );
 }
