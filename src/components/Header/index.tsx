@@ -13,6 +13,8 @@ const getTitle = (location: string) => {
     title = '회원가입';
   } else if (location.includes('comments')) {
     title = '댓글';
+  } else if (location === 'mypage') {
+    title = '마이페이지';
   } else {
     title = '';
   }
@@ -20,13 +22,14 @@ const getTitle = (location: string) => {
   return title;
 };
 
-// 수정 페이지인지
 interface HeaderProps {
+  mine?: boolean;
   edit: boolean;
   onClick?: () => void;
+  cnt?: number;
 }
 
-function Header({ edit, onClick }: HeaderProps) {
+function Header({ mine, edit, onClick, cnt }: HeaderProps) {
   const navigate = useNavigate();
   const page = useLocation().pathname.substring(1);
 
@@ -35,10 +38,14 @@ function Header({ edit, onClick }: HeaderProps) {
       <NavWrap>
         <BackWrap>
           <BackBtn onClick={() => navigate(-1)} />
-          <NavTitle>{getTitle(page)}</NavTitle>
+          <NavTitle>
+            {getTitle(page)}
+            {cnt && <CntWrap>{cnt}</CntWrap>}
+          </NavTitle>
         </BackWrap>
         <ButtonsWrap>
           {edit && <CompleteBtn onClick={onClick}>저장</CompleteBtn>}
+          {mine && <CompleteBtn onClick={onClick}>수정</CompleteBtn>}
           {page.includes('trip') && <ShareBtn onClick={copyLink} />}
         </ButtonsWrap>
       </NavWrap>
@@ -47,6 +54,7 @@ function Header({ edit, onClick }: HeaderProps) {
 }
 
 const NavContainer = styled.div`
+  z-index: 99999;
   position: fixed;
   width: 100%;
   height: 60px;
@@ -54,7 +62,6 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${(props) => props.theme.colors.white};
-  ;
 `;
 
 const NavWrap = styled.nav`
@@ -67,6 +74,10 @@ const NavWrap = styled.nav`
   }
 `;
 
+const CntWrap = styled.p`
+  color: ${(props) => props.theme.colors.primary};
+`;
+
 const BackWrap = styled.div`
   display: flex;
   align-items: center;
@@ -75,6 +86,8 @@ const BackWrap = styled.div`
 
 const NavTitle = styled.div`
   ${(props) => props.theme.texts.mainTitle};
+  display: flex;
+  gap: 5px;
 `;
 
 const BackBtn = styled(Back)`

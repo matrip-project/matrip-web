@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -12,60 +12,57 @@ import PersonnelInput from './postingComponents/PersonnelInput';
 import Label from './postingComponents/Label';
 import TextField from './postingComponents/TextField';
 import DateSelect from './postingComponents/DateSelect';
-import dayjs from 'dayjs';
-import { addDays } from 'date-fns';
 import LocationSelect from './postingComponents/LocationSelect';
 import Header from '../../components/Header';
 import { DataProps, ImageProps } from '../../types/postData';
 import { uploadImage } from '../../utils/uploadImage';
-import { postJourney } from '../../apis/api/journey';
+import { postJourney, putJourney } from '../../apis/api/journey';
+import { useDispatch } from 'react-redux';
+import { deleteAll } from '../../redux/modules/postSlice';
 
 export interface StateProps {
   dataInput?: DataProps;
-  setDataInput?: React.Dispatch<React.SetStateAction<DataProps>>;
   imageInput?: ImageProps;
-  setImageInput?: React.Dispatch<React.SetStateAction<ImageProps>>;
 }
 
 function Posting() {
   const navigate = useNavigate();
-  const { lat, lng } = useSelector((state: RootState) => state.location);
-  const [end, setEnd] = useState('ACTIVE');
-  const [dataInput, setDataInput] = useState<DataProps>({
-    title: '',
-    content: '',
-    city: '',
-    startDate: dayjs(new Date()).format('YYYY-MM-DD'),
-    endDate: dayjs(addDays(new Date(), 1)).format('YYYY-MM-DD'),
-    count: 0,
-    latitude: lat,
-    longitude: lng,
-    tag: '',
-    status: end,
-    memberId: 1
-  });
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.post.data);
+  const image = useSelector((state: RootState) => state.post.image);
+  const [end, setEnd] = useState(false);
+  const postId = location.state?.id;
   const center = {
-    lat: dataInput?.latitude,
-    lng: dataInput?.longitude
+    lat: data ? data.latitude : 0.0,
+    lng: data ? data.longitude : 0.0
   };
   const imageInput = {
     journeyImgRequestDtoList: [
       {
-        path: '',
+        path: image ? image[0].path : '',
         sequence: 0
       }
     ]
   };
   const [preview, setPreview] = useState<File | null>(null);
 
+  useEffect(() => {
+    if (!postId && data.latitude === 0 && data.longitude === 0) {
+      dispatch(deleteAll());
+    }
+  }, [postId, data.latitude, data.longitude, dispatch]);
+
   const handleSave = async () => {
-    if (
-      dataInput.city.length === 0 ||
-      dataInput.title.length === 0 ||
-      dataInput.content.length === 0 ||
-      !preview
-    ) {
-      alert('필수 항목을 채워주세요!');
+    if (data) {
+      if (
+        data.city.length === 0 ||
+        data.title.length === 0 ||
+        data.content.length === 0 ||
+        (!preview && !image[0].path)
+      ) {
+        alert('필수 항목을 채워주세요!');
+      }
     }
     if (preview) {
       try {
@@ -74,20 +71,47 @@ function Posting() {
           console.log(uploaded);
           imageInput.journeyImgRequestDtoList[0].path = uploaded;
 
-          const dataMerged = { ...dataInput, ...imageInput };
+          const dataMerged = {
+            ...data,
+            ...imageInput,
+            status: end ? 'ACTIVE' : 'ACTIVE',
+            id: postId
+          };
           console.log(dataMerged);
 
-          postData(dataMerged);
+          if (data) {
+            putData(dataMerged);
+          } else {
+            postData(dataMerged);
+          }
         }
       } catch (error) {
         console.log('image setstate fail:', error);
       }
+    } else {
+      const dataMerged = {
+        ...data,
+        ...imageInput,
+        status: end ? 'ACTIVE' : 'ACTIVE',
+        id: postId
+      };
+
+      putData(dataMerged);
     }
   };
 
   const postData = async (data: object) => {
     await postJourney(data).then((res) => {
       console.log('post journey success: ', res);
+      dispatch(deleteAll());
+      navigate('/');
+    });
+  };
+
+  const putData = async (data: object) => {
+    await putJourney(data).then((res) => {
+      console.log('put journey success: ', res);
+      dispatch(deleteAll());
       navigate('/');
     });
   };
@@ -96,35 +120,28 @@ function Posting() {
     <MainContainer>
       <Header edit={true} onClick={handleSave} />
       <PostMainbox>
-        <ImageUpload
-          url={imageInput.journeyImgRequestDtoList[0].path}
-          setPreivew={setPreview}
-        />
-        <SpotSelect dataInput={dataInput} setDataInput={setDataInput} />
-        <TitleInput dataInput={dataInput} setDataInput={setDataInput} />
-        <DateSelect dataInput={dataInput} setDataInput={setDataInput} />
-        <PersonnelInput dataInput={dataInput} setDataInput={setDataInput} />
+        <ImageUpload url={image ? image[0].path : ''} setPreivew={setPreview} />
+        <SpotSelect dataInput={data} />
+        <TitleInput dataInput={data} />
+        <DateSelect dataInput={data} />
+        <PersonnelInput dataInput={data} />
         <PostingContainer>
           <Label label='소개글' essential={true} />
-          <TextField
-            limit={100}
-            name='content'
-            dataInput={dataInput}
-            setDataInput={setDataInput}
-          />
+          <TextField limit={100} name='content' dataInput={data} />
         </PostingContainer>
         {/* <PostingContainer>
           <Label label='해시태그' essential={false} />
           <TextField
             limit={50}
             name='tag'
-            dataInput={dataInput}
-            setDataInput={setDataInput}
+            dataInput={data}
           />
         </PostingContainer> */}
         <LocationSelect center={center} />
         <ChangeStateWrap>
-          <ChangeStateBtn onClick={() => setEnd('')}>모집 마감</ChangeStateBtn>
+          <ChangeStateBtn onClick={() => setEnd(!end)}>
+            모집 마감
+          </ChangeStateBtn>
           <HelpBox>
             <Exclamation />
             <HelpWrap>
