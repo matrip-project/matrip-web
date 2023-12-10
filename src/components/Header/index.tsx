@@ -54,7 +54,7 @@ function Header({ mine, edit, onClick, cnt }: HeaderProps) {
 }
 
 const NavContainer = styled.div`
-  z-index: 99999;
+  z-index: 99;
   position: fixed;
   width: 100%;
   height: 60px;

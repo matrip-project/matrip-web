@@ -15,10 +15,10 @@ import addPostButton from '../../asset/addPostButton.svg';
 const MENUS = {
   '비밀번호 재설정': '/resetpassword',
   '메이트립 이용방법': '/usemethod',
-  공지사항: '/notice',
-  고객센터: '/support',
-  이용약관: '/terms',
-  '개인정보 처리방침': '/privacy'
+  공지사항: '/service/notice',
+  고객센터: '/service/faq',
+  이용약관: '/service/terms',
+  '개인정보 처리방침': '/service/privacy'
 };
 
 const MyPageMain = () => {
