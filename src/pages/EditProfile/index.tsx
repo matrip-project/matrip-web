@@ -19,7 +19,7 @@ import {
   addUserSocialLink,
   deleteUserSocialLink
 } from '../../apis/api/editProfile';
-import { getMyUserData } from '../../apis/api/userData';
+import { getUserData } from '../../apis/api/userData';
 import { uploadImage } from '../../utils/uploadImage';
 import { userDataEx } from '../../data/userDummyData';
 import { fetchUserDataWithSessionStorage } from '../../storage/fetchUserDataWithSessionStorage';
@@ -31,10 +31,11 @@ const EditProfile = () => {
   const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
   const [input, setInput] = useState({
     nickname: userData.nickname,
-
-    intro: userData.intro
+    intro: userData.intro || '소개글을 작성해주세요.',
   });
   const [file, setFile] = useState<File | null>(null);
+
+  console.log(input.intro);
 
 
   // const [fields, setFields] = useState(userData.link_list);
@@ -42,7 +43,6 @@ const EditProfile = () => {
 
   const onAdd = () => {
     fileInput.current?.click(); // 파일 입력 요소 클릭 이벤트 트리거
-
   };
 
   const handleInputChange = (
@@ -56,25 +56,25 @@ const EditProfile = () => {
 
   const handleSave = async () => {
     const res = await updateUserProfile(userData.id, input);
-    await getMyUserData(userData.id);
-    navigate('/mypage/profile');
+    const data = await getUserData(userData.id);
+    await fetchUserDataWithSessionStorage(data);
+    navigate('/profile');
   };
 
   const onFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files: FileList | null = e.target.files;
-
     if (files) {
-
       setFile(files[0]);
       const filePath = await uploadImage(files[0]);
+      console.log(filePath);
       const upl = await addUserProfilePic(userData.id, filePath);
+      console.log(upl);
       // await fetchUserDataWithSessionStorage;
-
     }
   };
 
 
-  // const handleAddPic  async (picData) => {
+  // const handleAddPic = async (picData) => {
   //   try {
   //     await addUserProfilePic(userData.id, picData);
   //     setImages(prevImages => [...prevImages, picData]); // 이미지 상태 업데이트
@@ -83,14 +83,15 @@ const EditProfile = () => {
   //   }
   // };
   //
-  // const handleDeletePic = async (picIndex) => {
-  //   try {
-  //     await deleteUserProfilePic(userData.id, picIndex);
-  //     setImages(prevImages => prevImages.filter((_, index) => index !== picIndex)); // 이미지 상태 업데이트
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleDeletePic = async (imageId: number) => {
+    try {
+      const del = await deleteUserProfilePic(imageId);
+      console.log(del);
+      // setImages(prevImages => prevImages.filter((_, index) => index !== picIndex));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // const handleAddLink = async (linkData: {path: string}) => {
   //   try {
@@ -139,25 +140,21 @@ const EditProfile = () => {
           <UserInfoSpan > {userData.name} </UserInfoSpan>
            |
           <UserInfoSpan > {userData.birth} </UserInfoSpan>
-
-          <Text type='body2'>{userData.birth}</Text>
+          <Text type='body2'>{userData.email}</Text>
         </UserInfoContainer>
         <Spacer height={30} />
         <BoxContainer>
           <InputLabel label='소개글' />
           <Spacer height={6}/>
-
           <TextArea
             name='intro'
             value={input.intro}
             onChange={handleInputChange}
-            placeholder={userDataEx.description}
+            placeholder={input.intro}
           />
         </BoxContainer>
         <BoxContainer>
           <InputLabel label='소셜 계정 연동' />
-
-
           <Spacer height={6} />
           <Text color='primary' type='body1'>
             소셜 연동은 최대 5개까지 연동 가능합니다
@@ -177,10 +174,10 @@ const EditProfile = () => {
           </Text>
           <Spacer height={10} />
           <ImageCarousel
-            images={userDataEx.images}
+            images={userData.profile_list}
             isEditable={true}
             onAdd={onAdd}
-            onRemove={() => console.log('del')}
+            onRemove={handleDeletePic}
           />
           <input
             type='file'

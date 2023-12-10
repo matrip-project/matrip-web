@@ -1,10 +1,9 @@
-import {getMyUserData} from '../apis/api/userData';
+import {getUserData} from '../apis/api/userData';
 
 const id: string | null = sessionStorage.getItem('myId');
 
-export const fetchUserDataWithSessionStorage = async () => {
+export const fetchUserDataWithSessionStorage = async (data:any) => {
     try{
-        const data  = await getMyUserData(Number(id));
         sessionStorage.setItem('userData', JSON.stringify(data));
         console.log(data);
         return;

@@ -1,6 +1,6 @@
 import { baseAPI,authAPI } from '../axiosInstance';
 
-export const getMyUserData = async (memberId: number) => {
+export const getUserData = async (memberId: number) => {
     try {
         const { data } = await baseAPI.get(`/member/${memberId}`);
         console.log(data);

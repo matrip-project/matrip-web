@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 
 interface ImageCarouselProps {
-    images: string[];
+    images: any;
     onRemove?: (index: number) => void;
     onAdd?: () => void;
     isEditable?: boolean;
@@ -20,16 +20,17 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({images, onRemove, onAdd, i
         slidesToShow: 1,
         speed: 500
     };
+    console.log(images);
 
     return (
         <CarouselContainer>
             {isEditable && <AddImageButton onClick={onAdd}>사진 추가</AddImageButton>}
             {images.length !== 0 ?
                 <Slider {...settings}>
-                    {images.map((image, index) => (
-                        <EachImage key={index}>
-                            <SliderImage src={image} alt={`carousel-item-${index}`}/>
-                            {onRemove && isEditable && <DeleteButton onClick={() => onRemove(index)}>X</DeleteButton>}
+                    {images.map((image:any) => (
+                        <EachImage key={image.id}>
+                            <SliderImage src={image.path} alt={`carousel-item-${image.id}`}/>
+                            {onRemove && isEditable && <DeleteButton onClick={() => onRemove(image.id)}>X</DeleteButton>}
                         </EachImage>
                     ))}
                 </Slider>

@@ -22,6 +22,7 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
 const Profile = () => {
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    console.log(userData.profile_list);
     return (
         <gs.MainContainer>
             <Header edit={false}/>
@@ -66,7 +67,7 @@ const Profile = () => {
                         <Spacer height={16}/>
                         <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
                         <Spacer height={16}/>
-                        <ImageCarousel images={userDataEx.images}/>
+                        <ImageCarousel images={userData.profile_list}/>
                         {/*<ImageCarousel images={userState.user.profile_list} />*/}
                     </ImageSection>
                     <Spacer height={50}/>
