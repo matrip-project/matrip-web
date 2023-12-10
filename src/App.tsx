@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalStyle } from './styles/GlobalStyles';
 import BottomNav from './components/BottomNav';
@@ -6,22 +6,16 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme/theme';
 
 import Home from './pages/Home';
-import MemberSearch from './pages/MemberSearch';
-import ItineraryInfo from './pages/ItineraryInfo';
 import UserProfile from './pages/UserProfile';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import ProfileViewer from './pages/ProfileViewer';
 import ResetPassword from './pages/ResetPassword';
 import MapSearch from './pages/MapSearch';
-import Notificiation from './pages/Notification';
 import MyPageMain from './pages/MyPageMain';
-import Dibs from './pages/Dibs';
 import NotFound from './pages/NotFound';
 import Management from './pages/Management';
 import Login from './pages/Login';
-import MemberDetail from './pages/MemberDetail';
-import ItinerarySearch from './pages/ItinerarySearch';
 import Signup from './pages/Signup';
 import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
@@ -35,14 +29,15 @@ import PopularTravel from './pages/PopularTravel';
 import TopNav from './components/TopNav';
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
-
-
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 function App() {
-
   const serviceTabs = [
     { label: '공지사항', to: '/service/notice' },
-    { label: '고객센터', to: '/service/faq' }
+    { label: '고객센터', to: '/service/faq' },
+    { label: '이용 약관', to: '/service/terms' },
+    { label: '개인정보처리방침', to: '/service/privacy' }
   ];
 
   const companions = [
@@ -66,16 +61,10 @@ function App() {
           <Route path='/editProfile' element={<EditProfile />} />
           <Route path='/resetPassword' element={<ResetPassword />} />
           <Route path='/profileView/:id' element={<ProfileViewer />} />
-          <Route path='/ItinerarySearch' element={<ItinerarySearch />} />
           <Route path='/trip/:id' element={<Detail />} />
           <Route path='/trip/:id/comments' element={<Comments />} />
-          <Route path='/memberSearch' element={<MemberSearch />} />
-          <Route path='/member' element={<MemberDetail />} />
-          <Route path='/itineraryInfo' element={<ItineraryInfo />} />
           <Route path='/posting' element={<Posting />} />
           <Route path='/userProfile' element={<UserProfile />} />
-          <Route path='/notifications' element={<Notificiation />} />
-          <Route path='/Dibs' element={<Dibs />} />
           <Route path='/mapSearch' element={<MapSearch />} />
           <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
@@ -91,6 +80,8 @@ function App() {
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>
             <Route path='notice' element={<NoticeBoard />} />
             <Route path='faq' element={<FAQ />} />
+            <Route path='terms' element={<Terms />} />
+            <Route path='privacy' element={<Privacy />} />
           </Route>
           <Route path='/*' element={<NotFound />} />
         </Routes>

@@ -16,12 +16,10 @@ const data = [
 ];
 
 const date = new Date();
-console.log(dateToString(date));
 
 const NoticeBoard = () => {
   return (
     <>
-      공지사항입니다.
       {data.map((notice, index) => {
         return (
           <Collapsible

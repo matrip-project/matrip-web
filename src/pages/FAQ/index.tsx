@@ -41,7 +41,7 @@ const EmailBtnWrap = styled.div`
   width: 77%;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin: 20px 0;
 `;
 
 const EmailBtn = styled.button`
