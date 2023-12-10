@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getMyUserData } from '../../apis/api/userData';
+import { getUserData } from '../../apis/api/userData';
 
 type User = {
     ge: number;
@@ -29,7 +29,7 @@ const initialState: UserState = {
 export const fetchUserData = createAsyncThunk(
     'user/fetchUserData',
     async (userId: number) => {
-        const userData = await getMyUserData(userId);
+        const userData = await getUserData(userId);
         const storageDate = JSON.stringify(userData);
         sessionStorage.setItem('userData', storageDate);
         return userData;

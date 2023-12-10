@@ -13,7 +13,7 @@ import {
 } from '../../components/@atoms';
 
 import { postLogin } from '../../apis/api/loginApi';
-import { getMyUserData } from '../../apis/api/userData';
+import { getUserData } from '../../apis/api/userData';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
 
@@ -48,7 +48,7 @@ function Login() {
       if (res) {
         sessionStorage.setItem('authToken', res.data.token);
         sessionStorage.setItem('myId', res.data.id);
-        const userData = await getMyUserData(res.data.id);
+        const userData = await getUserData(res.data.id);
         sessionStorage.setItem('userData', JSON.stringify(userData));
         // dispatch(loginSuccess(res.data.id));
         // dispatch(fetchUserData(res.data.id));

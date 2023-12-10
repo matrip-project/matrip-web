@@ -10,7 +10,7 @@ import rightIcon from '../../asset/arrowRight.svg';
 import styled from 'styled-components';
 import {Link, useParams} from 'react-router-dom';
 import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
-import {getMyUserData} from '../../apis/api/userData';
+import {getUserData} from '../../apis/api/userData';
 import {InputLabel} from '../../components/@atoms';
 import {FaFacebookSquare, FaInstagram} from 'react-icons/fa';
 import {MdShare} from 'react-icons/md';
@@ -31,7 +31,7 @@ const ProfileViewer = () => {
 
     useEffect(() => {
         if (idNumber !== 0) {
-            getMyUserData(idNumber).then(data => setUserData(data));
+            getUserData(idNumber).then(data => setUserData(data));
         }
     }, [idNumber]);
 
