@@ -11,6 +11,8 @@ import { ReactComponent as ProfileIcon } from '../../asset/profileNone.svg';
 import * as hs from '../Home/homeStyle';
 import share from '../../asset/share.svg';
 import addPostButton from '../../asset/addPostButton.svg';
+import { useDispatch } from 'react-redux';
+import { deleteAll } from '../../redux/modules/postSlice';
 
 const MENUS = {
   '비밀번호 재설정': '/resetpassword',
@@ -23,6 +25,7 @@ const MENUS = {
 
 const MyPageMain = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const storedData = sessionStorage.getItem('userData');
   const userData = storedData ? JSON.parse(storedData) : null;
   console.log(userData);
@@ -40,7 +43,8 @@ const MyPageMain = () => {
   };
 
   const onClickAddButton = () => {
-    navigate('/posting', { state: { new: true } });
+    navigate('/posting');
+    dispatch(deleteAll());
   };
 
   return (

@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { ReactComponent as None } from '../../../asset/imageNone.svg';
 import { PostingContainer } from '..';
 import { useDispatch } from 'react-redux';
-import { setImage } from '../../../redux/modules/postSlice';
+import { setImage, setPreview } from '../../../redux/modules/postSlice';
 
 interface UploadProps {
   url?: string;
-  setPreivew: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
-function ImageUpload({ url, setPreivew }: UploadProps) {
+function ImageUpload({ url }: UploadProps) {
   const dispatch = useDispatch();
   const [previewPath, setPreviewPath] = useState<string | null>(null);
 
@@ -18,7 +17,7 @@ function ImageUpload({ url, setPreivew }: UploadProps) {
     const file = e.target.files?.[0];
 
     if (file) {
-      setPreivew(file);
+      dispatch(setPreview(file));
       setPreviewPath(URL.createObjectURL(file));
       dispatch(
         setImage([{ id: 0, path: URL.createObjectURL(file), sequence: 0 }])

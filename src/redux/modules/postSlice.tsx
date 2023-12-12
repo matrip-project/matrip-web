@@ -3,11 +3,10 @@ import { DataProps, ImageProps } from '../../types/postData';
 import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 
-const userId = sessionStorage.getItem('myId');
-
 interface PostState {
   data: DataProps;
   image: ImageProps[];
+  preview: File | null;
 }
 
 const initialState: PostState = {
@@ -23,7 +22,7 @@ const initialState: PostState = {
     longitude: 0.0,
     tag: '',
     status: 'ACTIVE',
-    memberId: userId ? parseInt(userId) : 0
+    memberId: 0
   },
   image: [
     {
@@ -31,18 +30,25 @@ const initialState: PostState = {
       path: '',
       sequence: 0
     }
-  ]
+  ],
+  preview: null
 };
 
 const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
+    setMemberId: (state, action: PayloadAction<number>) => {
+      state.data.memberId = action.payload;
+    },
     setData: (state, action: PayloadAction<DataProps>) => {
       state.data = action.payload;
     },
     setImage: (state, action: PayloadAction<ImageProps[]>) => {
       state.image = action.payload;
+    },
+    setPreview: (state, action: PayloadAction<File>) => {
+      state.preview = action.payload;
     },
     deleteAll: (state) => {
       return initialState;
@@ -50,5 +56,6 @@ const postSlice = createSlice({
   }
 });
 
-export const { setData, setImage, deleteAll } = postSlice.actions;
+export const { setMemberId, setData, setImage, setPreview, deleteAll } =
+  postSlice.actions;
 export default postSlice.reducer;
