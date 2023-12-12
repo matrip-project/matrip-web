@@ -35,12 +35,7 @@ const EditProfile = () => {
   });
   const [file, setFile] = useState<File | null>(null);
 
-  console.log(input.intro);
-
-
-  // const [fields, setFields] = useState(userData.link_list);
-  const [fields, setFields] = useState(['']);
-
+  const [fields, setFields] = useState(userData.link_list.map((item: {id:number, path:string}) => ({ id: item.id, value: item.path })));
   const onAdd = () => {
     fileInput.current?.click(); // 파일 입력 요소 클릭 이벤트 트리거
   };
@@ -66,51 +61,20 @@ const EditProfile = () => {
     if (files) {
       setFile(files[0]);
       const filePath = await uploadImage(files[0]);
-      console.log(filePath);
       const upl = await addUserProfilePic(userData.id, filePath);
-      console.log(upl);
-      // await fetchUserDataWithSessionStorage;
     }
   };
 
 
-  // const handleAddPic = async (picData) => {
-  //   try {
-  //     await addUserProfilePic(userData.id, picData);
-  //     setImages(prevImages => [...prevImages, picData]); // 이미지 상태 업데이트
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  //
   const handleDeletePic = async (imageId: number) => {
     try {
       const del = await deleteUserProfilePic(imageId);
-      console.log(del);
-      // setImages(prevImages => prevImages.filter((_, index) => index !== picIndex));
     } catch (error) {
       console.error(error);
     }
   };
 
-  // const handleAddLink = async (linkData: {path: string}) => {
-  //   try {
-  //     await addUserSocialLink(userData.id, linkData);
-  //     setFields((prevLinks: string[]) => [...prevLinks, linkData.path]); // 링크 상태 업데이트
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  //
-  // const handleDeleteLink = async (linkPath: string) => {
-  //   try {
-  //     await deleteUserSocialLink(linkPath);
-  //     setFields((prevLinks: Array<{ path: string; }>) => prevLinks.filter((link) => link.path !== linkPath));
-  //
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+
 
 
   return (

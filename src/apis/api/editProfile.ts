@@ -33,9 +33,11 @@ export const deleteUserProfilePic = async (profileId: number) => {
 };
 
 // 소셜링크 추가
-export const addUserSocialLink = async (memberId: number, linkData: any) => {
+export const addUserSocialLink = async (memberId: number, path: string) => {
     try {
-        const response = await baseAPI.post(`/member/${memberId}/link`, linkData);
+        const response = await baseAPI.post(`/member/${memberId}/link`, {
+            path
+        });
         return response;
     } catch (error) {
         console.log('Add user social link fail:', error);
