@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const SearchBox = styled.div`
   display: flex;
-  width: 298px;
+  width: 90%;
   gap: 8px;
   position: relative;
   margin-bottom: 30px;

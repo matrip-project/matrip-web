@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../asset/logo.png';
 
 const HeaderLogo: React.FC = () => {
-
   return (
     <HomeHeader>
       <LogoLink to='/'>
@@ -18,8 +17,8 @@ export const HomeHeader = styled.div`
   display: flex;
   width: 80%;
   justify-content: space-between;
-  margin-top: 30px;
   padding: 18px;
+  margin: -40px 0 10px 0;
 `;
 
 export const LogoLink = styled(Link)`

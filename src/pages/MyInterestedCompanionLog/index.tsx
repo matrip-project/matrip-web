@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import * as mcl from './myCompanionLogStyle';
-import * as gs from '../../styles/GlobalStyles';
 import UserList from '../../components/UserList';
 import listIcon from '../../asset/listIcon.svg';
 import TitleIcon from '../../asset/titleIcon.svg';
@@ -45,7 +44,6 @@ const MyInterestedCompanionLog: React.FC = () => {
           `http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys/interest?memberId=${id}`
         );
         setJourneys({ dtoList: response.data.dtoList || [] });
-        console.log(response);
       } catch (error) {
         console.error('Error fetching data:', error);
         setJourneys({ dtoList: [] });
@@ -54,8 +52,6 @@ const MyInterestedCompanionLog: React.FC = () => {
 
     fetchData();
   }, [id]);
-
-  console.log(id);
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
@@ -84,7 +80,7 @@ const MyInterestedCompanionLog: React.FC = () => {
   };
 
   return (
-    <gs.MainContainer>
+    <>
       <mcl.TitleListIconBox>
         <mcl.ListIcon
           src={listIcon}
@@ -117,7 +113,7 @@ const MyInterestedCompanionLog: React.FC = () => {
           })
         )}
       </mcl.DataUserPost>
-    </gs.MainContainer>
+    </>
   );
 };
 
