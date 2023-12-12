@@ -41,8 +41,8 @@ function App() {
   ];
 
   const companions = [
-    { label: '관심 동행 목록', to: '/companionLog/myInterestedCompanionLog' },
-    { label: '내가 쓴 글', to: '/companionLog/myPostWrote' }
+    { label: '관심 동행 목록', to: '/companionLog/myInterest' },
+    { label: '내가 쓴 글', to: '/companionLog/myPost' }
   ];
 
   return (
@@ -50,7 +50,6 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <GlobalStyle />
-        <TopNav />
         <BottomNav />
         <Routes>
           <Route path='/' element={<Home />} />
@@ -71,10 +70,10 @@ function App() {
           <Route path='/popularTravel' element={<PopularTravel />} />
           <Route path='/companionLog' element={<TabMenu tabs={companions} />}>
             <Route
-              path='/companionLog/myInterestedCompanionLog'
+              path='/companionLog/myInterest'
               element={<MyInterestedCompanionLog />}
             />
-            <Route path='/companionLog/myPostWrote' element={<MyPostWrote />} />
+            <Route path='/companionLog/myPost' element={<MyPostWrote />} />
           </Route>
 
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>

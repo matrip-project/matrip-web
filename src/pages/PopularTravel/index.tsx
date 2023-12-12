@@ -56,33 +56,35 @@ const PopularTravel: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <HeaderLogo />
-        <Search />
-        <cs.PopularImageContainer>
-          <cs.PopularImage
-            src={cityImages[Popularkeyword]}
-            alt={Popularkeyword}
-            onLoad={() => setIsImageLoaded(true)}
-          />
-        </cs.PopularImageContainer>
-
-        <cs.TitleBox>
-          <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
-          <cs.tapTitle2>
-            <span>· {totalPage}개 </span>동행일정을 둘러보세요.
-            <cs.tapTitle2Fillter
-              src={isFilterClicked ? fillterIconNone : fillterIcon}
-              onClick={handleFilterClick}
+        <gs.MainBox>
+          <HeaderLogo />
+          <Search />
+          <cs.PopularImageContainer>
+            <cs.PopularImage
+              src={cityImages[Popularkeyword]}
+              alt={Popularkeyword}
+              onLoad={() => setIsImageLoaded(true)}
             />
-          </cs.tapTitle2>
+          </cs.PopularImageContainer>
 
-          {!isFilterClicked && <SelectButton />}
-        </cs.TitleBox>
+          <cs.TitleBox>
+            <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
+            <cs.tapTitle2>
+              <span>· {totalPage}개 </span>동행일정을 둘러보세요.
+              <cs.tapTitle2Fillter
+                src={isFilterClicked ? fillterIconNone : fillterIcon}
+                onClick={handleFilterClick}
+              />
+            </cs.tapTitle2>
 
-        <PostListScroll
-          onShowTitleBox={handleShowTitleBox}
-          onNoPosts={handleNoPosts}
-        />
+            {!isFilterClicked && <SelectButton />}
+          </cs.TitleBox>
+
+          <PostListScroll
+            onShowTitleBox={handleShowTitleBox}
+            onNoPosts={handleNoPosts}
+          />
+        </gs.MainBox>
       </gs.MainContainer>
     </>
   );

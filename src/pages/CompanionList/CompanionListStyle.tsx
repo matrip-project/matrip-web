@@ -36,7 +36,7 @@ export const tapTitle2 = styled.div`
   position: relative;
 
   & span {
-    color: #d30065;
+    color: ${(props) => props.theme.colors.primary};
   }
 `;
 

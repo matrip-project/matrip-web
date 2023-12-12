@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { addDays } from 'date-fns';
-import Select, { StylesConfig } from 'react-select';
+import Select from 'react-select';
 import styled from 'styled-components';
 import { DateRange } from 'react-date-range';
 import dropdownIcon from '../../asset/dropdownIcon.svg';
@@ -11,6 +11,7 @@ import {
   setSelectedStatus
 } from '../../redux/modules/searchSlice';
 import { useDispatch } from 'react-redux';
+import { useTheme } from 'styled-components';
 
 const genderOptions = [
   { value: '남성', label: '남성' },
@@ -33,6 +34,7 @@ const Recruitment = [
 
 const SelectButton: React.FC = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   // date
   const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -76,13 +78,13 @@ const SelectButton: React.FC = () => {
   return (
     <>
       <SelectBox>
-        <SelectBtn>
+        {/* <SelectBtn>
           <Select
             options={genderOptions}
             placeholder='성별'
             components={{ IndicatorSeparator: () => null }}
           />
-        </SelectBtn>
+        </SelectBtn> */}
         <SelectBtn>
           <Select
             options={age}
@@ -115,6 +117,7 @@ const SelectButton: React.FC = () => {
             editableDateInputs={true}
             onChange={handleRangeChange}
             moveRangeOnFirstSelection={false}
+            rangeColors={[theme.colors.primary]}
             ranges={dateRange}
             months={1}
             direction='horizontal'
@@ -147,7 +150,7 @@ const SelectBox = styled.div`
 `;
 
 const SelectBtn = styled.div`
-  width: 80px;
+  min-width: 80px;
   height: 38px;
 `;
 

@@ -22,7 +22,7 @@ function Plan({ plan }: PlanType) {
             <PlanTitle
               key={index}
               onClick={() => handleClick(plan.day)}
-              active={curr === plan.day}
+              $active={curr === plan.day}
             >
               {plan.day}일차
             </PlanTitle>

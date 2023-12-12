@@ -33,33 +33,35 @@ const CompanionList: React.FC = () => {
   return (
     <>
       <gs.MainContainer>
-        <HeaderLogo />
-        <Search />
-        {keyword && (
-          <cs.searchResult>
-            <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
-            {keyword} 검색 결과 입니다.
-          </cs.searchResult>
-        )}
+        <gs.MainBox>
+          <HeaderLogo />
+          <Search />
+          {keyword && (
+            <cs.searchResult>
+              <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
+              {keyword} 검색 결과 입니다.
+            </cs.searchResult>
+          )}
 
-        {/* {showTitleBox && <></>} */}
-        <cs.TitleBox>
-          <cs.MainTitle>동행일정</cs.MainTitle>
-          <cs.tapTitle2>
-            <span>· {totalPage}개 </span>동행일정을 둘러보세요.
-            <cs.tapTitle2Fillter
-              src={isFilterClicked ? fillterIconNone : fillterIcon}
-              onClick={handleFilterClick}
-            />
-          </cs.tapTitle2>
+          {/* {showTitleBox && <></>} */}
+          <cs.TitleBox>
+            <cs.MainTitle>동행일정</cs.MainTitle>
+            <cs.tapTitle2>
+              <span>· {totalPage}개 </span>동행일정을 둘러보세요.
+              <cs.tapTitle2Fillter
+                src={isFilterClicked ? fillterIconNone : fillterIcon}
+                onClick={handleFilterClick}
+              />
+            </cs.tapTitle2>
 
-          {!isFilterClicked && <SelectButton />}
-        </cs.TitleBox>
+            {!isFilterClicked && <SelectButton />}
+          </cs.TitleBox>
 
-        <PostListScroll
-          onShowTitleBox={handleShowTitleBox}
-          onNoPosts={handleNoPosts}
-        />
+          <PostListScroll
+            onShowTitleBox={handleShowTitleBox}
+            onNoPosts={handleNoPosts}
+          />
+        </gs.MainBox>
       </gs.MainContainer>
     </>
   );

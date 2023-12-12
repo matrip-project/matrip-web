@@ -3,7 +3,7 @@ import { styled, css } from 'styled-components';
 export const noPost = styled.div`
   ${(props) => props.theme.texts.tapTitle2};
   font-size: 16px;
-  height: 501px;
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
