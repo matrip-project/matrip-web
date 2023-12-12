@@ -21,7 +21,7 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 // !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
 
 const Profile = () => {
-    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     console.log(userData.profile_list);
     return (
         <gs.MainContainer>

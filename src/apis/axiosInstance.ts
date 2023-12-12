@@ -14,7 +14,7 @@ export const authAPI = axios.create({
     headers: {
       // TODO 추후 토큰값 받아오는 로직 추가
       // Authorization: `bearer ${token}`,
-      Authorization: sessionStorage.getItem('authToken')
+      Authorization: localStorage.getItem('authToken')
     },
     withCredentials: true
   });

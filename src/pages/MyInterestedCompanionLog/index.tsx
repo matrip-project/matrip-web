@@ -30,7 +30,7 @@ interface Type {
 }
 
 const MyInterestedCompanionLog: React.FC = () => {
-  const storedId = sessionStorage.getItem('myId');
+  const storedId = localStorage.getItem('myId');
 
   const { id = storedId || '1' } = useParams();
   const initialDisplayCount = 5;

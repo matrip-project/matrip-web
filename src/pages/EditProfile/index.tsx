@@ -22,13 +22,13 @@ import {
 import { getUserData } from '../../apis/api/userData';
 import { uploadImage } from '../../utils/uploadImage';
 import { userDataEx } from '../../data/userDummyData';
-import { fetchUserDataWithSessionStorage } from '../../storage/fetchUserDataWithSessionStorage';
+import { fetchUserDataWithlocalStorage } from '../../storage/fetchUserDataWithSessionStorage';
 
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
-  const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+  const userData = JSON.parse(localStorage.getItem('userData') || '{}');
   const [input, setInput] = useState({
     nickname: userData.nickname,
     intro: userData.intro || '소개글을 작성해주세요.',
@@ -52,7 +52,7 @@ const EditProfile = () => {
   const handleSave = async () => {
     const res = await updateUserProfile(userData.id, input);
     const data = await getUserData(userData.id);
-    await fetchUserDataWithSessionStorage(data);
+    await fetchUserDataWithlocalStorage(data);
     navigate('/profile');
   };
 

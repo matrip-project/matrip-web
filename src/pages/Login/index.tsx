@@ -46,10 +46,10 @@ function Login() {
       const { email, password } = input;
       const res = await postLogin({ email, password });
       if (res) {
-        sessionStorage.setItem('authToken', res.data.token);
-        sessionStorage.setItem('myId', res.data.id);
+        localStorage.setItem('authToken', res.data.token);
+        localStorage.setItem('myId', res.data.id);
         const userData = await getUserData(res.data.id);
-        sessionStorage.setItem('userData', JSON.stringify(userData));
+        localStorage.setItem('userData', JSON.stringify(userData));
         // dispatch(loginSuccess(res.data.id));
         // dispatch(fetchUserData(res.data.id));
         navigate('/');

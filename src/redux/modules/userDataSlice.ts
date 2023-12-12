@@ -31,7 +31,7 @@ export const fetchUserData = createAsyncThunk(
     async (userId: number) => {
         const userData = await getUserData(userId);
         const storageDate = JSON.stringify(userData);
-        sessionStorage.setItem('userData', storageDate);
+        localStorage.setItem('userData', storageDate);
         return userData;
     }
 );

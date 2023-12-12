@@ -26,7 +26,7 @@ const MENUS = {
 const MyPageMain = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const storedData = sessionStorage.getItem('userData');
+  const storedData = localStorage.getItem('userData');
   const userData = storedData ? JSON.parse(storedData) : null;
   console.log(userData);
 
