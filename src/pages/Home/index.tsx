@@ -13,6 +13,7 @@ import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import axios from 'axios';
 import HeaderLogo from '../../components/HeaderLogo';
 import { useNavigate } from 'react-router';
+import { deleteAll } from '../../redux/modules/postSlice';
 
 interface JourneyImage {
   id: number;
@@ -65,7 +66,8 @@ const Home: React.FC = () => {
   }, []);
 
   const onClickAddButton = () => {
-    navigate('/posting', { state: { new: true } });
+    dispatch(deleteAll());
+    navigate('/posting');
   };
 
   return (

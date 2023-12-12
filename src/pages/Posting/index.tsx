@@ -19,6 +19,7 @@ import { uploadImage } from '../../utils/uploadImage';
 import { postJourney, putJourney } from '../../apis/api/journey';
 import { useDispatch } from 'react-redux';
 import { deleteAll } from '../../redux/modules/postSlice';
+import { useUserId } from '../../hooks/useUserId';
 
 export interface StateProps {
   dataInput?: DataProps;
@@ -31,9 +32,10 @@ function Posting() {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.post.data);
   const image = useSelector((state: RootState) => state.post.image);
+  const preview = useSelector((state: RootState) => state.post.preview);
   const [end, setEnd] = useState(false);
   const postId = location.state?.id;
-  const isNew = location.state?.new;
+  const userId = useUserId();
   const center = {
     lat: data ? data.latitude : 0.0,
     lng: data ? data.longitude : 0.0
@@ -46,15 +48,6 @@ function Posting() {
       }
     ]
   };
-  const [preview, setPreview] = useState<File | null>(null);
-
-  useEffect(() => {
-    if (isNew && data.latitude === 0) {
-      dispatch(deleteAll());
-    }
-  }, [isNew, dispatch, data.latitude]);
-
-  console.log(data);
 
   const handleSave = async () => {
     if (data) {
@@ -65,41 +58,45 @@ function Posting() {
         (!preview && !image[0].path)
       ) {
         alert('필수 항목을 채워주세요!');
-      }
-    }
-    if (preview) {
-      try {
-        const uploaded = await uploadImage(preview);
-        if (uploaded) {
-          console.log(uploaded);
-          imageInput.journeyImgRequestDtoList[0].path = uploaded;
+      } else {
+        if (preview) {
+          //new image
+          try {
+            const uploaded = await uploadImage(preview!);
+            if (uploaded) {
+              imageInput.journeyImgRequestDtoList[0].path = uploaded;
+
+              const dataMerged = {
+                ...data,
+                ...imageInput,
+                status: end ? 'CLOSED' : 'ACTIVE',
+                id: postId,
+                memberId: userId
+              };
+              console.log(dataMerged);
+
+              if (postId) {
+                putData(dataMerged);
+              } else {
+                postData(dataMerged);
+              }
+            }
+          } catch (error) {
+            console.log('image setstate fail:', error);
+          }
+        } else {
+          console.log('no img');
 
           const dataMerged = {
             ...data,
             ...imageInput,
             status: end ? 'CLOSED' : 'ACTIVE',
-            id: postId
+            id: postId,
+            memberId: userId
           };
-          console.log(dataMerged);
-
-          if (postId) {
-            putData(dataMerged);
-          } else {
-            postData(dataMerged);
-          }
+          putData(dataMerged);
         }
-      } catch (error) {
-        console.log('image setstate fail:', error);
       }
-    } else {
-      const dataMerged = {
-        ...data,
-        ...imageInput,
-        status: end ? 'CLOSED' : 'ACTIVE',
-        id: postId
-      };
-
-      putData(dataMerged);
     }
   };
 
@@ -123,7 +120,7 @@ function Posting() {
     <MainContainer>
       <Header edit={true} onClick={handleSave} />
       <PostMainbox>
-        <ImageUpload url={image ? image[0].path : ''} setPreivew={setPreview} />
+        <ImageUpload url={image ? image[0].path : ''} />
         <SpotSelect dataInput={data} />
         <TitleInput dataInput={data} />
         <DateSelect dataInput={data} />

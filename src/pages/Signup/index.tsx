@@ -6,11 +6,17 @@ import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
 import BirthdayInput from '../../components/BirthdayInput';
 import RequiredInputSelect from '../../components/RequiredInputSelect';
-import {CheckBox, Spacer, Text, InputLabel, ErrMessage} from '../../components/@atoms';
+import {
+  CheckBox,
+  Spacer,
+  Text,
+  InputLabel,
+  ErrMessage
+} from '../../components/@atoms';
 
 import BottomAlert from '../../components/Alert';
 
-import {postSignup} from '../../apis/api/signupApi';
+import { postSignup } from '../../apis/api/signupApi';
 
 type SignupInput = {
   email: string;
@@ -23,7 +29,6 @@ type SignupInput = {
 };
 
 function Signup() {
-
   const [input, setInput] = useState<SignupInput>({
     email: '',
     password: '',
@@ -36,7 +41,7 @@ function Signup() {
 
   const [isValid, setIsValid] = useState({
     isPasswordValid: true,
-    isNicknameValid: true,
+    isNicknameValid: true
   });
 
   const [eventTerm, setEventTerm] = useState(false);
@@ -54,7 +59,7 @@ function Signup() {
     use: '이용약관 동의',
     privacy: '개인정보 수집 및 이용에 대한 동의',
     marketing: '개인정보 수집 및 이용안내'
-};
+  };
 
   // !! TODO 이메일, 비밀번호 유효성 검사
   // !! 생일 input 숫자만 입력 제한
@@ -96,24 +101,29 @@ function Signup() {
     console.log(`Selected index: ${selected}`);
   };
 
-  const handleSignup = async() => {
-    try{
+  const handleSignup = async () => {
+    try {
       const { email, password, name, birthDate, nickName: nickname } = input;
       if (birthDate === null) {
         console.log('Birth date is not selected');
         return;
       }
-      const response = await postSignup({ email, password, name, birth: birthDate, nickname });
+      const response = await postSignup({
+        email,
+        password,
+        name,
+        birth: birthDate,
+        nickname
+      });
       // response 데이터 저장하는 로직 추가
-      // console.log(response);
+      console.log(response);
       setIsAlertOpen(true);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
 
     // 유효성 검사 로직 추가
     // 배경 블러처리, 클릭 막기
-
   };
 
   const handleCloseAlert = () => {
@@ -154,10 +164,7 @@ function Signup() {
             value={input.passwordCheck}
             isCompulsory={true}
           />
-          <ErrMessage
-            errMsg='다시 확인'
-            isError={!isValid.isPasswordValid}
-            />
+          <ErrMessage errMsg='다시 확인' isError={!isValid.isPasswordValid} />
           <Spacer height={33} />
           <FormInput
             label='이름'
@@ -186,11 +193,11 @@ function Signup() {
           <RequiredInputSelect
             onSelectedChange={handleSelectedChange}
             label='이벤트 정보'
-            values={['수신','비수신']}
+            values={['수신', '비수신']}
           />
           <Spacer height={33} />
           <InputLabel label='사이트 이용을 위한 약관에 동의' />
-          <Spacer height={12}/>
+          <Spacer height={12} />
           <CheckBox
             name='all'
             label='전체 동의'
@@ -210,11 +217,11 @@ function Signup() {
                   isChecked={term[termKey]}
                   handleCheck={handleTermChange}
                 />
-                <Spacer height={8}/>
+                <Spacer height={8} />
               </div>
             );
           })}
-          <Spacer height={30}/>
+          <Spacer height={30} />
 
           {/* 약관 동의 추가 필요 */}
           <ss.SubmitBtn onClick={handleSignup}>확인</ss.SubmitBtn>
@@ -239,12 +246,12 @@ interface OverlayProps {
 }
 
 const Overlay = styled.div<OverlayProps>`
-    display: ${({modalOpen}) => modalOpen ? 'block' : 'none'};
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 99;
+  display: ${({ modalOpen }) => (modalOpen ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
 `;
