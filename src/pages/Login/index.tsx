@@ -50,8 +50,6 @@ function Login() {
         localStorage.setItem('myId', res.data.id);
         const userData = await getUserData(res.data.id);
         localStorage.setItem('userData', JSON.stringify(userData));
-        // dispatch(loginSuccess(res.data.id));
-        // dispatch(fetchUserData(res.data.id));
         navigate('/');
       }
     } catch (e) {

@@ -5,7 +5,7 @@ import searchReducer from './modules/searchSlice';
 import dibsSlice from './modules/dibSlice';
 import keywordImgSlice from './modules/keywordImgSlice';
 import userDataSlice from './modules/userDataSlice';
-
+import loadingSlice from './modules/loadingSlice';
 import totalPageSlice from './modules/totalPageSlice';
 import replySlice from './modules/replySlice';
 import postSlice from './modules/postSlice';
@@ -17,7 +17,8 @@ const reducers = combineReducers({
   userData: userDataSlice,
   postTotalPage: totalPageSlice,
   reply: replySlice,
-  post: postSlice
+  post: postSlice,
+  loading: loadingSlice
 });
 
 const persistConfig = {

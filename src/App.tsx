@@ -27,10 +27,12 @@ import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
 import TopNav from './components/TopNav';
+import LoadingIndicatorPortal from './components/LoadingIndicatorPortal';
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+
 
 function App() {
   const serviceTabs = [
@@ -52,6 +54,7 @@ function App() {
         <GlobalStyle />
         <TopNav />
         <BottomNav />
+        <LoadingIndicatorPortal />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
