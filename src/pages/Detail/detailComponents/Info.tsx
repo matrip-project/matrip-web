@@ -3,11 +3,11 @@ import { ReactComponent as ArrowRight } from '../../../asset/arrowRight.svg';
 import recruitingImage from '../../../asset/recruiting.svg';
 import recruitingEndImage from '../../../asset/recruitingEnd.svg';
 import UserIntro from '../../../components/UserIntro';
-import { DataProps } from '../../../types/postData';
+import { JourneyProps } from '../../../types/postData';
 import { encodeEmail } from '../../../utils/encodeEmail';
 
 type InfoType = {
-  data: DataProps;
+  data: JourneyProps;
 };
 
 function Info({ data }: InfoType) {
@@ -16,7 +16,6 @@ function Info({ data }: InfoType) {
 
     return result;
   };
-
 
   return (
     <D.InfoContainer>
