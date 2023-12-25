@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalStyle } from './styles/GlobalStyles';
 import BottomNav from './components/BottomNav';
@@ -20,17 +19,16 @@ import Signup from './pages/Signup';
 import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
 import FAQ from './pages/FAQ';
-import CompanionList from './pages/CompanionList';
 import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
 import MyPostWrote from './pages/MyPostWrote';
 import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
-import TopNav from './components/TopNav';
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import CompanionList from './pages/CompanionList';
 
 function App() {
   const serviceTabs = [

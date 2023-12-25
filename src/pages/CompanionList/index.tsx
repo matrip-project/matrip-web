@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import * as cs from './CompanionListStyle';
 import fillterIcon from '../../asset/fillterIcon.svg';
