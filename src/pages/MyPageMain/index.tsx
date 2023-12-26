@@ -17,9 +17,9 @@ import { deleteAll } from '../../redux/modules/postSlice';
 const MENUS = {
   '비밀번호 재설정': '/resetpassword',
   '메이트립 이용방법': '/usemethod',
-  공지사항: '/service/notice',
-  고객센터: '/service/faq',
-  이용약관: '/service/terms',
+  '공지사항': '/service/notice',
+  '고객센터': '/service/faq',
+  '이용약관': '/service/terms',
   '개인정보 처리방침': '/service/privacy'
 };
 

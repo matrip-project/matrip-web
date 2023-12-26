@@ -6,6 +6,7 @@ import UserIntro from '../../components/UserIntro';
 import {Spacer, Text} from '../../components/@atoms';
 import ImageCarousel from '../../components/ImageCarousel';
 import Header from '../../components/Header';
+import LoadingIncdicator from '../../components/LoadingIncdicator';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import { MdShare } from 'react-icons/md';
 
@@ -15,6 +16,8 @@ import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 import {userDataEx} from '../../data/userDummyData';
 import {useAppSelector} from '../../redux/hooks';
 
+import {useUserInfoQuery} from '../../query-hooks/useGetData';
+
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
@@ -22,7 +25,23 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
 const Profile = () => {
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    console.log(userData.profile_list);
+    const userId = JSON.parse(localStorage.getItem('myId') || '{}');
+    
+    const {data, isLoading, error} = useUserInfoQuery(userId);
+    console.log(data, isLoading, error);
+    
+    if (isLoading){
+        return(
+            <LoadingIncdicator />
+        );
+    };
+
+    if (error){
+        return(
+            <div>ERR</div>
+        );
+    };
+
     return (
         <gs.MainContainer>
             <Header edit={false}/>

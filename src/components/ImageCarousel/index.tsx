@@ -55,7 +55,7 @@ const AddImageButton = styled.button`
   top: 35px;
   width: 95px;
   height: 30px;
-  z-index: 99;
+  z-index: 30;
   border-radius: 30px;
   background: ${props => props.theme.colors.neutral1};
   border: none;
