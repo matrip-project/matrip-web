@@ -16,7 +16,7 @@ import { postLogin } from '../../apis/api/loginApi';
 import { getUserData } from '../../apis/api/userData';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
-import {useUserInfoQuery} from '../../query-hooks/useGetData';
+import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
 
 
 
@@ -31,7 +31,7 @@ function Login() {
   const dispatch = useAppDispatch();
 
 
-  
+
 
 
   useEffect(() => {

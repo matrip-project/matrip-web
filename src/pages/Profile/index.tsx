@@ -16,7 +16,7 @@ import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 import {userDataEx} from '../../data/userDummyData';
 import {useAppSelector} from '../../redux/hooks';
 
-import {useUserInfoQuery} from '../../query-hooks/useGetData';
+import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
 
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
@@ -26,10 +26,10 @@ const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 const Profile = () => {
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     const userId = JSON.parse(localStorage.getItem('myId') || '{}');
-    
+
     const {data, isLoading, error} = useUserInfoQuery(userId);
     console.log(data, isLoading, error);
-    
+
     if (isLoading){
         return(
             <LoadingIncdicator />

@@ -3,7 +3,6 @@ import * as gs from '../../styles/GlobalStyles';
 import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
-
 import UserIntro from '../../components/UserIntro';
 import FormInput from '../../components/FormInput';
 import { Text, InputLabel, Spacer } from '../../components/@atoms';
@@ -23,10 +22,12 @@ import { getUserData } from '../../apis/api/userData';
 import { uploadImage } from '../../utils/uploadImage';
 import { userDataEx } from '../../data/userDummyData';
 import { fetchUserDataWithlocalStorage } from '../../storage/fetchUserDataWithSessionStorage';
+import useUpdateMemberMutation from '../../query-hooks/useUpdateMemberMutation';
 
 
 const EditProfile = () => {
   const navigate = useNavigate();
+  const mutation = useUpdateMemberMutation();
   const fileInput = useRef<HTMLInputElement>(null);
   const userData = JSON.parse(localStorage.getItem('userData') || '{}');
   const [input, setInput] = useState({
@@ -40,6 +41,7 @@ const EditProfile = () => {
     fileInput.current?.click(); // 파일 입력 요소 클릭 이벤트 트리거
   };
 
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -50,7 +52,9 @@ const EditProfile = () => {
   };
 
   const handleSave = async () => {
-    const res = await updateUserProfile(userData.id, input);
+    const variables = { memberId: userData.id, profileData: input };
+    const res = await mutation.mutateAsync(variables);
+    console.log(res);
     const data = await getUserData(userData.id);
     await fetchUserDataWithlocalStorage(data);
     navigate('/profile');
