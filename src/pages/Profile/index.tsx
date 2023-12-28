@@ -1,27 +1,28 @@
 import React from 'react';
 import * as gs from '../../styles/GlobalStyles';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import UserIntro from '../../components/UserIntro';
-import {Spacer, Text} from '../../components/@atoms';
+import { Spacer, Text } from '../../components/@atoms';
 import ImageCarousel from '../../components/ImageCarousel';
 import Header from '../../components/Header';
 import LoadingIncdicator from '../../components/LoadingIncdicator';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import { MdShare } from 'react-icons/md';
-
 import rightIcon from '../../asset/arrowRight.svg';
+
 import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 
 import {userDataEx} from '../../data/userDummyData';
 
 import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
 
+
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
 // !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
 
 const Profile = () => {
+
     const userId = JSON.parse(localStorage.getItem('myId') || '{}');
 
     const {data, isLoading, error} = useUserInfoQuery(userId);
@@ -120,8 +121,8 @@ const Profile = () => {
         </gs.MainContainer>
 
     );
-};
 
+};
 
 export default Profile;
 
@@ -130,14 +131,12 @@ const LinkToProfile = styled(Link)`
   height: 90px;
   display: flex;
   align-items: center;
-  
 `;
 
 const UserDateText = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  
 `;
 
 const SnsSection = styled.div`
@@ -146,7 +145,7 @@ const SnsSection = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.colors.neutral1};
+  border-bottom: 1px solid ${(props) => props.theme.colors.neutral1};
   padding-bottom: 14px;
 `;
 
@@ -165,7 +164,7 @@ const History = styled.div`
 const LinkTitle = styled.div`
   height: 58px;
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.colors.neutral1};
+  border-bottom: 1px solid ${(props) => props.theme.colors.neutral1};
   display: flex;
   align-items: center;
 `;
@@ -173,7 +172,7 @@ const LinkTitle = styled.div`
 const LinkItem = styled(Link)`
   height: 58px;
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.colors.neutral1};
+  border-bottom: 1px solid ${(props) => props.theme.colors.neutral1};
   display: flex;
   align-items: center;
 `;

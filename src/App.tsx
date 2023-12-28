@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalStyle } from './styles/GlobalStyles';
 import BottomNav from './components/BottomNav';
@@ -20,18 +19,20 @@ import Signup from './pages/Signup';
 import TabMenu from './components/@atoms/TabMenu';
 import NoticeBoard from './pages/NoticeBoard';
 import FAQ from './pages/FAQ';
-import CompanionList from './pages/CompanionList';
 import MyInterestedCompanionLog from './pages/MyInterestedCompanionLog';
 import MyPostWrote from './pages/MyPostWrote';
 import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
+
 import TopNav from './components/TopNav';
 import LoadingIndicatorPortal from './components/LoadingIndicatorPortal';
+
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import CompanionList from './pages/CompanionList';
 
 
 function App() {
@@ -43,8 +44,8 @@ function App() {
   ];
 
   const companions = [
-    { label: '관심 동행 목록', to: '/companionLog/myInterestedCompanionLog' },
-    { label: '내가 쓴 글', to: '/companionLog/myPostWrote' }
+    { label: '관심 동행 목록', to: '/companionLog/myInterest' },
+    { label: '내가 쓴 글', to: '/companionLog/myPost' }
   ];
 
   return (
@@ -52,7 +53,6 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <GlobalStyle />
-        <TopNav />
         <BottomNav />
         <LoadingIndicatorPortal />
         <Routes>
@@ -74,10 +74,10 @@ function App() {
           <Route path='/popularTravel' element={<PopularTravel />} />
           <Route path='/companionLog' element={<TabMenu tabs={companions} />}>
             <Route
-              path='/companionLog/myInterestedCompanionLog'
+              path='/companionLog/myInterest'
               element={<MyInterestedCompanionLog />}
             />
-            <Route path='/companionLog/myPostWrote' element={<MyPostWrote />} />
+            <Route path='/companionLog/myPost' element={<MyPostWrote />} />
           </Route>
 
           <Route path='/service/' element={<TabMenu tabs={serviceTabs} />}>

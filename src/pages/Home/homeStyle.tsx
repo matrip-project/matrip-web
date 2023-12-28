@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const TitleBox = styled.div`
@@ -96,9 +96,7 @@ export const InviteFriend = styled.button`
   background: var(--Main-color, #d30065);
   color: white;
   margin-top: 40px;
-  margin-bottom: 118px;
-
-  color: var(--theme-white-theme-core-tokens-pure-white, #fff);
+  color: ${(props) => props.theme.colors.white};
   font-size: 16px;
   font-style: normal;
   font-weight: 700;

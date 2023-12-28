@@ -7,25 +7,27 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { deleteAll, selectParentId } from '../../redux/modules/replySlice';
 import { useDispatch } from 'react-redux';
+import { useUserId } from '../../hooks/useUserId';
 
 type CommentType = {
   journeyId: number;
-  memberId: number;
   newComment?: boolean;
   setNew?: React.Dispatch<React.SetStateAction<boolean>>;
   inputFocus?: React.RefObject<HTMLInputElement>;
+  writerId?: number;
 };
 
 function CommentInput({
   journeyId,
-  memberId,
   setNew,
   newComment,
-  inputFocus
+  inputFocus,
+  writerId
 }: CommentType) {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useUserId();
   const [input, setInput] = useState('');
   const [secret, setSecret] = useState(false);
   const parentId = useSelector(selectParentId);
@@ -41,7 +43,7 @@ function CommentInput({
       secret: secret,
       parentId: parentId,
       journeyId: journeyId,
-      memberId: memberId
+      memberId: userId
     };
 
     if (input.length > 0) {
@@ -55,7 +57,9 @@ function CommentInput({
           setNew(!newComment);
           dispatch(deleteAll());
         } else {
-          navigate(`/trip/${journeyId}/comments`);
+          navigate(`/trip/${journeyId}/comments`, {
+            state: { writerId: writerId }
+          });
         }
       });
     }

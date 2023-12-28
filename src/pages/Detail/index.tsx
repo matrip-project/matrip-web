@@ -9,19 +9,18 @@ import Thumbnail from '../../components/@atoms/Thumbnail';
 import Plan from './detailComponents/Plan';
 import { useEffect, useState } from 'react';
 import { getJourneyDetail } from '../../apis/api/journey';
-import { DataProps, ImageProps } from '../../types/postData';
+import { JourneyProps } from '../../types/postData';
 import { getCleanDetailInfo } from '../../apis/services/journey';
 import Header from '../../components/Header';
 import { useDispatch } from 'react-redux';
-import { setData, setImage } from '../../redux/modules/postSlice';
+import { setData } from '../../redux/modules/postSlice';
 import { useUserId } from '../../hooks/useUserId';
 
 function Detail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const id = useParams().id;
-  const [detail, setDetail] = useState<DataProps>();
-  const [imageData, setImageData] = useState<ImageProps[]>([]);
+  const [detail, setDetail] = useState<JourneyProps>();
   const zoom = 13;
   const userId = useUserId();
 
@@ -29,12 +28,7 @@ function Detail() {
     const getData = async () => {
       if (id) {
         await getJourneyDetail(parseInt(id)).then((res) => {
-          console.log('get journey success: ', res);
           const detailData = getCleanDetailInfo(res);
-
-          setImageData(detailData.journeyImgRequestDtoList);
-
-          delete detailData['journeyImgRequestDtoList'];
           setDetail(detailData);
         });
       }
@@ -58,16 +52,15 @@ function Detail() {
 
   const onCommentClick = () => {
     if (id) {
-      return navigate(`/trip/${parseInt(id)}/comments`);
+      return navigate(`/trip/${parseInt(id)}/comments`, {
+        state: { writerId: detail?.memberId }
+      });
     }
   };
 
   const onEditClick = () => {
     if (detail) {
       dispatch(setData(detail));
-    }
-    if (imageData) {
-      dispatch(setImage(imageData));
     }
     navigate('/posting', { state: { id: parseInt(id!) } });
   };
@@ -80,7 +73,9 @@ function Detail() {
         onClick={onEditClick}
       />
       <D.DeatilMainBox>
-        <Thumbnail url={imageData ? imageData[0]?.path : ''} />
+        <Thumbnail
+          url={detail ? detail.journeyImgRequestDtoList[0].path : ''}
+        />
         {detail && (
           <>
             <Info data={detail} />
@@ -90,7 +85,10 @@ function Detail() {
             />
             {/* <Plan plan={plan} /> */}
             <D.CommentContainer>
-              <CommentInput journeyId={parseInt(id!)} memberId={1} />
+              <CommentInput
+                journeyId={parseInt(id!)}
+                writerId={detail.memberId}
+              />
               <CommentCount
                 cnt={detail.journeyCount!}
                 onClick={onCommentClick}

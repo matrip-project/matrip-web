@@ -132,8 +132,14 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
 
     const newLocalTotalPage = filteredJourneys.length;
     setLocalTotalPage(newLocalTotalPage);
-
-  }, [filteredJourneys, onNoPosts, onShowTitleBox, displayCount, dispatch, localTotalPage]);
+  }, [
+    filteredJourneys,
+    onNoPosts,
+    onShowTitleBox,
+    displayCount,
+    dispatch,
+    localTotalPage
+  ]);
 
   useEffect(() => {
     dispatch(setTotalPage(localTotalPage));

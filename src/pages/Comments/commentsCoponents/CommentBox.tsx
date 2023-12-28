@@ -7,13 +7,10 @@ import CommentCount from '../../../components/@atoms/CommentCount';
 import { encodeEmail } from '../../../utils/encodeEmail';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {
-  deleteAll,
-  selectParentId,
-  setReply
-} from '../../../redux/modules/replySlice';
+import { deleteAll, setReply } from '../../../redux/modules/replySlice';
 import { RootState } from '../../../redux/store';
 import { useUserId } from '../../../hooks/useUserId';
+import { useLocation } from 'react-router-dom';
 
 type CommentBoxProps = {
   comment: CommentProps;
@@ -23,9 +20,10 @@ type CommentBoxProps = {
 function CommentBox({ comment, inputFocus }: CommentBoxProps) {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const location = useLocation();
   const parentId = useSelector((state: RootState) => state.reply.parentId);
   const isReply = comment.parentId > 0 ? true : false;
-  const isWriter = useUserId() === comment.memberId;
+  const isWriter = useUserId() === location.state.writerId;
 
   const formatTime = (time: string) => {
     let result = time.substring(0, time.length - 10);

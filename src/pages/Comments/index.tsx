@@ -8,7 +8,6 @@ import CommentBox from './commentsCoponents/CommentBox';
 import { CommentProps } from '../../types/commentData';
 import { getComments } from '../../apis/api/comment';
 import Header from '../../components/Header';
-import { useUserId } from '../../hooks/useUserId';
 import { sortComment } from '../../apis/services/comment';
 
 function Comments() {
@@ -16,13 +15,11 @@ function Comments() {
   const [comments, setComments] = useState<CommentProps[]>([]);
   const [newComment, setNewComment] = useState<boolean>(false);
   const inputFocus = useRef<HTMLInputElement>(null);
-  const userId = useUserId();
 
   useEffect(() => {
     const getData = async () => {
       if (id) {
         await getComments(parseInt(id), 1).then((res) => {
-          console.log('get comments success: ', res);
           const sortedComments = sortComment(res);
 
           setComments(sortedComments);
@@ -49,7 +46,6 @@ function Comments() {
           <CommentInputWrap>
             <CommentInput
               journeyId={parseInt(id!)}
-              memberId={userId}
               newComment={newComment}
               setNew={setNewComment}
               inputFocus={inputFocus}

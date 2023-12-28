@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,7 @@ import TextField from './postingComponents/TextField';
 import DateSelect from './postingComponents/DateSelect';
 import LocationSelect from './postingComponents/LocationSelect';
 import Header from '../../components/Header';
-import { DataProps, ImageProps } from '../../types/postData';
+import { JourneyProps, ImageProps } from '../../types/postData';
 import { uploadImage } from '../../utils/uploadImage';
 import { postJourney, putJourney } from '../../apis/api/journey';
 import { useDispatch } from 'react-redux';
@@ -22,7 +22,7 @@ import { deleteAll } from '../../redux/modules/postSlice';
 import { useUserId } from '../../hooks/useUserId';
 
 export interface StateProps {
-  dataInput?: DataProps;
+  dataInput?: JourneyProps;
   imageInput?: ImageProps;
 }
 
@@ -31,7 +31,9 @@ function Posting() {
   const location = useLocation();
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.post.data);
-  const image = useSelector((state: RootState) => state.post.image);
+  const image = useSelector(
+    (state: RootState) => state.post.data.journeyImgRequestDtoList
+  );
   const preview = useSelector((state: RootState) => state.post.preview);
   const [end, setEnd] = useState(false);
   const postId = location.state?.id;
