@@ -8,7 +8,11 @@ import { getInterestList } from '../../apis/api/journey';
 import { JourneyProps } from '../../types/postData';
 
 const MyInterestedCompanionLog: React.FC = () => {
-  const userId = useUserId();
+
+  const storedId = localStorage.getItem('myId');
+
+  const { id = storedId || '1' } = useParams();
+
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);

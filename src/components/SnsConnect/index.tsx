@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SnsConnect: React.FC<Props> = ({fields, setFields}) => {
-    const id = Number(sessionStorage.getItem('myId'));
+    const id = Number(localStorage.getItem('myId'));
 
     const handleAddEmptyField = () => {
         setFields([...fields, '']);

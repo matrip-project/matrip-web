@@ -20,7 +20,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({images, onRemove, onAdd, i
         slidesToShow: 1,
         speed: 500
     };
-    console.log(images);
 
     return (
         <CarouselContainer>
@@ -55,7 +54,7 @@ const AddImageButton = styled.button`
   top: 35px;
   width: 95px;
   height: 30px;
-  z-index: 99;
+  z-index: 30;
   border-radius: 30px;
   background: ${props => props.theme.colors.neutral1};
   border: none;

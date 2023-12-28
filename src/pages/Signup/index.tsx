@@ -17,8 +17,12 @@ import {
 import BottomAlert from '../../components/Alert';
 
 import { postSignup } from '../../apis/api/signupApi';
+import {validateInput} from '../../utils/signUpValidation';
+import {submitSignup} from '../../utils/sybmitSignUp';
+import useSignupInput from '../../hooks/useSignup';
 
-type SignupInput = {
+
+export interface SignupInputProps {
   email: string;
   password: string;
   passwordCheck: string;
@@ -28,8 +32,7 @@ type SignupInput = {
   nickName: string;
 };
 
-function Signup() {
-  const [input, setInput] = useState<SignupInput>({
+const initialState = {
     email: '',
     password: '',
     passwordCheck: '',
@@ -37,13 +40,21 @@ function Signup() {
     birthDate: null,
     name: '',
     nickName: ''
-  });
+};
 
+const labelObj = {
+  age: '만 14세이상 입니다',
+  use: '이용약관 동의',
+  privacy: '개인정보 수집 및 이용에 대한 동의',
+  marketing: '개인정보 수집 및 이용안내'
+};
+
+function Signup() {
+  const {input, setInput ,handleInputChange} = useSignupInput(initialState);
   const [isValid, setIsValid] = useState({
     isPasswordValid: true,
     isNicknameValid: true
   });
-
   const [eventTerm, setEventTerm] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
@@ -53,30 +64,6 @@ function Signup() {
     privacy: false,
     marketing: false
   });
-
-  const labelObj = {
-    age: '만 14세이상 입니다',
-    use: '이용약관 동의',
-    privacy: '개인정보 수집 및 이용에 대한 동의',
-    marketing: '개인정보 수집 및 이용안내'
-  };
-
-  // !! TODO 이메일, 비밀번호 유효성 검사
-  // !! 생일 input 숫자만 입력 제한
-  // !! 알람창 UI 수정
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInput((prevState) => ({ ...prevState, [name]: value }));
-    // 비밀번호 유효성 검사
-    if (name === 'password' || name === 'passwordCheck') {
-      if (value !== input.password && value !== input.passwordCheck) {
-        setIsValid((prevState) => ({ ...prevState, isPasswordValid: false }));
-      } else {
-        setIsValid((prevState) => ({ ...prevState, isPasswordValid: true }));
-      }
-    }
-  };
 
   const handleAllCheck = (event: ChangeEvent<HTMLInputElement>) => {
     setEventTerm(!eventTerm);
@@ -95,35 +82,24 @@ function Signup() {
 
   const handleBirthdateChange = useCallback((newBirthdate: Date) => {
     setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
-  }, []);
+  }, [setInput]);
 
   const handleSelectedChange = (selected: number) => {
     console.log(`Selected index: ${selected}`);
   };
 
   const handleSignup = async () => {
+    if(!validateInput(input)){
+      return;
+    }
     try {
-      const { email, password, name, birthDate, nickName: nickname } = input;
-      if (birthDate === null) {
-        console.log('Birth date is not selected');
-        return;
-      }
-      const response = await postSignup({
-        email,
-        password,
-        name,
-        birth: birthDate,
-        nickname
-      });
-      // response 데이터 저장하는 로직 추가
+      const response = await submitSignup(input);
       console.log(response);
       setIsAlertOpen(true);
     } catch (err) {
       console.log(err);
     }
 
-    // 유효성 검사 로직 추가
-    // 배경 블러처리, 클릭 막기
   };
 
   const handleCloseAlert = () => {

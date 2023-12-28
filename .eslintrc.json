@@ -25,7 +25,7 @@
   ],
   "rules": {
     "quotes": ["error", "single"],
-    "no-implicit-coercion": "error",
+    "no-implicit-coercion": "off",
 
     "no-undef": "off",
 

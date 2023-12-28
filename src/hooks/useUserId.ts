@@ -1,5 +1,5 @@
 export const useUserId = () => {
-  const userId = sessionStorage.getItem('myId');
+  const userId = localStorage.getItem('myId');
 
   return userId ? parseInt(userId) : 0;
 };
