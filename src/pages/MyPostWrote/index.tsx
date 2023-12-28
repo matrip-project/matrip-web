@@ -13,7 +13,7 @@ const MyPostWrote: React.FC = () => {
   const storedId = localStorage.getItem('myId');
 
   // 만약 세션에 id 값이 없으면 기본값을 사용
-  const { id = storedId || '1' } = useParams();
+  const userId = useUserId();
 
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);

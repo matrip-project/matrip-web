@@ -11,7 +11,7 @@ const MyInterestedCompanionLog: React.FC = () => {
 
   const storedId = localStorage.getItem('myId');
 
-  const { id = storedId || '1' } = useParams();
+  const userId = useUserId();
 
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
