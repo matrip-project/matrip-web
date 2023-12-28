@@ -14,21 +14,17 @@ import rightIcon from '../../asset/arrowRight.svg';
 import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
 
 import {userDataEx} from '../../data/userDummyData';
-import {useAppSelector} from '../../redux/hooks';
 
 import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
-
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
 // !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
 
 const Profile = () => {
-    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     const userId = JSON.parse(localStorage.getItem('myId') || '{}');
 
     const {data, isLoading, error} = useUserInfoQuery(userId);
-    console.log(data, isLoading, error);
 
     if (isLoading){
         return(
@@ -45,15 +41,15 @@ const Profile = () => {
     return (
         <gs.MainContainer>
             <Header edit={false}/>
-            {userData ?
+            {data ?
                 <gs.MainBox>
                     <LinkToProfile to='/editProfile'>
                         <ProfileIcon width={60} height={60} />
                         <Spacer width={15}/>
                         <div>
-                            <Text type='title1'>{userData.nickname} {'>'} </Text>
+                            <Text type='title1'>{data.nickname} {'>'} </Text>
                             <Spacer height={6}/>
-                            <Text type='body2'>{userData.email}</Text>
+                            <Text type='body2'>{data.email}</Text>
                         </div>
                     </LinkToProfile>
                     <Spacer height={32}/>
@@ -68,7 +64,7 @@ const Profile = () => {
                             <span>를 선호합니다.</span>
                             <Text>즉흥적인 여행을 떠나는 여행자에요</Text>
                         </div>
-                        <Text>{userData.intro}</Text>
+                        <Text>{data.intro}</Text>
                     </UserDateText>
                     <Spacer height={16}/>
                     <SnsSection>
@@ -86,7 +82,7 @@ const Profile = () => {
                         <Spacer height={16}/>
                         <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
                         <Spacer height={16}/>
-                        <ImageCarousel images={userData.profile_list}/>
+                        <ImageCarousel images={data.profile_list}/>
                         {/*<ImageCarousel images={userState.user.profile_list} />*/}
                     </ImageSection>
                     <Spacer height={50}/>

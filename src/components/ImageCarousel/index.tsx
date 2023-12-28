@@ -20,7 +20,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({images, onRemove, onAdd, i
         slidesToShow: 1,
         speed: 500
     };
-    console.log(images);
 
     return (
         <CarouselContainer>

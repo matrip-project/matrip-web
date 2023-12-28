@@ -13,6 +13,7 @@ import share from '../../asset/share.svg';
 import addPostButton from '../../asset/addPostButton.svg';
 import { useDispatch } from 'react-redux';
 import { deleteAll } from '../../redux/modules/postSlice';
+import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
 
 const MENUS = {
   '비밀번호 재설정': '/resetpassword',
@@ -26,15 +27,15 @@ const MENUS = {
 const MyPageMain = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const storedData = localStorage.getItem('userData');
-  const userData = storedData ? JSON.parse(storedData) : null;
-  console.log(userData);
+  const storedData = localStorage.getItem('myId');
+  const userId = storedData ? JSON.parse(storedData) : null;
+  const { data, isLoading, error } = useUserInfoQuery(userId);
 
   useEffect(() => {
-    if (!userData) {
+    if (!userId) {
       navigate('/login');
     }
-  }, [userData, navigate]);
+  }, [userId, navigate]);
 
   const handleInviteFriend = () => {
     const urlToCopy = 'http://matrip.s3-website.ap-northeast-2.amazonaws.com/';
@@ -47,23 +48,31 @@ const MyPageMain = () => {
     dispatch(deleteAll());
   };
 
+  if (isLoading) {
+    return (<div>sss</div>);
+  };
+
+  if (error) {
+    return (<div>sss</div>);
+  };
+
   return (
     <gs.MainContainer>
       <Header edit={false} />
       <gs.MainBox>
-        {userData && (
+
           <LinkToProfile to='/profile'>
             <ProfileIcon width={60} height={60} />
             <Spacer width={15} />
             <div>
               <Text type='title1'>
-                {userData.nickname} {'>'}{' '}
+                {data.nickname} {'>'}{' '}
               </Text>
               <Spacer height={6} />
-              <Text type='body2'>{userData.email}</Text>
+              <Text type='body2'>{data.email}</Text>
             </div>
           </LinkToProfile>
-        )}
+
         {Object.entries(MENUS).map(([menu, path], idx) => {
           return (
             <LinkToEach key={idx} to={path}>

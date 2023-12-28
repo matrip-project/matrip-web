@@ -12,27 +12,12 @@ import {
   Image
 } from '../../components/@atoms';
 
-import { postLogin } from '../../apis/api/loginApi';
-import { getUserData } from '../../apis/api/userData';
-import { useAppDispatch } from '../../redux/hooks';
-import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
-import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
-
-
+import useLogin from '../../hooks/useLogin';
 
 function Login() {
-  const [input, setInput] = useState({
-    email: '',
-    password: ''
-  });
+  const { input, handleInputChange, handleLogin } = useLogin();
   const [isAutoLogin, setIsAutoLogin] = useState(false);
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-
-
-
 
   useEffect(() => {
     return () => {
@@ -41,28 +26,6 @@ function Login() {
       }, 3000);
     };
   }, [isPasswordCorrect]);
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInput((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { email, password } = input;
-      const res = await postLogin({ email, password });
-      if (res) {
-        localStorage.setItem('authToken', res.data.token);
-        localStorage.setItem('myId', res.data.id);
-        const userData = await getUserData(res.data.id);
-        localStorage.setItem('userData', JSON.stringify(userData));
-        navigate('/');
-      }
-    } catch (e) {
-      setIsPasswordCorrect(true);
-    }
-  };
 
   const handleCheck = () => {
     setIsAutoLogin(!isAutoLogin);

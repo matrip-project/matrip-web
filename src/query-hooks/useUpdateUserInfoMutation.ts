@@ -7,7 +7,7 @@ type ProfileData = {
 
 };
 
-export default function useUpdateMemberMutation() {
+export default function useUpdateUserInfoMutation() {
     const queryClient = useQueryClient();
 
     return useMutation({
