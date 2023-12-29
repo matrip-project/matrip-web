@@ -68,7 +68,7 @@ const Home: React.FC = () => {
               isListIconClicked
             />
           ))}
-          <hs.ScheduleMoreBtn to={'/CompanionList'}>
+          <hs.ScheduleMoreBtn to={'/companionList'}>
             일정 더보기 +
           </hs.ScheduleMoreBtn>
 

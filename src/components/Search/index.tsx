@@ -1,6 +1,4 @@
-import React, { useRef, useState } from 'react';
-import { HiMiniMagnifyingGlass } from 'react-icons/hi2';
-import * as gs from '../../styles/GlobalStyles';
+import React, { useState } from 'react';
 import * as ss from './SearchStyle';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -25,7 +23,7 @@ const Search: React.FC = () => {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSearch();
-      navigate('/CompanionList');
+      navigate('/companionList');
     }
   };
 

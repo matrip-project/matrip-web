@@ -13,6 +13,7 @@ import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice'
 import axios from 'axios';
 import userImgNone from '../../asset/userImgNone.png';
 import { setTotalPage } from '../../redux/modules/totalPageSlice';
+import { getJourneyList } from '../../apis/api/journey';
 
 interface PostListScrollProps {
   onNoPosts: () => void;
@@ -62,14 +63,9 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'http://ec2-3-39-190-233.ap-northeast-2.compute.amazonaws.com/journeys'
-        );
-        setJourneys(response.data || { dtoList: [] });
-      } catch (error) {
-        console.error('Error', error);
-      }
+      await getJourneyList().then((res) => {
+        setJourneys(res || { dtoList: [] });
+      });
     };
 
     fetchData();

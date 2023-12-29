@@ -21,7 +21,7 @@ function BottomNav() {
   useEffect(() => {
     if (path === '/companionList') {
       setActiveIcons([0, 1, 0, 0]);
-    } else if (path === '/PopularTravel') {
+    } else if (path === '/popularTravel') {
       setActiveIcons([0, 0, 1, 0]);
     } else if (path === '/mypage') {
       setActiveIcons([0, 0, 0, 1]);
@@ -89,7 +89,7 @@ function BottomNav() {
           />
           <StyledText>동행리스트</StyledText>
         </NavBtn>
-        <NavBtn onClick={() => handleIconClick(3)} to={'/PopularTravel'}>
+        <NavBtn onClick={() => handleIconClick(3)} to={'/popularTravel'}>
           <StyledILine $isActive={activeIcons[2] === 1} />
           <StyledIcon
             src={getIconImage(3)}
