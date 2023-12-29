@@ -10,118 +10,105 @@ import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import { MdShare } from 'react-icons/md';
 import rightIcon from '../../asset/arrowRight.svg';
 
-import {ReactComponent as ProfileIcon} from '../../asset/profileNone.svg';
+import { ReactComponent as ProfileIcon } from '../../asset/profileNone.svg';
 
-import {userDataEx} from '../../data/userDummyData';
+import { userDataEx } from '../../data/userDummyData';
 
-import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
-
+import { useUserInfoQuery } from '../../query-hooks/userDataQueries';
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
 
 // !!TODO 다른 사람이 보는 페이지도 이 페이지로 처리
 
 const Profile = () => {
+  const userId = JSON.parse(localStorage.getItem('myId') || '{}');
 
-    const userId = JSON.parse(localStorage.getItem('myId') || '{}');
+  const { data, isLoading, error } = useUserInfoQuery(userId);
 
-    const {data, isLoading, error} = useUserInfoQuery(userId);
+  if (isLoading) {
+    return <LoadingIncdicator />;
+  }
 
-    if (isLoading){
-        return(
-            <LoadingIncdicator />
-        );
-    };
+  if (error) {
+    return <div>ERR</div>;
+  }
 
-    if (error){
-        return(
-            <div>ERR</div>
-        );
-    };
+  return (
+    <gs.MainContainer>
+      <Header edit={false} />
+      {data ? (
+        <gs.MainBox>
+          <LinkToProfile to='/editProfile'>
+            <ProfileIcon width={60} height={60} />
+            <Spacer width={15} />
+            <div>
+              <Text type='title1'>
+                {data.nickname} {'>'}{' '}
+              </Text>
+              <Spacer height={6} />
+              <Text type='body2'>{data.email}</Text>
+            </div>
+          </LinkToProfile>
+          <Spacer height={32} />
+          <UserDateText>
+            <div>
+              {userDataEx.hashTags.map((tag: string, idx: number) => {
+                return <span key={idx}>#{tag} </span>;
+              })}
+              <span>를 선호합니다.</span>
+              <Text>즉흥적인 여행을 떠나는 여행자에요</Text>
+            </div>
+            <Text>{data.intro}</Text>
+          </UserDateText>
+          <Spacer height={16} />
+          <SnsSection>
+            <FaFacebookSquare size={20} />
+            <Spacer width={10} />
+            <FaInstagram size={20} />
+            <Spacer width={10} />
+            <MdShare size={20} />
+            <Spacer width={10} />
+            <MdShare size={20} />
+            <Spacer width={10} />
+            <MdShare size={20} />
+          </SnsSection>
+          <ImageSection>
+            <Spacer height={16} />
+            <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
+            <Spacer height={16} />
+            <ImageCarousel images={data.profile_list} />
+            {/*<ImageCarousel images={userState.user.profile_list} />*/}
+          </ImageSection>
+          <Spacer height={50} />
+          <History>
+            <LinkTitle>
+              <Text>동행로그</Text>
+            </LinkTitle>
 
-    return (
-        <gs.MainContainer>
-            <Header edit={false}/>
-            {data ?
-                <gs.MainBox>
-                    <LinkToProfile to='/editProfile'>
-                        <ProfileIcon width={60} height={60} />
-                        <Spacer width={15}/>
-                        <div>
-                            <Text type='title1'>{data.nickname} {'>'} </Text>
-                            <Spacer height={6}/>
-                            <Text type='body2'>{data.email}</Text>
-                        </div>
-                    </LinkToProfile>
-                    <Spacer height={32}/>
-                    <UserDateText>
-                        <div>
-                            {userDataEx.hashTags.map((tag: string, idx: number) => {
-                                return (
-                                    <span key={idx}>#{tag} </span>
-                                );
-                            })
-                            }
-                            <span>를 선호합니다.</span>
-                            <Text>즉흥적인 여행을 떠나는 여행자에요</Text>
-                        </div>
-                        <Text>{data.intro}</Text>
-                    </UserDateText>
-                    <Spacer height={16}/>
-                    <SnsSection>
-                        <FaFacebookSquare size={20}/>
-                        <Spacer width={10}/>
-                        <FaInstagram size={20}/>
-                        <Spacer width={10}/>
-                        <MdShare size={20}/>
-                        <Spacer width={10}/>
-                        <MdShare size={20}/>
-                        <Spacer width={10}/>
-                        <MdShare size={20}/>
-                    </SnsSection>
-                    <ImageSection>
-                        <Spacer height={16}/>
-                        <Text>나를 표현할 수 있는 사진을 올려주세요. </Text>
-                        <Spacer height={16}/>
-                        <ImageCarousel images={data.profile_list}/>
-                        {/*<ImageCarousel images={userState.user.profile_list} />*/}
-                    </ImageSection>
-                    <Spacer height={50}/>
-                    <History>
-                        <LinkTitle>
-                            <Text>동행로그</Text>
-                        </LinkTitle>
+            {HISTROY.map((item, idx) => {
+              let linkPath = '/';
 
-                        {HISTROY.map((item, idx) => {
-                            let linkPath = '/';
+              if (item === '관심 동행 목록') {
+                linkPath = '/companionLog/myInterest';
+              } else if (item === '내가 쓴 글') {
+                linkPath = '/companionLog/myPost';
+              }
 
-
-                            if (item === '관심 동행 목록') {
-                                linkPath = '/companionLog/myInterestedCompanionLog';
-                            } else if (item === '내가 쓴 글') {
-                                linkPath = '/companionLog/myPostWrote';
-                            }
-
-                            return (
-                                <LinkItem key={idx} to={linkPath}>
-                                    <Text>{item}</Text>
-                                    <Spacer width={10}/>
-                                    <img src={rightIcon}/>
-                                </LinkItem>
-                            );
-                        })
-                        }
-                    </History>
-                </gs.MainBox>
-                :
-                <>
-                </>
-            }
-
-        </gs.MainContainer>
-
-    );
-
+              return (
+                <LinkItem key={idx} to={linkPath}>
+                  <Text>{item}</Text>
+                  <Spacer width={10} />
+                  <img src={rightIcon} />
+                </LinkItem>
+              );
+            })}
+          </History>
+        </gs.MainBox>
+      ) : (
+        <></>
+      )}
+    </gs.MainContainer>
+  );
 };
 
 export default Profile;
