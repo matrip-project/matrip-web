@@ -9,7 +9,7 @@ import Thumbnail from '../../components/@atoms/Thumbnail';
 import Plan from './detailComponents/Plan';
 import { useEffect, useState } from 'react';
 import { getJourneyDetail } from '../../apis/api/journey';
-import { JourneyProps } from '../../types/postData';
+import { JourneyProps } from '../../types/journeyData';
 import { getCleanDetailInfo } from '../../apis/services/journey';
 import Header from '../../components/Header';
 import { useDispatch } from 'react-redux';

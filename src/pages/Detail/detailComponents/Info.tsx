@@ -3,7 +3,7 @@ import { ReactComponent as ArrowRight } from '../../../asset/arrowRight.svg';
 import recruitingImage from '../../../asset/recruiting.svg';
 import recruitingEndImage from '../../../asset/recruitingEnd.svg';
 import UserIntro from '../../../components/UserIntro';
-import { JourneyProps } from '../../../types/postData';
+import { JourneyProps } from '../../../types/journeyData';
 import { encodeEmail } from '../../../utils/encodeEmail';
 
 type InfoType = {

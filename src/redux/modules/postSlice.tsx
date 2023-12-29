@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { JourneyProps, ImageProps } from '../../types/postData';
+import { JourneyProps, ImageProps } from '../../types/journeyData';
 import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 

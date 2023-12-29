@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router';
 import { deleteAll } from '../../redux/modules/postSlice';
 import { copyLink } from '../../utils/copyLink';
 import { getJourneyList } from '../../apis/api/journey';
-import { JourneyProps } from '../../types/postData';
+import { JourneyProps } from '../../types/journeyData';
 
 interface Type {
   dtoList: JourneyProps[];

@@ -5,12 +5,9 @@ import listIcon from '../../asset/listIcon.svg';
 import TitleIcon from '../../asset/titleIcon.svg';
 import { useUserId } from '../../hooks/useUserId';
 import { getInterestList } from '../../apis/api/journey';
-import { JourneyProps } from '../../types/postData';
+import { JourneyProps } from '../../types/journeyData';
 
 const MyInterestedCompanionLog: React.FC = () => {
-
-  const storedId = localStorage.getItem('myId');
-
   const userId = useUserId();
 
   const initialDisplayCount = 5;
