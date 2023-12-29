@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import * as us from './userListStyle';
 import recruitingImage from '../../asset/recruiting.svg';
 import userImgNone from '../../asset/userImgNone.png';
