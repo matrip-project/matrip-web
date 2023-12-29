@@ -13,14 +13,14 @@ import share from '../../asset/share.svg';
 import addPostButton from '../../asset/addPostButton.svg';
 import { useDispatch } from 'react-redux';
 import { deleteAll } from '../../redux/modules/postSlice';
-import {useUserInfoQuery} from '../../query-hooks/userDataQueries';
+import { useUserInfoQuery } from '../../query-hooks/userDataQueries';
 
 const MENUS = {
   '비밀번호 재설정': '/resetpassword',
   '메이트립 이용방법': '/usemethod',
-  '공지사항': '/service/notice',
-  '고객센터': '/service/faq',
-  '이용약관': '/service/terms',
+  공지사항: '/service/notice',
+  고객센터: '/service/faq',
+  이용약관: '/service/terms',
   '개인정보 처리방침': '/service/privacy'
 };
 
@@ -49,29 +49,28 @@ const MyPageMain = () => {
   };
 
   if (isLoading) {
-    return (<div>sss</div>);
-  };
+    return <div>sss</div>;
+  }
 
   if (error) {
-    return (<div>sss</div>);
-  };
+    return <div>sss</div>;
+  }
 
   return (
     <gs.MainContainer>
       <Header edit={false} />
       <gs.MainBox>
-
-          <LinkToProfile to='/profile'>
-            <ProfileIcon width={60} height={60} />
-            <Spacer width={15} />
-            <div>
-              <Text type='title1'>
-                {data.nickname} {'>'}{' '}
-              </Text>
-              <Spacer height={6} />
-              <Text type='body2'>{data.email}</Text>
-            </div>
-          </LinkToProfile>
+        <LinkToProfile to='/profile'>
+          <ProfileIcon width={60} height={60} />
+          <Spacer width={15} />
+          <div>
+            <Text type='title1'>
+              {data.nickname} {'>'}{' '}
+            </Text>
+            <Spacer height={6} />
+            <Text type='body2'>{data.email}</Text>
+          </div>
+        </LinkToProfile>
 
         {Object.entries(MENUS).map(([menu, path], idx) => {
           return (

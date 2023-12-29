@@ -17,10 +17,9 @@ import {
 import BottomAlert from '../../components/Alert';
 
 import { postSignup } from '../../apis/api/signupApi';
-import {validateInput} from '../../utils/signUpValidation';
-import {submitSignup} from '../../utils/sybmitSignUp';
+import { validateInput } from '../../utils/signUpValidation';
+import { submitSignup } from '../../utils/sybmitSignUp';
 import useSignupInput from '../../hooks/useSignup';
-
 
 export interface SignupInputProps {
   email: string;
@@ -30,16 +29,16 @@ export interface SignupInputProps {
   birthDate: Date | null;
   name: string;
   nickName: string;
-};
+}
 
 const initialState = {
-    email: '',
-    password: '',
-    passwordCheck: '',
-    gender: '',
-    birthDate: null,
-    name: '',
-    nickName: ''
+  email: '',
+  password: '',
+  passwordCheck: '',
+  gender: '',
+  birthDate: null,
+  name: '',
+  nickName: ''
 };
 
 const labelObj = {
@@ -50,7 +49,7 @@ const labelObj = {
 };
 
 function Signup() {
-  const {input, setInput ,handleInputChange} = useSignupInput(initialState);
+  const { input, setInput, handleInputChange } = useSignupInput(initialState);
   const [isValid, setIsValid] = useState({
     isPasswordValid: true,
     isNicknameValid: true
@@ -80,16 +79,19 @@ function Signup() {
     setIsTerm((prevState) => ({ ...prevState, [name]: checked }));
   };
 
-  const handleBirthdateChange = useCallback((newBirthdate: Date) => {
-    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
-  }, [setInput]);
+  const handleBirthdateChange = useCallback(
+    (newBirthdate: Date) => {
+      setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
+    },
+    [setInput]
+  );
 
   const handleSelectedChange = (selected: number) => {
     console.log(`Selected index: ${selected}`);
   };
 
   const handleSignup = async () => {
-    if(!validateInput(input)){
+    if (!validateInput(input)) {
       return;
     }
     try {
@@ -99,7 +101,6 @@ function Signup() {
     } catch (err) {
       console.log(err);
     }
-
   };
 
   const handleCloseAlert = () => {

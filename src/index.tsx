@@ -20,9 +20,9 @@ const queryClient = new QueryClient();
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </PersistGate>
   </Provider>
 );
