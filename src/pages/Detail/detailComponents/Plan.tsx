@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PlanProps } from '../../../types/postData';
+import { PlanProps } from '../../../types/journeyData';
 import { TabContainer, TabTitle } from '../../../components/@atoms/TabMenu';
 import styled from 'styled-components';
 

@@ -14,7 +14,7 @@ import TextField from './postingComponents/TextField';
 import DateSelect from './postingComponents/DateSelect';
 import LocationSelect from './postingComponents/LocationSelect';
 import Header from '../../components/Header';
-import { JourneyProps, ImageProps } from '../../types/postData';
+import { JourneyProps, ImageProps } from '../../types/journeyData';
 import { uploadImage } from '../../utils/uploadImage';
 import { postJourney, putJourney } from '../../apis/api/journey';
 import { useDispatch } from 'react-redux';

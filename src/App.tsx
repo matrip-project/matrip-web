@@ -24,16 +24,12 @@ import MyPostWrote from './pages/MyPostWrote';
 import Detail from './pages/Detail';
 import Comments from './pages/Comments';
 import PopularTravel from './pages/PopularTravel';
-
-import TopNav from './components/TopNav';
 import LoadingIndicatorPortal from './components/LoadingIndicatorPortal';
-
 import Posting from './pages/Posting';
 import ScrollToTop from './utils/scrollToTop';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import CompanionList from './pages/CompanionList';
-
 
 function App() {
   const serviceTabs = [

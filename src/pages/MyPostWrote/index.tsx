@@ -6,15 +6,10 @@ import listIcon from '../../asset/listIcon.svg';
 import TitleIcon from '../../asset/titleIcon.svg';
 import { useUserId } from '../../hooks/useUserId';
 import { getMyPostList } from '../../apis/api/journey';
-import { JourneyProps } from '../../types/postData';
+import { JourneyProps } from '../../types/journeyData';
 
 const MyPostWrote: React.FC = () => {
-
-  const storedId = localStorage.getItem('myId');
-
-  // 만약 세션에 id 값이 없으면 기본값을 사용
   const userId = useUserId();
-
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
   const [isListIconClicked, setListIconClicked] = useState(true);
