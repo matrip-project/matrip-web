@@ -5,18 +5,18 @@ import styled from 'styled-components';
 import fillterIcon from '../../asset/fillterIcon.svg';
 import fillterIconNone from '../../asset/fillterIconNone.svg';
 import {
-  AddSelectedAge,
-  AddSelectedEndDate,
-  AddSelectedStartDate,
-  AddSelectedStatus,
+  selectAge,
+  selectEndDate,
+  selectStartDate,
+  selectStatus,
   reset,
   selectPlace
 } from '../../redux/modules/searchSlice';
-import { setTotalPage } from '../../redux/modules/totalPageSlice';
 import { DataType } from '../../types/journeyData';
 import PostCard from '../PostCard';
 import NoPost from '../NoPost';
 import SelectButton from '../SelectButton';
+import { getFilteredList } from '../../apis/api/journey';
 
 interface Journeys {
   data: DataType;
@@ -25,37 +25,43 @@ interface Journeys {
 function PostListScroll({ data }: Journeys) {
   const dispatch = useDispatch();
   const place = useParams().place;
-  const [showFilter, setShowFilter] = useState(false);
   const initialDisplayCount = 5;
+  const [journey, setJourney] = useState<DataType>({ dtoList: [] });
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
+  const [showFilter, setShowFilter] = useState(false);
   const selectedPlace = useSelector(selectPlace);
-  const SelectedAge = useSelector(AddSelectedAge);
-  const SelectedStatus = useSelector(AddSelectedStatus);
-  const SelectedStartDate = useSelector(AddSelectedStartDate);
-  const SelectedEndDate = useSelector(AddSelectedEndDate);
-  const [localTotalPage, setLocalTotalPage] = useState(0);
+  const selectedAge = useSelector(selectAge);
+  const selectedStatus = useSelector(selectStatus);
+  const selectedStartDate = useSelector(selectStartDate);
+  const selectedEndDate = useSelector(selectEndDate);
 
-  // 키워드를 기반으로 게시물 필터링
-  const filteredJourneys = data.dtoList.filter((journey) => {
-    const journeyStartDate = new Date(journey.startDate).toISOString();
-    const journeyEndDate = new Date(journey.endDate).toISOString();
+  useEffect(() => {
+    const fetchData = async () => {
+      await getFilteredList({
+        place: selectedPlace || '',
+        age: selectedAge || 0,
+        status: selectedStatus || 'ACTIVE',
+        startDate: selectedStartDate || '',
+        endDate: selectedEndDate || ''
+      }).then((res) => {
+        setJourney(res || []);
+      });
+    };
 
-    const meetsAgeCriteria = !SelectedAge || journey.memberAge! >= SelectedAge;
-    const meetsSelectedStatus =
-      !SelectedStatus || journey.status === SelectedStatus;
-    const meetsStartDateCriteria =
-      !SelectedStartDate || journeyStartDate >= SelectedStartDate;
-    const meetsEndDateCriteria =
-      !SelectedEndDate || journeyEndDate <= SelectedEndDate;
+    if (selectedPlace || selectedAge || selectedStartDate || selectedEndDate) {
+      fetchData();
+    }
+  }, [
+    selectedPlace,
+    selectedAge,
+    selectedStatus,
+    selectedStartDate,
+    selectedEndDate
+  ]);
 
-    return (
-      meetsAgeCriteria &&
-      meetsSelectedStatus &&
-      meetsStartDateCriteria &&
-      meetsEndDateCriteria
-    );
-    return false;
-  });
+  useEffect(() => {
+    setJourney({ dtoList: data.dtoList });
+  }, [data]);
 
   // 감지할 스크롤 이벤트 추가
   useEffect(() => {
@@ -75,19 +81,10 @@ function PostListScroll({ data }: Journeys) {
     };
   }, []);
 
-  // 필터링된 포스트 배열 길이 값 관리
-  useEffect(() => {
-    const newLocalTotalPage = filteredJourneys.length;
-    setLocalTotalPage(newLocalTotalPage);
-  }, [filteredJourneys, localTotalPage]);
-
-  useEffect(() => {
-    dispatch(setTotalPage(localTotalPage));
-  }, [localTotalPage, dispatch]);
-
   const handleFilterClick = () => {
     if (showFilter) {
       dispatch(reset());
+      setJourney({ dtoList: data.dtoList });
     }
     setShowFilter((prev) => !prev);
   };
@@ -97,7 +94,7 @@ function PostListScroll({ data }: Journeys) {
       <TitleBox>
         <MainTitle>{place ? `${place} 일정` : '동행일정'}</MainTitle>
         <TapTitle2>
-          <span>· {data.dtoList.length}개 </span>동행일정을 둘러보세요.
+          <span>· {journey.dtoList.length}개 </span>동행일정을 둘러보세요.
           <FilterButton
             src={showFilter ? fillterIcon : fillterIconNone}
             onClick={handleFilterClick}
@@ -107,13 +104,13 @@ function PostListScroll({ data }: Journeys) {
         {showFilter && <SelectButton />}
       </TitleBox>
       <PostCardContianer>
-        {data.dtoList.length === 0 ? (
+        {journey.dtoList.length === 0 ? (
           <NoPost />
         ) : (
-          data.dtoList
+          journey.dtoList
             .slice(0, displayCount)
-            .map((journey: any) => (
-              <PostCard key={journey.id} data={journey} isListType={true} />
+            .map((data: any) => (
+              <PostCard key={data.id} data={data} isListType={true} />
             ))
         )}
       </PostCardContianer>

@@ -1,5 +1,13 @@
 import { baseAPI } from '../axiosInstance';
 
+interface FilterProps {
+  place: string | '';
+  age: number | '';
+  status: string | 'ACTIVE';
+  startDate: string | '';
+  endDate: string | '';
+}
+
 export const getJourneyList = async () => {
   try {
     const { data } = await baseAPI.get('/journeys');
@@ -24,6 +32,23 @@ export const getPopularTravelList = async (place: string) => {
     return data;
   } catch (error) {
     console.log('get popular travel list fail:', error);
+  }
+};
+
+export const getFilteredList = async ({
+  place,
+  age,
+  status,
+  startDate,
+  endDate
+}: FilterProps) => {
+  try {
+    const { data } = await baseAPI.get(
+      `/journeys?city=${place}&startDate=${startDate}&endDate=${endDate}&status=${status}&age=${age}`
+    );
+    return data;
+  } catch (error) {
+    console.log('get filtered list fail:', error);
   }
 };
 
