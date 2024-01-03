@@ -49,7 +49,7 @@ const postSlice = createSlice({
     setPreview: (state, action: PayloadAction<File>) => {
       state.preview = action.payload;
     },
-    deleteAll: (state) => {
+    deleteAll: () => {
       return initialState;
     }
   }
