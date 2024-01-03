@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import { getColor } from '../../utils/colorUtils';
 import { useDispatch } from 'react-redux';
-import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import navHomeIcon from '../../asset/navHomeIcon.svg';
 import navAccompanyIcon from '../../asset/navAccompanyIcon.svg';
 import navPopularIcon from '../../asset/navPopularIcon.svg';
@@ -15,13 +14,12 @@ import navNoneMypage from '../../asset/navNoneMypage.svg';
 
 function BottomNav() {
   const [activeIcons, setActiveIcons] = useState<number[]>([1, 0, 0, 0]);
-  const dispatch = useDispatch();
   const path = useLocation().pathname;
 
   useEffect(() => {
     if (path === '/companionList') {
       setActiveIcons([0, 1, 0, 0]);
-    } else if (path === '/popularTravel') {
+    } else if (path.includes('/popularTravel')) {
       setActiveIcons([0, 0, 1, 0]);
     } else if (path === '/mypage') {
       setActiveIcons([0, 0, 0, 1]);
@@ -62,10 +60,6 @@ function BottomNav() {
 
   const handleIconClick = (index: number) => {
     setActiveIcons((prev) => prev.map((_, i) => (i === index - 1 ? 1 : 0)));
-
-    if (index === 3) {
-      dispatch(setKeyword('제주'));
-    }
   };
 
   return (
@@ -89,7 +83,7 @@ function BottomNav() {
           />
           <StyledText>동행리스트</StyledText>
         </NavBtn>
-        <NavBtn onClick={() => handleIconClick(3)} to={'/popularTravel'}>
+        <NavBtn onClick={() => handleIconClick(3)} to={'/popularTravel/제주'}>
           <StyledILine $isActive={activeIcons[2] === 1} />
           <StyledIcon
             src={getIconImage(3)}

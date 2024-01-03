@@ -9,6 +9,24 @@ export const getJourneyList = async () => {
   }
 };
 
+export const getSearchResult = async (keyword: string) => {
+  try {
+    const { data } = await baseAPI.get(`/journeys?keyword=${keyword}`);
+    return data;
+  } catch (error) {
+    console.log('get search result fail:', error);
+  }
+};
+
+export const getPopularTravelList = async (place: string) => {
+  try {
+    const { data } = await baseAPI.get(`/journeys?city=${place}`);
+    return data;
+  } catch (error) {
+    console.log('get popular travel list fail:', error);
+  }
+};
+
 export const getInterestList = async (id: number) => {
   try {
     const { data } = await baseAPI.get(`/journeys/interest?memberId=${id}`);

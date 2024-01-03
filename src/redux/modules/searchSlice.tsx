@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface SearchState {
-  keyword: string;
+  keyword: string | null;
+  place: string | null;
   selectedAge: number | null;
   selectedStatus: string | null;
   selectedStartDate: string | null;
@@ -10,6 +11,7 @@ interface SearchState {
 
 const initialState: SearchState = {
   keyword: '',
+  place: null,
   selectedAge: null,
   selectedStatus: null,
   selectedStartDate: null,
@@ -23,6 +25,9 @@ export const searchSlice = createSlice({
     setKeyword: (state, action: PayloadAction<string>) => {
       state.keyword = action.payload;
     },
+    setPlace: (state, action: PayloadAction<string>) => {
+      state.place = action.payload;
+    },
     setSelectedAge: (state, action: PayloadAction<number | null>) => {
       state.selectedAge = action.payload;
     },
@@ -34,20 +39,28 @@ export const searchSlice = createSlice({
     },
     setSelectedEndDate: (state, action: PayloadAction<string | null>) => {
       state.selectedEndDate = action.payload;
+    },
+    reset: () => {
+      return initialState;
     }
   }
 });
 
 export const {
   setKeyword,
+  setPlace,
   setSelectedAge,
   setSelectedStatus,
   setSelectedStartDate,
-  setSelectedEndDate
+  setSelectedEndDate,
+  reset
 } = searchSlice.actions;
 
 export const selectKeyword = (state: { search: SearchState }) =>
   state.search.keyword;
+
+export const selectPlace = (state: { search: SearchState }) =>
+  state.search.place;
 
 export const AddSelectedAge = (state: { search: SearchState }) =>
   state.search.selectedAge;
