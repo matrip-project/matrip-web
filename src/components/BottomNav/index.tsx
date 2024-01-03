@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import { getColor } from '../../utils/colorUtils';
-import { useDispatch } from 'react-redux';
 import navHomeIcon from '../../asset/navHomeIcon.svg';
 import navAccompanyIcon from '../../asset/navAccompanyIcon.svg';
 import navPopularIcon from '../../asset/navPopularIcon.svg';

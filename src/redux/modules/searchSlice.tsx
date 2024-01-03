@@ -62,16 +62,16 @@ export const selectKeyword = (state: { search: SearchState }) =>
 export const selectPlace = (state: { search: SearchState }) =>
   state.search.place;
 
-export const AddSelectedAge = (state: { search: SearchState }) =>
+export const selectAge = (state: { search: SearchState }) =>
   state.search.selectedAge;
 
-export const AddSelectedStatus = (state: { search: SearchState }) =>
+export const selectStatus = (state: { search: SearchState }) =>
   state.search.selectedStatus;
 
-export const AddSelectedStartDate = (state: { search: SearchState }) =>
+export const selectStartDate = (state: { search: SearchState }) =>
   state.search.selectedStartDate;
 
-export const AddSelectedEndDate = (state: { search: SearchState }) =>
+export const selectEndDate = (state: { search: SearchState }) =>
   state.search.selectedEndDate;
 
 export default searchSlice.reducer;

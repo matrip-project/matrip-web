@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { DateRange } from 'react-date-range';
 import dropdownIcon from '../../asset/dropdownIcon.svg';
 import {
+  setPlace,
   setSelectedAge,
   setSelectedEndDate,
   setSelectedStartDate,
@@ -75,6 +76,10 @@ const SelectButton: React.FC = () => {
     dispatch(setSelectedStatus(statusValue));
   };
 
+  const handlePlaceChange = (selectedOption: any) => {
+    dispatch(setPlace(selectedOption.value));
+  };
+
   const handleDateBoxBtnClick = () => {
     setDatePickerVisible(!datePickerVisible);
   };
@@ -102,6 +107,7 @@ const SelectButton: React.FC = () => {
               options={place}
               placeholder='지역'
               components={{ IndicatorSeparator: () => null }}
+              onChange={handlePlaceChange}
             />
           </SelectBtn>
         )}

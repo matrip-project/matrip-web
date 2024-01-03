@@ -35,7 +35,7 @@ function Posting() {
     (state: RootState) => state.post.data.journeyImgRequestDtoList
   );
   const preview = useSelector((state: RootState) => state.post.preview);
-  const [end, setEnd] = useState(false);
+  const [end, setEnd] = useState(data.status === 'ACTIVE' ? false : true);
   const postId = location.state?.id;
   const userId = useUserId();
   const center = {
@@ -106,7 +106,7 @@ function Posting() {
     await postJourney(data).then((res) => {
       console.log('post journey success: ', res);
       dispatch(deleteAll());
-      navigate('/');
+      navigate(`/trip/${res}`);
     });
   };
 
@@ -147,7 +147,9 @@ function Posting() {
           <HelpBox>
             <Exclamation />
             <HelpWrap>
-              동행 인원이 마감되었을 경우 ‘모집 마감’을 눌러주세요.
+              {end
+                ? '모집 마감 상태입니다.'
+                : '동행 인원이 마감되었을 경우 ‘모집 마감’을 눌러주세요.'}
             </HelpWrap>
           </HelpBox>
         </ChangeStateWrap>
