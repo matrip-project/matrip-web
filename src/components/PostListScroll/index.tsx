@@ -1,102 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import * as pls from './postListScrollStyle';
-import recruitingImage from '../../asset/recruiting.svg';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import fillterIcon from '../../asset/fillterIcon.svg';
+import fillterIconNone from '../../asset/fillterIconNone.svg';
 import {
   AddSelectedAge,
   AddSelectedEndDate,
   AddSelectedStartDate,
   AddSelectedStatus,
-  selectKeyword
+  reset,
+  selectPlace
 } from '../../redux/modules/searchSlice';
-import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
-import axios from 'axios';
-import userImgNone from '../../asset/userImgNone.png';
 import { setTotalPage } from '../../redux/modules/totalPageSlice';
-import { getJourneyList } from '../../apis/api/journey';
+import { DataType } from '../../types/journeyData';
+import PostCard from '../PostCard';
+import NoPost from '../NoPost';
+import SelectButton from '../SelectButton';
 
-interface PostListScrollProps {
-  onNoPosts: () => void;
-  onShowTitleBox: () => void;
+interface Journeys {
+  data: DataType;
 }
 
-interface JourneyImage {
-  id: number;
-  path: string;
-  sequence: number;
-}
-
-interface Journey {
-  id: number;
-  memberName: string;
-  journeyImgRequestDtoList: JourneyImage[];
-  path: string;
-  city: string;
-  title: string;
-  content: string;
-  startDate: string;
-  endDate: string;
-  status: string;
-  memberAge: string;
-}
-
-interface Type {
-  dtoList: Journey[];
-}
-
-const PostListScroll: React.FC<PostListScrollProps> = ({
-  onShowTitleBox,
-  onNoPosts
-}) => {
+function PostListScroll({ data }: Journeys) {
   const dispatch = useDispatch();
+  const place = useParams().place;
+  const [showFilter, setShowFilter] = useState(false);
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
-  const searchKeyword = useSelector(selectKeyword);
-  const popularTravelKeyword = useSelector(selectPopularTravelKeyword);
+  const selectedPlace = useSelector(selectPlace);
   const SelectedAge = useSelector(AddSelectedAge);
   const SelectedStatus = useSelector(AddSelectedStatus);
   const SelectedStartDate = useSelector(AddSelectedStartDate);
   const SelectedEndDate = useSelector(AddSelectedEndDate);
-  const keyword = searchKeyword || popularTravelKeyword;
-  const [journeys, setJourneys] = useState<Type>({ dtoList: [] });
   const [localTotalPage, setLocalTotalPage] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getJourneyList().then((res) => {
-        setJourneys(res || { dtoList: [] });
-      });
-    };
-
-    fetchData();
-  }, []);
-
   // 키워드를 기반으로 게시물 필터링
-  const filteredJourneys = journeys.dtoList.filter((journey) => {
-    const includesKeywordOrTitle =
-      journey.city.toLowerCase().includes(keyword) ||
-      journey.title.toLowerCase().includes(keyword);
+  const filteredJourneys = data.dtoList.filter((journey) => {
+    const journeyStartDate = new Date(journey.startDate).toISOString();
+    const journeyEndDate = new Date(journey.endDate).toISOString();
 
-    if (includesKeywordOrTitle) {
-      const journeyStartDate = new Date(journey.startDate).toISOString();
-      const journeyEndDate = new Date(journey.endDate).toISOString();
+    const meetsAgeCriteria = !SelectedAge || journey.memberAge! >= SelectedAge;
+    const meetsSelectedStatus =
+      !SelectedStatus || journey.status === SelectedStatus;
+    const meetsStartDateCriteria =
+      !SelectedStartDate || journeyStartDate >= SelectedStartDate;
+    const meetsEndDateCriteria =
+      !SelectedEndDate || journeyEndDate <= SelectedEndDate;
 
-      const meetsAgeCriteria =
-        !SelectedAge || parseInt(journey.memberAge, 10) >= SelectedAge;
-      const meetsSelectedStatus =
-        !SelectedStatus || journey.status === SelectedStatus;
-      const meetsStartDateCriteria =
-        !SelectedStartDate || journeyStartDate >= SelectedStartDate;
-      const meetsEndDateCriteria =
-        !SelectedEndDate || journeyEndDate <= SelectedEndDate;
-
-      return (
-        meetsAgeCriteria &&
-        meetsSelectedStatus &&
-        meetsStartDateCriteria &&
-        meetsEndDateCriteria
-      );
-    }
+    return (
+      meetsAgeCriteria &&
+      meetsSelectedStatus &&
+      meetsStartDateCriteria &&
+      meetsEndDateCriteria
+    );
     return false;
   });
 
@@ -120,67 +77,87 @@ const PostListScroll: React.FC<PostListScrollProps> = ({
 
   // 필터링된 포스트 배열 길이 값 관리
   useEffect(() => {
-    if (filteredJourneys.length === 0) {
-      onNoPosts();
-    } else {
-      onShowTitleBox();
-    }
-
     const newLocalTotalPage = filteredJourneys.length;
     setLocalTotalPage(newLocalTotalPage);
-  }, [
-    filteredJourneys,
-    onNoPosts,
-    onShowTitleBox,
-    displayCount,
-    dispatch,
-    localTotalPage
-  ]);
+  }, [filteredJourneys, localTotalPage]);
 
   useEffect(() => {
     dispatch(setTotalPage(localTotalPage));
   }, [localTotalPage, dispatch]);
 
+  const handleFilterClick = () => {
+    if (showFilter) {
+      dispatch(reset());
+    }
+    setShowFilter((prev) => !prev);
+  };
+
   return (
     <>
-      {filteredJourneys.length === 0 ? (
-        <pls.noPost>게시글이 없어요.</pls.noPost>
-      ) : (
-        filteredJourneys.slice(0, displayCount).map((journey: any) => (
-          <pls.postBox key={journey.id}>
-            <pls.contentsBox>
-              <pls.contentsTopBox>
-                <pls.postDibsBtn>
-                  <img src={recruitingImage} alt='Recruiting Image' />
-                </pls.postDibsBtn>
-                <pls.postPeriod>
-                  {journey.startDate}~{journey.endDate}
-                </pls.postPeriod>
-              </pls.contentsTopBox>
+      <TitleBox>
+        <MainTitle>{place ? `${place} 일정` : '동행일정'}</MainTitle>
+        <TapTitle2>
+          <span>· {data.dtoList.length}개 </span>동행일정을 둘러보세요.
+          <FilterButton
+            src={showFilter ? fillterIcon : fillterIconNone}
+            onClick={handleFilterClick}
+          />
+        </TapTitle2>
 
-              <pls.postContent>
-                <pls.postTitle>
-                  [{journey.city}] {journey.title}
-                </pls.postTitle>
-              </pls.postContent>
-
-              <pls.postNickname>
-                <pls.userImgNone src={userImgNone}></pls.userImgNone>
-                {journey.memberName}
-              </pls.postNickname>
-            </pls.contentsBox>
-
-            <pls.postImgBox>
-              <pls.postImg
-                src={journey.journeyImgRequestDtoList[0]?.path}
-                alt='유저 프로필'
-              />
-            </pls.postImgBox>
-          </pls.postBox>
-        ))
-      )}
+        {showFilter && <SelectButton />}
+      </TitleBox>
+      <PostCardContianer>
+        {data.dtoList.length === 0 ? (
+          <NoPost />
+        ) : (
+          data.dtoList
+            .slice(0, displayCount)
+            .map((journey: any) => (
+              <PostCard key={journey.id} data={journey} isListType={true} />
+            ))
+        )}
+      </PostCardContianer>
     </>
   );
-};
+}
+
+const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+`;
+
+const MainTitle = styled.div`
+  ${(props) => props.theme.texts.mainTitle};
+  width: 100%;
+  margin-bottom: 8px;
+`;
+
+const TapTitle2 = styled.div`
+  ${(props) => props.theme.texts.tapTitle2};
+  width: 100%;
+  margin-bottom: 16px;
+  position: relative;
+
+  & span {
+    color: ${(props) => props.theme.colors.primary};
+  }
+`;
+
+const FilterButton = styled.img`
+  right: 0;
+  position: absolute;
+  cursor: pointer;
+`;
+
+const PostCardContianer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 40vh;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
 
 export default PostListScroll;

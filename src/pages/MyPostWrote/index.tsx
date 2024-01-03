@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import * as mcl from './myPostWroteStyle';
-import * as gs from '../../styles/GlobalStyles';
-import UserList from '../../components/UserList';
-import listIcon from '../../asset/listIcon.svg';
-import TitleIcon from '../../asset/titleIcon.svg';
 import { useUserId } from '../../hooks/useUserId';
 import { getMyPostList } from '../../apis/api/journey';
 import { JourneyProps } from '../../types/journeyData';
+import TypeButton from '../../components/@atoms/TypeButton';
+import styled from 'styled-components';
+import { MainContainer } from '../../styles/GlobalStyles';
+import PostCard from '../../components/PostCard';
+import NoPost from '../../components/NoPost';
 
 const MyPostWrote: React.FC = () => {
   const userId = useUserId();
   const initialDisplayCount = 5;
   const [displayCount, setDisplayCount] = useState(initialDisplayCount);
-  const [isListIconClicked, setListIconClicked] = useState(true);
+  const [isListType, setIsListType] = useState<boolean>(true);
   const [journeys, setJourneys] = useState<JourneyProps[]>([]);
 
   useEffect(() => {
@@ -40,50 +40,26 @@ const MyPostWrote: React.FC = () => {
     };
   }, []);
 
-  const handleTitleIconClick = () => {
-    setListIconClicked(false);
-  };
-
-  const handleListIconClick = () => {
-    setListIconClicked(true);
-  };
-
   return (
-    <gs.MainContainer>
-      <mcl.TitleListIconBox>
-        <mcl.ListIcon
-          src={listIcon}
-          onClick={handleListIconClick}
-        ></mcl.ListIcon>
-        <mcl.TitleIcon
-          src={TitleIcon}
-          onClick={handleTitleIconClick}
-        ></mcl.TitleIcon>
-      </mcl.TitleListIconBox>
-      <mcl.DataUserPost>
+    <MainContainer>
+      <TypeButton setIsListType={setIsListType} />
+      <PostContainer>
         {journeys.length === 0 ? (
-          <mcl.noPost>게시글이 없어요.</mcl.noPost>
+          <NoPost />
         ) : (
           journeys.slice(0, displayCount).map((data, index) => {
-            return (
-              <UserList
-                key={index}
-                id={data.id!}
-                memberName={data.memberName!}
-                imgurl={data.journeyImgRequestDtoList[0]?.path}
-                city={data.city}
-                title={data.title}
-                content={data.content}
-                startDate={data.startDate}
-                endDate={data.endDate}
-                isListIconClicked={isListIconClicked}
-              />
-            );
+            return <PostCard key={index} data={data} isListType={isListType} />;
           })
         )}
-      </mcl.DataUserPost>
-    </gs.MainContainer>
+      </PostContainer>
+    </MainContainer>
   );
 };
+const PostContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  gap: 20px;
+`;
 
 export default MyPostWrote;

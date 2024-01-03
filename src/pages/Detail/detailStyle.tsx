@@ -47,7 +47,6 @@ export const InfoText = styled.p`
 
 export const UserIntroText = styled.p`
   ${(props) => props.theme.texts.content2};
-  color: ${(props) => props.theme.colors.neutral3};
   word-spacing: 5px;
 `;
 

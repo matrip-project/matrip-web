@@ -67,7 +67,7 @@ function App() {
           <Route path='/mapSearch' element={<MapSearch />} />
           <Route path='/companionList' element={<CompanionList />} />
           <Route path='/management' element={<Management />} />
-          <Route path='/popularTravel' element={<PopularTravel />} />
+          <Route path='/popularTravel/:place' element={<PopularTravel />} />
           <Route path='/companionLog' element={<TabMenu tabs={companions} />}>
             <Route
               path='/companionLog/myInterest'

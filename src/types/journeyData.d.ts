@@ -29,3 +29,8 @@ export interface PlanProps {
   day: number;
   content: string;
 }
+
+interface DataType {
+  dtoList: JourneyProps[];
+  totalPage?: number;
+}
