@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 import Select from 'react-select';
 import styled from 'styled-components';
-import { DateRange } from 'react-date-range';
 import dropdownIcon from '../../asset/dropdownIcon.svg';
 import {
   setPlace,
@@ -11,10 +13,7 @@ import {
   setSelectedStartDate,
   setSelectedStatus
 } from '../../redux/modules/searchSlice';
-import { useDispatch } from 'react-redux';
-import { useTheme } from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import dayjs from 'dayjs';
+import DatePick from '../DatePick';
 
 const place = [
   { value: '서울', label: '서울' },
@@ -52,7 +51,6 @@ const Recruitment = [
 
 const SelectButton: React.FC = () => {
   const dispatch = useDispatch();
-  const theme = useTheme();
   const location = useLocation().pathname;
 
   // date
@@ -139,14 +137,9 @@ const SelectButton: React.FC = () => {
       </SelectBox>
       <DateComponentcalendar>
         {datePickerVisible && (
-          <DateRange
-            editableDateInputs={true}
-            onChange={handleRangeChange}
-            moveRangeOnFirstSelection={false}
-            rangeColors={[theme.colors.primary]}
-            ranges={dateRange}
-            months={1}
-            direction='horizontal'
+          <DatePick
+            dateRange={dateRange}
+            handleRangeChange={handleRangeChange}
           />
         )}
       </DateComponentcalendar>
