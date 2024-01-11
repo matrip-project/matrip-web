@@ -25,6 +25,8 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       await getJourneyList().then((res) => {
+        console.log(res);
+
         setJourneys(res || { dtoList: [] });
       });
     };
