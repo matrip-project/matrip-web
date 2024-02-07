@@ -1,11 +1,11 @@
 import { baseAPI } from '../axiosInstance';
 
 interface FilterProps {
-  place: string | '';
-  age: number | '';
+  place: string | null;
+  age: number | 0;
   status: string | 'ACTIVE';
-  startDate: string | '';
-  endDate: string | '';
+  startDate: string | null;
+  endDate: string | null;
 }
 
 export const getJourneyList = async () => {
@@ -42,10 +42,20 @@ export const getFilteredList = async ({
   startDate,
   endDate
 }: FilterProps) => {
+  let query = `/journeys?status=${status}&`;
+
+  if (place) {
+    query += `city=${place}&`;
+  }
+  if (age > 0) {
+    query += `age=${age}&`;
+  }
+  if (startDate) {
+    query += `startDate=${startDate}&endDate=${endDate}&`;
+  }
+
   try {
-    const { data } = await baseAPI.get(
-      `/journeys?city=${place}&startDate=${startDate}&endDate=${endDate}&status=${status}&age=${age}`
-    );
+    const { data } = await baseAPI.get(query);
     return data;
   } catch (error) {
     console.log('get filtered list fail:', error);

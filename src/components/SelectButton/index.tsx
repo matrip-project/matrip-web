@@ -36,12 +36,12 @@ const genderOptions = [
 ];
 
 const age = [
-  { value: '10대', label: '10대' },
-  { value: '20대', label: '20대' },
-  { value: '30대', label: '30대' },
-  { value: '40대', label: '40대' },
-  { value: '50대', label: '50대' },
-  { value: '60대이상', label: '60대이상' }
+  { value: 10, label: '10대' },
+  { value: 20, label: '20대' },
+  { value: 30, label: '30대' },
+  { value: 40, label: '40대' },
+  { value: 50, label: '50대' },
+  { value: 60, label: '60대이상' }
 ];
 
 const Recruitment = [
@@ -64,8 +64,7 @@ const SelectButton: React.FC = () => {
   ]);
 
   const handleAgeChange = (selectedOption: any) => {
-    const numericValue = parseInt(selectedOption.value);
-    dispatch(setSelectedAge(numericValue));
+    dispatch(setSelectedAge(selectedOption.value));
   };
 
   const handleStatusChange = (selectedOption: any) => {

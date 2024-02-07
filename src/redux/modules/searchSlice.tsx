@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 interface SearchState {
   keyword: string | null;
   place: string | null;
-  selectedAge: number | null;
+  selectedAge: number | 0;
   selectedStatus: string | null;
   selectedStartDate: string | null;
   selectedEndDate: string | null;
@@ -12,7 +12,7 @@ interface SearchState {
 const initialState: SearchState = {
   keyword: '',
   place: null,
-  selectedAge: null,
+  selectedAge: 0,
   selectedStatus: null,
   selectedStartDate: null,
   selectedEndDate: null
@@ -28,7 +28,7 @@ export const searchSlice = createSlice({
     setPlace: (state, action: PayloadAction<string>) => {
       state.place = action.payload;
     },
-    setSelectedAge: (state, action: PayloadAction<number | null>) => {
+    setSelectedAge: (state, action: PayloadAction<number | 0>) => {
       state.selectedAge = action.payload;
     },
     setSelectedStatus: (state, action: PayloadAction<string | null>) => {
