@@ -1,5 +1,9 @@
-import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { ReactComponent as Logo } from '../../asset/logo.svg';
+
+export const LoginLogo = styled(Logo)`
+  margin: 20px 0 50px 0;
+`;
 
 export const LoginForm = styled.form`
   width: 100%;
@@ -24,7 +28,7 @@ export const OptionBox = styled.div`
 `;
 
 export const SignupBtn = styled.button`
-  background-color: ${props => props.theme.colors.neutral2};
+  background-color: ${(props) => props.theme.colors.neutral2};
   border: none;
   border-radius: 35px;
   width: 100%;
@@ -34,7 +38,7 @@ export const SignupBtn = styled.button`
 `;
 
 export const SubmitBtn = styled.button`
-  background-color: ${props => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.primary};
   border: none;
   border-radius: 35px;
   width: 100%;
@@ -46,7 +50,7 @@ export const SubmitBtn = styled.button`
 export const TextBtn = styled.button`
   background-color: transparent;
   border: none;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   font-size: 13px;
 `;
 
@@ -86,5 +90,3 @@ export const GoogleIcon = styled.div`
   border: solid 1px #dcdcdc;
   border-radius: 50%;
 `;
-
-
