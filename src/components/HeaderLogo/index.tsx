@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from '../../asset/logo.png';
+import logo from '../../asset/logo.svg';
 
 const HeaderLogo: React.FC = () => {
   return (

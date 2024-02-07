@@ -1,17 +1,10 @@
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as ls from './loginStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
-import {
-  Spacer,
-  InputLabel,
-  Text,
-  CheckBox,
-  Image
-} from '../../components/@atoms';
-
+import { Spacer, InputLabel, Text, CheckBox } from '../../components/@atoms';
 import useLogin from '../../hooks/useLogin';
 
 function Login() {
@@ -35,7 +28,7 @@ function Login() {
     <gs.MainContainer>
       <Header edit={false} />
       <gs.MainBox>
-        <Image height={100} />
+        <ls.LoginLogo />
         <ls.LoginForm onSubmit={handleLogin}>
           <ls.InputBox>
             <InputLabel label='이메일' />

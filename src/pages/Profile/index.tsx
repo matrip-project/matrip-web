@@ -1,4 +1,3 @@
-import React from 'react';
 import * as gs from '../../styles/GlobalStyles';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,11 +8,8 @@ import LoadingIncdicator from '../../components/LoadingIncdicator';
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 import { MdShare } from 'react-icons/md';
 import rightIcon from '../../asset/arrowRight.svg';
-
 import { ReactComponent as ProfileIcon } from '../../asset/profileNone.svg';
-
 import { userDataEx } from '../../data/userDummyData';
-
 import { useUserInfoQuery } from '../../query-hooks/userDataQueries';
 
 const HISTROY = ['관심 동행 목록', '내가 쓴 글'];
