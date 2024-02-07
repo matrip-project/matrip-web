@@ -38,13 +38,13 @@ function PostListScroll({ data }: Journeys) {
   useEffect(() => {
     const fetchData = async () => {
       await getFilteredList({
-        place: selectedPlace || '',
+        place: selectedPlace || null,
         age: selectedAge || 0,
         status: selectedStatus || 'ACTIVE',
-        startDate: selectedStartDate || '',
-        endDate: selectedEndDate || ''
+        startDate: selectedStartDate || null,
+        endDate: selectedEndDate || null
       }).then((res) => {
-        setJourney(res || []);
+        setJourney({ dtoList: res.dtoList || [] });
       });
     };
 
