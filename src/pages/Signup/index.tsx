@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import * as gs from '../../styles/GlobalStyles';
 import * as ss from './signupStyle';
@@ -9,14 +9,10 @@ import RequiredInputSelect from '../../components/RequiredInputSelect';
 import {
   CheckBox,
   Spacer,
-  Text,
   InputLabel,
   ErrMessage
 } from '../../components/@atoms';
-
 import BottomAlert from '../../components/Alert';
-
-import { postSignup } from '../../apis/api/signupApi';
 import { validateInput } from '../../utils/signUpValidation';
 import { submitSignup } from '../../utils/sybmitSignUp';
 import useSignupInput from '../../hooks/useSignup';
@@ -64,7 +60,7 @@ function Signup() {
     marketing: false
   });
 
-  const handleAllCheck = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleAllCheck = () => {
     setEventTerm(!eventTerm);
     setIsTerm({
       age: !eventTerm,

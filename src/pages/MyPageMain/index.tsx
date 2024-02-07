@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import rightIcon from '../../asset/arrowRight.svg';
 import { Text, Spacer } from '../../components/@atoms';
-import UserIntro from '../../components/UserIntro';
 import Header from '../../components/Header';
-import { useAppSelector } from '../../redux/hooks';
 import { ReactComponent as ProfileIcon } from '../../asset/profileNone.svg';
 import * as hs from '../Home/homeStyle';
 import share from '../../asset/share.svg';
@@ -100,11 +98,6 @@ const MyPageMain = () => {
 
 export default MyPageMain;
 
-const MenuContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const MenuLable = styled.div`
   display: flex;
   flex-direction: row;
@@ -128,5 +121,3 @@ const LinkToEach = styled(Link)`
   width: 100%;
   height: 58px;
 `;
-
-const UseProfile = styled.div``;
