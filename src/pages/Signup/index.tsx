@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import * as gs from '../../styles/GlobalStyles';
 import * as ss from './signupStyle';
@@ -9,16 +9,15 @@ import RequiredInputSelect from '../../components/RequiredInputSelect';
 import {
   CheckBox,
   Spacer,
-  Text,
   InputLabel,
   ErrMessage
 } from '../../components/@atoms';
-
 import BottomAlert from '../../components/Alert';
+import { validateInput } from '../../utils/signUpValidation';
+import { submitSignup } from '../../utils/sybmitSignUp';
+import useSignupInput from '../../hooks/useSignup';
 
-import { postSignup } from '../../apis/api/signupApi';
-
-type SignupInput = {
+export interface SignupInputProps {
   email: string;
   password: string;
   passwordCheck: string;
@@ -26,24 +25,31 @@ type SignupInput = {
   birthDate: Date | null;
   name: string;
   nickName: string;
+}
+
+const initialState = {
+  email: '',
+  password: '',
+  passwordCheck: '',
+  gender: '',
+  birthDate: null,
+  name: '',
+  nickName: ''
+};
+
+const labelObj = {
+  age: '만 14세이상 입니다',
+  use: '이용약관 동의',
+  privacy: '개인정보 수집 및 이용에 대한 동의',
+  marketing: '개인정보 수집 및 이용안내'
 };
 
 function Signup() {
-  const [input, setInput] = useState<SignupInput>({
-    email: '',
-    password: '',
-    passwordCheck: '',
-    gender: '',
-    birthDate: null,
-    name: '',
-    nickName: ''
-  });
-
+  const { input, setInput, handleInputChange } = useSignupInput(initialState);
   const [isValid, setIsValid] = useState({
     isPasswordValid: true,
     isNicknameValid: true
   });
-
   const [eventTerm, setEventTerm] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
@@ -54,31 +60,7 @@ function Signup() {
     marketing: false
   });
 
-  const labelObj = {
-    age: '만 14세이상 입니다',
-    use: '이용약관 동의',
-    privacy: '개인정보 수집 및 이용에 대한 동의',
-    marketing: '개인정보 수집 및 이용안내'
-  };
-
-  // !! TODO 이메일, 비밀번호 유효성 검사
-  // !! 생일 input 숫자만 입력 제한
-  // !! 알람창 UI 수정
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInput((prevState) => ({ ...prevState, [name]: value }));
-    // 비밀번호 유효성 검사
-    if (name === 'password' || name === 'passwordCheck') {
-      if (value !== input.password && value !== input.passwordCheck) {
-        setIsValid((prevState) => ({ ...prevState, isPasswordValid: false }));
-      } else {
-        setIsValid((prevState) => ({ ...prevState, isPasswordValid: true }));
-      }
-    }
-  };
-
-  const handleAllCheck = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleAllCheck = () => {
     setEventTerm(!eventTerm);
     setIsTerm({
       age: !eventTerm,
@@ -93,37 +75,28 @@ function Signup() {
     setIsTerm((prevState) => ({ ...prevState, [name]: checked }));
   };
 
-  const handleBirthdateChange = useCallback((newBirthdate: Date) => {
-    setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
-  }, []);
+  const handleBirthdateChange = useCallback(
+    (newBirthdate: Date) => {
+      setInput((prevState) => ({ ...prevState, birthDate: newBirthdate }));
+    },
+    [setInput]
+  );
 
   const handleSelectedChange = (selected: number) => {
     console.log(`Selected index: ${selected}`);
   };
 
   const handleSignup = async () => {
+    if (!validateInput(input)) {
+      return;
+    }
     try {
-      const { email, password, name, birthDate, nickName: nickname } = input;
-      if (birthDate === null) {
-        console.log('Birth date is not selected');
-        return;
-      }
-      const response = await postSignup({
-        email,
-        password,
-        name,
-        birth: birthDate,
-        nickname
-      });
-      // response 데이터 저장하는 로직 추가
+      const response = await submitSignup(input);
       console.log(response);
       setIsAlertOpen(true);
     } catch (err) {
       console.log(err);
     }
-
-    // 유효성 검사 로직 추가
-    // 배경 블러처리, 클릭 막기
   };
 
   const handleCloseAlert = () => {

@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as gs from '../../styles/GlobalStyles';
-import * as cs from './popularTravelStyle';
-import fillterIcon from '../../asset/fillterIcon.svg';
-import fillterIconNone from '../../asset/fillterIconNone.svg';
 import 부산 from '../../asset/popularImg/busan.png';
 import 충북 from '../../asset/popularImg/choongbuk.png';
 import 충남 from '../../asset/popularImg/choongnam.png';
@@ -15,30 +12,20 @@ import 제주 from '../../asset/popularImg/jeju.png';
 import 전북 from '../../asset/popularImg/jeonbuk.png';
 import 전남 from '../../asset/popularImg/jeonnam.png';
 import Search from '../../components/Search';
-import { useSelector } from 'react-redux';
-import PostListScroll from '../../components/PostListScroll';
-import { selectPopularTravelKeyword } from '../../redux/modules/keywordImgSlice';
-import SelectButton from '../../components/SelectButton';
 import HeaderLogo from '../../components/HeaderLogo';
-import { selectTotalPage } from '../../redux/modules/totalPageSlice';
+import { getPopularTravelList } from '../../apis/api/journey';
+import { DataType } from '../../types/journeyData';
+import { useParams } from 'react-router-dom';
+import PostListScroll from '../../components/PostListScroll';
+import styled from 'styled-components';
 
 interface CityImages {
   [key: string]: any;
 }
 
 const PopularTravel: React.FC = () => {
-  const [isFilterClicked, setIsFilterClicked] = useState(true);
-  const Popularkeyword = useSelector(selectPopularTravelKeyword);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const totalPage = useSelector(selectTotalPage);
-
-  const handleFilterClick = () => {
-    setIsFilterClicked((prev) => !prev);
-  };
-
-  const handleNoPosts = () => {};
-  const handleShowTitleBox = () => {};
-
+  const [journeys, setJourneys] = useState<DataType>({ dtoList: [] });
+  const place = useParams().place;
   const cityImages: CityImages = {
     부산,
     충북,
@@ -53,41 +40,45 @@ const PopularTravel: React.FC = () => {
     전남
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (place) {
+        await getPopularTravelList(place).then((res) => {
+          setJourneys(res || { dtoList: [] });
+        });
+      }
+    };
+
+    fetchData();
+  }, [place]);
+
   return (
     <>
       <gs.MainContainer>
         <gs.MainBox>
           <HeaderLogo />
           <Search />
-          <cs.PopularImageContainer>
-            <cs.PopularImage
-              src={cityImages[Popularkeyword]}
-              alt={Popularkeyword}
-              onLoad={() => setIsImageLoaded(true)}
-            />
-          </cs.PopularImageContainer>
-
-          <cs.TitleBox>
-            <cs.MainTitle>{Popularkeyword} 일정</cs.MainTitle>
-            <cs.tapTitle2>
-              <span>· {totalPage}개 </span>동행일정을 둘러보세요.
-              <cs.tapTitle2Fillter
-                src={isFilterClicked ? fillterIconNone : fillterIcon}
-                onClick={handleFilterClick}
-              />
-            </cs.tapTitle2>
-
-            {!isFilterClicked && <SelectButton />}
-          </cs.TitleBox>
-
-          <PostListScroll
-            onShowTitleBox={handleShowTitleBox}
-            onNoPosts={handleNoPosts}
-          />
+          <PopularImageContainer>
+            <PopularImage src={cityImages[place!]} alt={place} />
+          </PopularImageContainer>
+          <PostListScroll data={journeys} />
         </gs.MainBox>
       </gs.MainContainer>
     </>
   );
 };
+
+const PopularImageContainer = styled.div`
+  width: 390px;
+  height: 200px;
+  overflow: hidden;
+  margin-bottom: 30px;
+`;
+
+const PopularImage = styled.img`
+  width: 390px;
+  height: 200px;
+  object-fit: cover;
+`;
 
 export default PopularTravel;

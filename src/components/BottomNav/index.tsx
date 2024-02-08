@@ -1,9 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getColor } from '../../utils/colorUtils';
-import { useDispatch } from 'react-redux';
-import { setKeyword } from '../../redux/modules/keywordImgSlice';
 import navHomeIcon from '../../asset/navHomeIcon.svg';
 import navAccompanyIcon from '../../asset/navAccompanyIcon.svg';
 import navPopularIcon from '../../asset/navPopularIcon.svg';
@@ -15,7 +13,19 @@ import navNoneMypage from '../../asset/navNoneMypage.svg';
 
 function BottomNav() {
   const [activeIcons, setActiveIcons] = useState<number[]>([1, 0, 0, 0]);
-  const dispatch = useDispatch();
+  const path = useLocation().pathname;
+
+  useEffect(() => {
+    if (path === '/companionList') {
+      setActiveIcons([0, 1, 0, 0]);
+    } else if (path.includes('/popularTravel')) {
+      setActiveIcons([0, 0, 1, 0]);
+    } else if (path === '/mypage') {
+      setActiveIcons([0, 0, 0, 1]);
+    } else if (path === '/') {
+      setActiveIcons([1, 0, 0, 0]);
+    }
+  }, [path]);
 
   const getIconImage = (index: number) => {
     if (activeIcons[index - 1]) {
@@ -49,10 +59,6 @@ function BottomNav() {
 
   const handleIconClick = (index: number) => {
     setActiveIcons((prev) => prev.map((_, i) => (i === index - 1 ? 1 : 0)));
-
-    if (index === 3) {
-      dispatch(setKeyword('제주'));
-    }
   };
 
   return (
@@ -60,37 +66,37 @@ function BottomNav() {
       <NavWrap>
         <NavBtn onClick={() => handleIconClick(1)} to={'/'}>
           <StyledILine $isActive={activeIcons[0] === 1} />
-          <StyledIconHome
+          <StyledIcon
             src={getIconImage(1)}
             $isActive={activeIcons[0] === 1}
-            alt='홈 아이콘'
+            alt='홈'
           />
           <StyledText>홈</StyledText>
         </NavBtn>
         <NavBtn onClick={() => handleIconClick(2)} to={'/companionList'}>
           <StyledILine $isActive={activeIcons[1] === 1} />
-          <StyledIconAccompany
+          <StyledIcon
             src={getIconImage(2)}
             $isActive={activeIcons[1] === 1}
-            alt='동행 아이콘'
+            alt='동행'
           />
           <StyledText>동행리스트</StyledText>
         </NavBtn>
-        <NavBtn onClick={() => handleIconClick(3)} to={'/PopularTravel'}>
+        <NavBtn onClick={() => handleIconClick(3)} to={'/popularTravel/제주'}>
           <StyledILine $isActive={activeIcons[2] === 1} />
-          <StyledIconPopular
+          <StyledIcon
             src={getIconImage(3)}
             $isActive={activeIcons[2] === 1}
-            alt='인기 여행 아이콘'
+            alt='인기 여행지'
           />
           <StyledText>인기여행지</StyledText>
         </NavBtn>
         <NavBtn onClick={() => handleIconClick(4)} to={'/mypage'}>
           <StyledILine $isActive={activeIcons[3] === 1} />
-          <StyledIconMy
+          <StyledIcon
             src={getIconImage(4)}
             $isActive={activeIcons[3] === 1}
-            alt='마이페이지 아이콘'
+            alt='마이페이지'
           />
           <StyledText>마이페이지</StyledText>
         </NavBtn>
@@ -118,7 +124,7 @@ const NavWrap = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 15px; */
+
   @media screen and (min-width: 390px) {
     width: 320px;
   }
@@ -151,19 +157,7 @@ const StyledText = styled.div`
   margin-top: 8px;
 `;
 
-const StyledIconHome = styled.img<{ $isActive: boolean }>`
-  margin-top: 13px;
-`;
-
-const StyledIconAccompany = styled.img<{ $isActive: boolean }>`
-  margin-top: 13px;
-`;
-
-const StyledIconPopular = styled.img<{ $isActive: boolean }>`
-  margin-top: 13px;
-`;
-
-const StyledIconMy = styled.img<{ $isActive: boolean }>`
+const StyledIcon = styled.img<{ $isActive: boolean }>`
   margin-top: 13px;
 `;
 

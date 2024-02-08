@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface SearchState {
-  keyword: string;
-  selectedAge: number | null;
+  keyword: string | null;
+  place: string | null;
+  selectedAge: number | 0;
   selectedStatus: string | null;
   selectedStartDate: string | null;
   selectedEndDate: string | null;
@@ -10,7 +11,8 @@ interface SearchState {
 
 const initialState: SearchState = {
   keyword: '',
-  selectedAge: null,
+  place: null,
+  selectedAge: 0,
   selectedStatus: null,
   selectedStartDate: null,
   selectedEndDate: null
@@ -23,7 +25,10 @@ export const searchSlice = createSlice({
     setKeyword: (state, action: PayloadAction<string>) => {
       state.keyword = action.payload;
     },
-    setSelectedAge: (state, action: PayloadAction<number | null>) => {
+    setPlace: (state, action: PayloadAction<string>) => {
+      state.place = action.payload;
+    },
+    setSelectedAge: (state, action: PayloadAction<number | 0>) => {
       state.selectedAge = action.payload;
     },
     setSelectedStatus: (state, action: PayloadAction<string | null>) => {
@@ -34,31 +39,39 @@ export const searchSlice = createSlice({
     },
     setSelectedEndDate: (state, action: PayloadAction<string | null>) => {
       state.selectedEndDate = action.payload;
+    },
+    reset: () => {
+      return initialState;
     }
   }
 });
 
 export const {
   setKeyword,
+  setPlace,
   setSelectedAge,
   setSelectedStatus,
   setSelectedStartDate,
-  setSelectedEndDate
+  setSelectedEndDate,
+  reset
 } = searchSlice.actions;
 
 export const selectKeyword = (state: { search: SearchState }) =>
   state.search.keyword;
 
-export const AddSelectedAge = (state: { search: SearchState }) =>
+export const selectPlace = (state: { search: SearchState }) =>
+  state.search.place;
+
+export const selectAge = (state: { search: SearchState }) =>
   state.search.selectedAge;
 
-export const AddSelectedStatus = (state: { search: SearchState }) =>
+export const selectStatus = (state: { search: SearchState }) =>
   state.search.selectedStatus;
 
-export const AddSelectedStartDate = (state: { search: SearchState }) =>
+export const selectStartDate = (state: { search: SearchState }) =>
   state.search.selectedStartDate;
 
-export const AddSelectedEndDate = (state: { search: SearchState }) =>
+export const selectEndDate = (state: { search: SearchState }) =>
   state.search.selectedEndDate;
 
 export default searchSlice.reducer;

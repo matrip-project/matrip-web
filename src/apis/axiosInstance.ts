@@ -9,14 +9,13 @@ export const baseAPI = axios.create({
 });
 
 export const authAPI = axios.create({
-
-    baseURL: baseURL,
-    headers: {
-      // TODO 추후 토큰값 받아오는 로직 추가
-      // Authorization: `bearer ${token}`,
-      Authorization: sessionStorage.getItem('authToken')
-    },
-    withCredentials: true
-  });
+  baseURL: baseURL,
+  headers: {
+    // TODO 추후 토큰값 받아오는 로직 추가
+    // Authorization: `bearer ${token}`,
+    Authorization: localStorage.getItem('authToken')
+  },
+  withCredentials: true
+});
 
 // 인증 만료시 토큰 재발급

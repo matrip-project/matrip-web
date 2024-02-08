@@ -1,31 +1,16 @@
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as gs from '../../styles/GlobalStyles';
 import * as ls from './loginStyle';
 import Header from '../../components/Header';
 import FormInput from '../../components/FormInput';
-import {
-  Spacer,
-  InputLabel,
-  Text,
-  CheckBox,
-  Image
-} from '../../components/@atoms';
-
-import { postLogin } from '../../apis/api/loginApi';
-import { getUserData } from '../../apis/api/userData';
-import { useAppDispatch } from '../../redux/hooks';
-import { loginSuccess, fetchUserData } from '../../redux/modules/userDataSlice';
+import { Spacer, InputLabel, Text, CheckBox } from '../../components/@atoms';
+import useLogin from '../../hooks/useLogin';
 
 function Login() {
-  const [input, setInput] = useState({
-    email: '',
-    password: ''
-  });
+  const { input, handleInputChange, handleLogin } = useLogin();
   const [isAutoLogin, setIsAutoLogin] = useState(false);
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     return () => {
@@ -35,30 +20,6 @@ function Login() {
     };
   }, [isPasswordCorrect]);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInput((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { email, password } = input;
-      const res = await postLogin({ email, password });
-      if (res) {
-        sessionStorage.setItem('authToken', res.data.token);
-        sessionStorage.setItem('myId', res.data.id);
-        const userData = await getUserData(res.data.id);
-        sessionStorage.setItem('userData', JSON.stringify(userData));
-        // dispatch(loginSuccess(res.data.id));
-        // dispatch(fetchUserData(res.data.id));
-        navigate('/');
-      }
-    } catch (e) {
-      setIsPasswordCorrect(true);
-    }
-  };
-
   const handleCheck = () => {
     setIsAutoLogin(!isAutoLogin);
   };
@@ -67,7 +28,7 @@ function Login() {
     <gs.MainContainer>
       <Header edit={false} />
       <gs.MainBox>
-        <Image height={100} />
+        <ls.LoginLogo />
         <ls.LoginForm onSubmit={handleLogin}>
           <ls.InputBox>
             <InputLabel label='이메일' />

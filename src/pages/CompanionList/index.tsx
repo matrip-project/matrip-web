@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as gs from '../../styles/GlobalStyles';
-import * as cs from './CompanionListStyle';
-import fillterIcon from '../../asset/fillterIcon.svg';
-import fillterIconNone from '../../asset/fillterIconNone.svg';
 import searchIcon from '../../asset/searchIcon.svg';
 import Search from '../../components/Search';
 import { useSelector } from 'react-redux';
 import { selectKeyword } from '../../redux/modules/searchSlice';
 import PostListScroll from '../../components/PostListScroll';
-import SelectButton from '../../components/SelectButton';
 import HeaderLogo from '../../components/HeaderLogo';
-import { selectTotalPage } from '../../redux/modules/totalPageSlice';
+import { DataType } from '../../types/journeyData';
+import { getJourneyList, getSearchResult } from '../../apis/api/journey';
+import styled from 'styled-components';
 
 const CompanionList: React.FC = () => {
-  const [isFilterClicked, setIsFilterClicked] = useState(false);
-  const [showTitleBox, setShowTitleBox] = useState(true);
   const keyword = useSelector(selectKeyword);
-  const totalPage = useSelector(selectTotalPage);
+  const [journeys, setJourneys] = useState<DataType>({ dtoList: [] });
 
-  const handleFilterClick = () => {
-    setIsFilterClicked((prev) => !prev);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (keyword) {
+        await getSearchResult(keyword).then((res) => {
+          setJourneys(res || { dtoList: [] });
+        });
+      } else {
+        await getJourneyList().then((res) => {
+          setJourneys(res || { dtoList: [] });
+        });
+      }
+    };
 
-  const handleShowTitleBox = () => {
-    setShowTitleBox(true);
-  };
-
-  const handleNoPosts = () => {
-    setShowTitleBox(false);
-  };
+    fetchData();
+  }, [keyword]);
 
   return (
     <>
@@ -37,34 +37,37 @@ const CompanionList: React.FC = () => {
           <HeaderLogo />
           <Search />
           {keyword && (
-            <cs.searchResult>
-              <cs.searchResultIcon src={searchIcon}></cs.searchResultIcon>
-              {keyword} 검색 결과 입니다.
-            </cs.searchResult>
+            <SearchResult>
+              <SearchResultIcon src={searchIcon} />
+              <span>{keyword}</span>검색 결과 입니다.
+            </SearchResult>
           )}
-
-          {/* {showTitleBox && <></>} */}
-          <cs.TitleBox>
-            <cs.MainTitle>동행일정</cs.MainTitle>
-            <cs.tapTitle2>
-              <span>· {totalPage}개 </span>동행일정을 둘러보세요.
-              <cs.tapTitle2Fillter
-                src={isFilterClicked ? fillterIconNone : fillterIcon}
-                onClick={handleFilterClick}
-              />
-            </cs.tapTitle2>
-
-            {!isFilterClicked && <SelectButton />}
-          </cs.TitleBox>
-
-          <PostListScroll
-            onShowTitleBox={handleShowTitleBox}
-            onNoPosts={handleNoPosts}
-          />
+          <PostListScroll data={journeys} />
         </gs.MainBox>
       </gs.MainContainer>
     </>
   );
 };
+
+const SearchResult = styled.div`
+  ${(props) => props.theme.texts.resultValue2};
+  display: flex;
+  width: 100%;
+  margin-bottom: 36px;
+  margin-left: 24px;
+  align-items: center;
+
+  & span {
+    font-weight: 500;
+    margin-right: 5px;
+  }
+`;
+
+export const SearchResultIcon = styled.img`
+  margin-right: 9px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
 
 export default CompanionList;

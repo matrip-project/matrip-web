@@ -138,6 +138,15 @@ html{
 input, textarea {
   outline: none;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
 
 body{
   font-family: 'Noto Sans KR', sans-serif;

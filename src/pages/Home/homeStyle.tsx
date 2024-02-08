@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const TitleBox = styled.div`
@@ -18,8 +18,15 @@ export const tapTitle2 = styled.div`
   margin-bottom: 12px;
 
   & span {
-    color: #d30065;
+    color: ${(props) => props.theme.colors.primary};
   }
+`;
+
+export const PostCardContianer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
 `;
 
 export const buttonWrraperContainer = styled.div`
@@ -37,65 +44,24 @@ export const postContainer = styled.div`
 export const WriteBtn = styled.img``;
 
 export const ScheduleMoreBtn = styled(Link)`
+  ${(props) => props.theme.texts.content2};
   display: inline-flex;
   padding: 6px 14px 6px 16px;
-  align-items: flex-start;
   gap: 10px;
   border-radius: 48px;
-  border: 0.5px solid var(--Deactivation, #adadad);
-  background: #fff;
+  border: 0.5px solid ${(props) => props.theme.colors.neutral2};
   margin-bottom: 40px;
-
-  color: var(--sub, #666);
-  font-size: 10px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 12px;
-`;
-
-export const PopularTravel = styled.div`
-  ${(props) => props.theme.texts.mainTitle};
-  width: 100%;
-  text-align: left;
-  margin-bottom: 20px;
-  margin-left: 23px;
-`;
-
-export const PopularTravelBox = styled.div`
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-export const PopularImgbox = styled(Link)`
-  color: #000;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 22px;
-  text-align: center;
-  width: 107px;
-  aspect-ratio: 107 / 100;
-`;
-
-export const PopularImg = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
 `;
 
 export const InviteFriend = styled.button`
   display: inline-flex;
   padding: 12px 20px;
-  align-items: flex-start;
   gap: 6px;
   border-radius: 50px;
   border: 0px;
-  background: var(--Main-color, #d30065);
-  color: white;
-  margin-top: 40px;
+  background: ${(props) => props.theme.colors.primary};
+  margin: 30px 0 20px 0;
   color: ${(props) => props.theme.colors.white};
   font-size: 16px;
   font-style: normal;

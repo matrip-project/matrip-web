@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 import Select from 'react-select';
 import styled from 'styled-components';
-import { DateRange } from 'react-date-range';
 import dropdownIcon from '../../asset/dropdownIcon.svg';
 import {
+  setPlace,
   setSelectedAge,
   setSelectedEndDate,
   setSelectedStartDate,
   setSelectedStatus
 } from '../../redux/modules/searchSlice';
-import { useDispatch } from 'react-redux';
-import { useTheme } from 'styled-components';
+import DatePick from '../DatePick';
+
+const place = [
+  { value: '서울', label: '서울' },
+  { value: '경기', label: '경기' },
+  { value: '인천', label: '인천' },
+  { value: '부산', label: '부산' },
+  { value: '강원', label: '강원' },
+  { value: '제주', label: '제주' },
+  { value: '충남', label: '충남' },
+  { value: '충북', label: '충북' },
+  { value: '전남', label: '전남' },
+  { value: '전북', label: '전북' },
+  { value: '경남', label: '경남' },
+  { value: '경북', label: '경북' }
+];
 
 const genderOptions = [
   { value: '남성', label: '남성' },
@@ -19,12 +36,12 @@ const genderOptions = [
 ];
 
 const age = [
-  { value: '10대', label: '10대' },
-  { value: '20대', label: '20대' },
-  { value: '30대', label: '30대' },
-  { value: '40대', label: '40대' },
-  { value: '50대', label: '50대' },
-  { value: '60대이상', label: '60대이상' }
+  { value: 10, label: '10대' },
+  { value: 20, label: '20대' },
+  { value: 30, label: '30대' },
+  { value: 40, label: '40대' },
+  { value: 50, label: '50대' },
+  { value: 60, label: '60대이상' }
 ];
 
 const Recruitment = [
@@ -34,7 +51,7 @@ const Recruitment = [
 
 const SelectButton: React.FC = () => {
   const dispatch = useDispatch();
-  const theme = useTheme();
+  const location = useLocation().pathname;
 
   // date
   const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -47,14 +64,17 @@ const SelectButton: React.FC = () => {
   ]);
 
   const handleAgeChange = (selectedOption: any) => {
-    const numericValue = parseInt(selectedOption.value);
-    dispatch(setSelectedAge(numericValue));
+    dispatch(setSelectedAge(selectedOption.value));
   };
 
   const handleStatusChange = (selectedOption: any) => {
     const statusValue =
       selectedOption.value === '모집마감' ? 'DELETED' : 'ACTIVE';
     dispatch(setSelectedStatus(statusValue));
+  };
+
+  const handlePlaceChange = (selectedOption: any) => {
+    dispatch(setPlace(selectedOption.value));
   };
 
   const handleDateBoxBtnClick = () => {
@@ -66,27 +86,30 @@ const SelectButton: React.FC = () => {
 
     setDateRange([selectedRange]);
 
-    const updatedStartDate = new Date(selectedRange.startDate);
-    const updatedEndDate = new Date(selectedRange.endDate);
+    const updatedStartDate = dayjs(selectedRange.startDate).format(
+      'YYYY-MM-DD'
+    );
+    const updatedEndDate = dayjs(selectedRange.endDate).format('YYYY-MM-DD');
 
-    updatedStartDate.setDate(updatedStartDate.getDate() + 0.9);
-    updatedEndDate.setDate(updatedEndDate.getDate() + 1.1);
-
-    dispatch(setSelectedStartDate(updatedStartDate.toISOString()));
-    dispatch(setSelectedEndDate(updatedEndDate.toISOString()));
+    dispatch(setSelectedStartDate(updatedStartDate));
+    dispatch(setSelectedEndDate(updatedEndDate));
   };
+
   return (
     <>
       <SelectBox>
-        {/* <SelectBtn>
-          <Select
-            options={genderOptions}
-            placeholder='성별'
-            components={{ IndicatorSeparator: () => null }}
-          />
-        </SelectBtn> */}
+        {!location.includes('popularTravel') && (
+          <SelectBtn>
+            <StyledSelect
+              options={place}
+              placeholder='지역'
+              components={{ IndicatorSeparator: () => null }}
+              onChange={handlePlaceChange}
+            />
+          </SelectBtn>
+        )}
         <SelectBtn>
-          <Select
+          <StyledSelect
             options={age}
             placeholder='나이'
             components={{ IndicatorSeparator: () => null }}
@@ -103,7 +126,7 @@ const SelectButton: React.FC = () => {
         </SelectBtn>
 
         <SelectBtn>
-          <Select
+          <StyledSelect
             options={Recruitment}
             placeholder='모집상태'
             components={{ IndicatorSeparator: () => null }}
@@ -113,14 +136,9 @@ const SelectButton: React.FC = () => {
       </SelectBox>
       <DateComponentcalendar>
         {datePickerVisible && (
-          <DateRange
-            editableDateInputs={true}
-            onChange={handleRangeChange}
-            moveRangeOnFirstSelection={false}
-            rangeColors={[theme.colors.primary]}
-            ranges={dateRange}
-            months={1}
-            direction='horizontal'
+          <DatePick
+            dateRange={dateRange}
+            handleRangeChange={handleRangeChange}
           />
         )}
       </DateComponentcalendar>
@@ -132,38 +150,53 @@ export default SelectButton;
 
 const SelectBox = styled.div`
   ${(props) => props.theme.texts.menuSelect};
+  width: 90%;
   display: flex;
   gap: 6px;
   text-align: center;
-  color: gray;
   margin-bottom: 16px;
   white-space: nowrap;
-
-  .css-qbdosj-Input {
-    width: 100%;
-    z-index: -1;
-  }
-
-  .css-1fdsijx-ValueContainer {
-    padding-right: 0px;
-  }
 `;
 
 const SelectBtn = styled.div`
+  ${(props) => props.theme.texts.menuNone};
   min-width: 80px;
   height: 38px;
 `;
 
+const StyledSelect = styled(Select).attrs({
+  classNamePrefix: 'react-select'
+})`
+  .react-select__control {
+    border: 1px solid ${(props) => props.theme.colors.neutral1};
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .react-select__menu {
+    ${(props) => props.theme.texts.menuSelect};
+  }
+  .react-select__option--is-selected {
+    background-color: ${(props) => props.theme.colors.primary};
+  }
+  .react-select__option--is-focused {
+    background-color: ${(props) => props.theme.colors.secondary};
+    color: ${(props) => props.theme.colors.neutral4};
+  }
+  .react-select__placeholder {
+    ${(props) => props.theme.texts.menuNone};
+  }
+`;
+
 const DateComponent = styled.div`
-  border-radius: 5px 5px 5px 5px;
-  border: 1px solid hsl(0, 0%, 80%);
-  background: #fff;
+  display: flex;
+  border-radius: 5px;
+  border: 1px solid ${(props) => props.theme.colors.neutral1};
   width: 100%;
   height: 38px;
   text-align: center;
   align-items: center;
-  display: flex;
   position: relative;
+  cursor: pointer;
 `;
 
 const DateComponentText = styled.div`

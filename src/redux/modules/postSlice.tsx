@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DataProps, ImageProps } from '../../types/postData';
+import { JourneyProps, ImageProps } from '../../types/journeyData';
 import dayjs from 'dayjs';
 import { addDays } from 'date-fns';
 
 interface PostState {
-  data: DataProps;
-  image: ImageProps[];
+  data: JourneyProps;
   preview: File | null;
 }
 
@@ -22,15 +21,15 @@ const initialState: PostState = {
     longitude: 0.0,
     tag: '',
     status: 'ACTIVE',
-    memberId: 0
+    memberId: 0,
+    journeyImgRequestDtoList: [
+      {
+        id: 0,
+        path: '',
+        sequence: 0
+      }
+    ]
   },
-  image: [
-    {
-      id: 0,
-      path: '',
-      sequence: 0
-    }
-  ],
   preview: null
 };
 
@@ -41,16 +40,16 @@ const postSlice = createSlice({
     setMemberId: (state, action: PayloadAction<number>) => {
       state.data.memberId = action.payload;
     },
-    setData: (state, action: PayloadAction<DataProps>) => {
+    setData: (state, action: PayloadAction<JourneyProps>) => {
       state.data = action.payload;
     },
     setImage: (state, action: PayloadAction<ImageProps[]>) => {
-      state.image = action.payload;
+      state.data.journeyImgRequestDtoList = action.payload;
     },
     setPreview: (state, action: PayloadAction<File>) => {
       state.preview = action.payload;
     },
-    deleteAll: (state) => {
+    deleteAll: () => {
       return initialState;
     }
   }

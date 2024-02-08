@@ -1,4 +1,10 @@
-export interface DataProps {
+export interface ImageProps {
+  id: number;
+  path: string;
+  sequence: number;
+}
+
+export interface JourneyProps {
   id?: number;
   title: string;
   city: string;
@@ -16,6 +22,7 @@ export interface DataProps {
   memberName?: string;
   memberSex?: string;
   status: string;
+  journeyImgRequestDtoList: ImageProps[];
 }
 
 export interface PlanProps {
@@ -23,10 +30,7 @@ export interface PlanProps {
   content: string;
 }
 
-export interface ImageProps {
-  id: number;
-  path: string;
-  sequence: number;
+interface DataType {
+  dtoList: JourneyProps[];
+  totalPage?: number;
 }
-
-export type DataType = DataProps & ImageProps;

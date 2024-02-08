@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { DateRange } from 'react-date-range';
+import styled from 'styled-components';
 import { addDays } from 'date-fns';
 import { ReactComponent as Calendar } from '../../../asset/calendar.svg';
 import { GoHorizontalRule } from 'react-icons/go';
@@ -9,9 +8,9 @@ import Label from './Label';
 import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
 import { setData } from '../../../redux/modules/postSlice';
+import DatePick from '../../../components/DatePick';
 
 function DateSelect({ dataInput }: StateProps) {
-  const theme = useTheme();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [dateRange, setDateRange] = useState([
@@ -27,7 +26,7 @@ function DateSelect({ dataInput }: StateProps) {
   };
 
   const handleCalendarClick = () => {
-    setShow(!show);
+    setShow((prev) => !prev);
     formatSelectedDate();
   };
 
@@ -62,15 +61,7 @@ function DateSelect({ dataInput }: StateProps) {
         </DateWrap>
       </DateButton>
       {show && (
-        <DateRange
-          editableDateInputs={true}
-          onChange={handleRangeChange}
-          moveRangeOnFirstSelection={false}
-          ranges={dateRange}
-          rangeColors={[theme.colors.primary]}
-          months={1}
-          direction='horizontal'
-        />
+        <DatePick dateRange={dateRange} handleRangeChange={handleRangeChange} />
       )}
     </PostingContainer>
   );
